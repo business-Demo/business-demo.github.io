@@ -2,145 +2,387 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Bespoke Trousers | Premium Digital Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
-
 <style>
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+  :root {
+    --bg-main: #0a0a0a;
+    --bg-surface: #141414;
+    --bg-elevated: #1e1e1e;
+    --text-primary: #f5f5f5;
+    --text-secondary: #888888;
+    --accent: #d4af37;
+    --border: #2a2a2a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #000;
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+
+  .app-container {
+    max-width: 480px;
+    margin: 0 auto;
+    background-color: var(--bg-main);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+  }
+
+  /* ===== HERO SECTION ===== */
+  .hero {
+    height: 85vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.5rem 2rem;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(10,10,10,0.1) 0%, rgba(10,10,10,0.6) 60%, rgba(10,10,10,1) 100%), 
+                url('https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=1000&auto=format&fit=crop') center/cover;
+    z-index: 0;
+    animation: slowZoom 25s ease-out infinite alternate;
+  }
+
+  @keyframes slowZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+  .brand-label { font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: block; }
+  .brand-title { font-family: 'Playfair Display', serif; font-size: 3.8rem; line-height: 1.05; font-weight: 400; margin-bottom: 0.8rem; }
+  
+  /* Subtle scroll indicator */
+  .scroll-indicator {
+    position: absolute; bottom: 2rem; right: 2rem; z-index: 1;
+    width: 1px; height: 40px; background: rgba(255,255,255,0.2);
+    overflow: hidden;
+  }
+  .scroll-indicator::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 50%;
+    background: var(--accent); animation: scrollDrop 2s ease-in-out infinite;
+  }
+  @keyframes scrollDrop { 0% { transform: translateY(-100%); } 100% { transform: translateY(200%); } }
+
+  /* ===== GENERAL SECTION STYLES ===== */
+  .section { padding: 4rem 0; border-top: 1px solid var(--border); position: relative; }
+  .section-header { padding: 0 2rem; margin-bottom: 2rem; }
+  .section-subtitle { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; display: block; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; line-height: 1.2; }
+
+  /* ===== THE CRAFT (STORY) ===== */
+  .craft-content { padding: 0 2rem; }
+  .craft-text { font-size: 1.05rem; color: rgba(255,255,255,0.85); font-weight: 300; }
+  .craft-text span { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--accent); font-style: italic; }
+  .craft-stats { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  .stat-item h4 { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--text-primary); font-weight: 400; }
+  .stat-item p { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-top: 0.3rem; }
+
+  /* ===== FABRIC GRID ===== */
+  .fabric-grid { padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .fabric-card {
+    background: var(--bg-surface); padding: 1.5rem; border-radius: 12px;
+    border: 1px solid transparent; transition: all 0.4s ease;
+  }
+  .fabric-card:hover { border-color: var(--border); background: var(--bg-elevated); transform: translateY(-3px); }
+  .fabric-icon { color: var(--accent); font-size: 1.2rem; margin-bottom: 1rem; }
+  .fabric-card h4 { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.4rem; }
+  .fabric-card p { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+
+  /* ===== SERVICES LIST ===== */
+  .details-list { padding: 0 2rem; list-style: none; }
+  .detail-item { display: flex; align-items: flex-start; padding: 1.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .detail-icon {
+    width: 45px; height: 45px; border-radius: 50%; background: var(--bg-surface);
+    display: flex; align-items: center; justify-content: center;
+    margin-right: 1.2rem; color: var(--text-primary); font-size: 1rem; flex-shrink: 0;
+  }
+  .detail-text h4 { font-size: 1rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .detail-text p { font-size: 0.85rem; color: var(--text-secondary); }
+
+  /* ===== TESTIMONIAL ===== */
+  .testimonial-wrapper { padding: 0 2rem; text-align: center; }
+  .quote-icon { font-size: 1.5rem; color: var(--border); margin-bottom: 1.5rem; }
+  .quote-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; line-height: 1.5; font-style: italic; margin-bottom: 1.5rem; }
+  .quote-author { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+
+  /* ===== STICKY APP FOOTER ===== */
+  .app-footer {
+    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; max-width: 480px;
+    background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 1rem 1.5rem; display: flex; gap: 0.8rem; z-index: 100;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+  .btn {
+    flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 0.4rem; padding: 0.8rem 0; border-radius: 12px;
+    font-size: 0.75rem; font-weight: 600; text-decoration: none;
+    transition: all 0.3s ease; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn i { font-size: 1.1rem; }
+  .btn-secondary { background: var(--bg-surface); color: var(--text-primary); border-color: rgba(255,255,255,0.05); }
+  .btn-primary { background: var(--text-primary); color: var(--bg-main); }
+  .btn-primary:active { background: #d0d0d0; transform: scale(0.97); }
+
+  /* ===== GALLERY MODAL (From Previous Step) ===== */
+  .gallery-modal {
+    position: fixed; inset: 0; z-index: 1000; background: var(--bg-main);
+    transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.8, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+  }
+  .gallery-modal.open { transform: translateY(0); }
+  .modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 2rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: transparent; position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  }
+  .modal-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .close-btn {
+    background: rgba(255,255,255,0.1); border: none; color: var(--text-primary);
+    width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; cursor: pointer; backdrop-filter: blur(5px);
+  }
+  .lookbook-slider {
+    flex: 1; display: flex; align-items: center; overflow-x: auto; overflow-y: hidden;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding: 0 5vw; gap: 4vw; height: 100vh;
+  }
+  .lookbook-slider::-webkit-scrollbar { display: none; }
+  .lookbook-slide {
+    flex: 0 0 85vw; height: 75vh; scroll-snap-align: center; position: relative;
+    border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .lookbook-slide.loaded { opacity: 1; transform: scale(1); }
+  .lookbook-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .lookbook-slide::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 40%); pointer-events: none;
+  }
+  .slide-caption { position: absolute; bottom: 2rem; left: 2rem; right: 2rem; z-index: 2; }
+  .slide-caption h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.3rem; }
+  .slide-caption p { font-size: 0.85rem; color: rgba(255,255,255,0.7); letter-spacing: 0.05em; }
+  .scroll-progress-container {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    width: 150px; height: 2px; background: rgba(255,255,255,0.2); z-index: 10;
+  }
+  .scroll-progress-bar { height: 100%; background: var(--accent); width: 0%; transition: width 0.2s ease; }
+
+  /* Animations */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.active { opacity: 1; transform: translateY(0); }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .spacer { height: 110px; }
 </style>
 </head>
+<body>
 
-<body class="bg-gray-100">
-
-<!-- Layout -->
-<div class="flex h-screen overflow-hidden">
-
-  <!-- Sidebar -->
-  <div id="sidebar" class="fixed md:static z-50 bg-white w-64 h-full shadow-xl transform -translate-x-full md:translate-x-0 transition duration-300">
-
-    <div class="p-5 border-b">
-      <h1 class="text-xl font-bold text-blue-600">LendSafe</h1>
-      <p class="text-xs text-gray-500">Admin Panel</p>
+<div class="app-container">
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal active">
+      <span class="brand-label">Premium Menswear</span>
+      <h1 class="brand-title">Stitch &<br>Structure</h1>
+      <p style="color: var(--text-secondary); margin-top: 0.5rem; font-size: 0.95rem; font-weight: 300;">
+        Rajkot's premier destination for custom tailored trousers and impeccable fits.
+      </p>
     </div>
+    <div class="scroll-indicator"></div>
+  </header>
 
-    <nav class="p-4 space-y-2 text-sm">
-      <button onclick="switchTab(0)" class="nav-btn w-full text-left p-3 rounded-lg bg-blue-50 text-blue-600">Dashboard</button>
-      <button onclick="switchTab(1)" class="nav-btn w-full text-left p-3 rounded-lg hover:bg-gray-100">Clients</button>
-      <button onclick="switchTab(2)" class="nav-btn w-full text-left p-3 rounded-lg hover:bg-gray-100">Documents</button>
-      <button onclick="switchTab(3)" class="nav-btn w-full text-left p-3 rounded-lg hover:bg-gray-100">Automation</button>
-      <button onclick="switchTab(4)" class="nav-btn w-full text-left p-3 rounded-lg hover:bg-gray-100">Reports</button>
-    </nav>
+  <section class="section">
+    <div class="section-header reveal">
+      <span class="section-subtitle">Our Heritage</span>
+      <h2 class="section-title">The Art of Tailoring</h2>
+    </div>
+    <div class="craft-content reveal delay-1">
+      <p class="craft-text">
+        Every pair of trousers we create is a testament to precision. We believe that <span>true luxury lies in the fit</span>, combining traditional craftsmanship with modern structural design to elevate your everyday silhouette.
+      </p>
+      <div class="craft-stats">
+        <div class="stat-item">
+          <h4>15+</h4>
+          <p>Years Experience</p>
+        </div>
+        <div class="stat-item">
+          <h4>10k+</h4>
+          <p>Custom Fits</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section class="section">
+    <div class="section-header reveal">
+      <span class="section-subtitle">Materials</span>
+      <h2 class="section-title">Finest Fabrics</h2>
+    </div>
+    <div class="fabric-grid">
+      <div class="fabric-card reveal">
+        <i class="fa-solid fa-gem fabric-icon"></i>
+        <h4>Italian Wool</h4>
+        <p>Breathable, wrinkle-resistant luxury for the boardroom.</p>
+      </div>
+      <div class="fabric-card reveal delay-1">
+        <i class="fa-solid fa-leaf fabric-icon"></i>
+        <p>Premium blends engineered for everyday flexibility.</p>
+      </div>
+      <div class="fabric-card reveal">
+        <i class="fa-solid fa-layer-group fabric-icon"></i>
+        <h4>Bespoke Denim</h4>
+        <p>Raw and selvedge options tailored to your exact frame.</p>
+      </div>
+      <div class="fabric-card reveal delay-1">
+        <i class="fa-solid fa-droplet fabric-icon"></i>
+        <h4>Linen Blends</h4>
+        <p>Lightweight structure perfect for the Gujarat climate.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header reveal">
+      <span class="section-subtitle">Experience</span>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <ul class="details-list">
+      <li class="detail-item reveal">
+        <div class="detail-icon"><i class="fa-solid fa-scissors"></i></div>
+        <div class="detail-text">
+          <h4>Made to Measure</h4>
+          <p>Precise measurements taken by master tailors ensuring the perfect break, taper, and waistline.</p>
+        </div>
+      </li>
+      <li class="detail-item reveal delay-1">
+        <div class="detail-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+        <div class="detail-text">
+          <h4>Visit the Studio</h4>
+          <p>Shop 12, Prime Complex, Kalawad Road, Rajkot.<br>Open Monday - Saturday, 10 AM to 9 PM.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="testimonial-wrapper reveal">
+      <i class="fa-solid fa-quote-right quote-icon"></i>
+      <p class="quote-text">"The structure and fit of their trousers completely changed my professional wardrobe. Unmatched quality in Rajkot."</p>
+      <span class="quote-author">— Amit D., Business Executive</span>
+    </div>
+  </section>
+
+  <div class="spacer"></div>
+
+  <div class="app-footer">
+    <a href="tel:9123456789" class="btn btn-secondary">
+      <i class="fa-solid fa-phone"></i> Call
+    </a>
+    <button class="btn btn-primary" onclick="openGallery()">
+      <i class="fa-solid fa-images"></i> Lookbook
+    </button>
+    <a href="https://wa.me/9123456789" class="btn btn-secondary">
+      <i class="fa-brands fa-whatsapp"></i> Chat
+    </a>
   </div>
+</div>
 
-  <!-- Content -->
-  <div class="flex-1 flex flex-col">
-
-    <!-- Header -->
-    <div class="flex justify-between items-center bg-white p-4 shadow">
-
-      <div class="flex items-center gap-3">
-        <button onclick="toggleSidebar()" class="md:hidden text-xl">
-          <i class="fa fa-bars"></i>
-        </button>
-        <h2 id="title" class="text-xl font-semibold">Dashboard</h2>
-      </div>
-
-      <div class="text-sm bg-gray-100 px-3 py-1 rounded">
-        Admin User
-      </div>
-
-    </div>
-
-    <!-- Main -->
-    <div class="p-4 md:p-6 overflow-y-auto">
-
-      <!-- Dashboard -->
-      <div id="content0" class="tab-content active">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-
-          <div class="bg-white p-5 rounded-xl shadow">
-            <p class="text-gray-500 text-sm">Clients</p>
-            <h3 class="text-3xl font-bold text-blue-600">2847</h3>
-          </div>
-
-          <div class="bg-white p-5 rounded-xl shadow">
-            <p class="text-gray-500 text-sm">Loans</p>
-            <h3 class="text-3xl font-bold text-green-600">1392</h3>
-          </div>
-
-          <div class="bg-white p-5 rounded-xl shadow">
-            <p class="text-gray-500 text-sm">Policies</p>
-            <h3 class="text-3xl font-bold text-purple-600">943</h3>
-          </div>
-
-          <div class="bg-white p-5 rounded-xl shadow">
-            <p class="text-gray-500 text-sm">Pending</p>
-            <h3 class="text-3xl font-bold text-orange-600">87</h3>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Clients -->
-      <div id="content1" class="tab-content">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="text-lg font-semibold mb-3">Client Management</h3>
-          <p class="text-gray-600">Manage client profiles, KYC, and history.</p>
-        </div>
-      </div>
-
-      <!-- Documents -->
-      <div id="content2" class="tab-content">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="text-lg font-semibold mb-3">Document Management</h3>
-          <p class="text-gray-600">Upload and manage secure documents.</p>
-        </div>
-      </div>
-
-      <!-- Automation -->
-      <div id="content3" class="tab-content">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="text-lg font-semibold mb-3">Automation</h3>
-          <p class="text-gray-600">Send reminders and notifications.</p>
-        </div>
-      </div>
-
-      <!-- Reports -->
-      <div id="content4" class="tab-content">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="text-lg font-semibold mb-3">Reports</h3>
-          <p class="text-gray-600">View analytics and reports.</p>
-        </div>
-      </div>
-
-    </div>
+<div class="gallery-modal" id="galleryModal">
+  <div class="modal-header">
+    <h2 class="modal-title">Lookbook</h2>
+    <button class="close-btn" onclick="closeGallery()"><i class="fa-solid fa-xmark"></i></button>
   </div>
-
+  <div class="lookbook-slider" id="lookbookSlider" onscroll="updateProgress()"></div>
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="progressBar"></div>
+  </div>
 </div>
 
 <script>
-function toggleSidebar() {
-  document.getElementById('sidebar').classList.toggle('-translate-x-full');
-}
+  // Intersection Observer for Scroll Reveals
+  document.addEventListener("DOMContentLoaded", () => {
+    const reveals = document.querySelectorAll(".reveal:not(.active)");
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("active");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
 
-function switchTab(n) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.getElementById('content' + n).classList.add('active');
+    reveals.forEach(reveal => revealOnScroll.observe(reveal));
+  });
 
-  const titles = ["Dashboard","Clients","Documents","Automation","Reports"];
-  document.getElementById('title').innerText = titles[n];
+  // Gallery Logic
+  const galleryModal = document.getElementById('galleryModal');
+  const slider = document.getElementById('lookbookSlider');
+  const progressBar = document.getElementById('progressBar');
+  let galleryLoaded = false;
 
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('bg-blue-50','text-blue-600'));
-  document.querySelectorAll('.nav-btn')[n].classList.add('bg-blue-50','text-blue-600');
+  const fashionImages = [
+    { src: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=800&q=80", title: "Executive Navy", desc: "Premium Italian Wool Blend" },
+    { src: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=800&q=80", title: "The Smart Chino", desc: "Four-way stretch comfort" },
+    { src: "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=800&q=80", title: "Bespoke Denim", desc: "Raw selvedge, tailored fit" },
+    { src: "https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=800&q=80", title: "Formal Grey", desc: "Wrinkle-resistant structure" },
+    { src: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80", title: "Summer Linen", desc: "Breathable and lightweight" },
+    { src: "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=800&q=80", title: "Classic Khaki", desc: "The everyday essential" }
+  ];
 
-  if (window.innerWidth < 768) toggleSidebar();
-}
+  function openGallery() {
+    galleryModal.classList.add('open');
+    document.body.style.overflow = 'hidden'; 
+    
+    if (!galleryLoaded) {
+      const fullGallery = [...fashionImages, ...fashionImages, ...fashionImages];
+      
+      fullGallery.forEach((item, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'lookbook-slide';
+        slide.innerHTML = `
+          <img src="${item.src}" alt="${item.title}" loading="lazy">
+          <div class="slide-caption">
+            <h3>${item.title}</h3>
+            <p>${item.desc} | Fit ${String(index + 1).padStart(2, '0')}</p>
+          </div>
+        `;
+        slider.appendChild(slide);
+        setTimeout(() => { slide.classList.add('loaded'); }, 150 + (index * 100)); 
+      });
+      
+      galleryLoaded = true;
+      setTimeout(updateProgress, 100);
+    }
+  }
+
+  function closeGallery() {
+    galleryModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function updateProgress() {
+    const scrollLeft = slider.scrollLeft;
+    const maxScroll = slider.scrollWidth - slider.clientWidth;
+    const scrollPercentage = (scrollLeft / maxScroll) * 100;
+    progressBar.style.width = scrollPercentage + '%';
+  }
 </script>
-
 </body>
 </html>
