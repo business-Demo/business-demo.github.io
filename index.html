@@ -1,1071 +1,1267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusCore | Premium IT & Hosting Solutions</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-    <style>
-        :root {
-            --blue-900: #0a1628;
-            --blue-800: #0f2040;
-            --blue-700: #0d3270;
-            --blue-500: #1a56db;
-            --blue-400: #3b82f6;
-            --blue-300: #60a5fa;
-            --blue-200: #bfdbfe;
-            --blue-glow: rgba(59,130,246,0.35);
-            --cyan: #06b6d4;
-            --white: #ffffff;
-            --text-muted: #94a3b8;
-            --card-bg: rgba(255,255,255,0.04);
-            --card-border: rgba(255,255,255,0.08);
-            --font-display: 'Syne', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusCore | Enterprise IT & Hosting Solutions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<style>
+:root {
+  --bg: #060b14;
+  --bg2: #091120;
+  --bg3: #0c1829;
+  --surface: rgba(255,255,255,0.032);
+  --surface-hover: rgba(255,255,255,0.06);
+  --border: rgba(255,255,255,0.07);
+  --border-accent: rgba(56,189,248,0.25);
+  --text: #e8f0fe;
+  --text-muted: #64748b;
+  --text-sub: #94a3b8;
+  --accent: #38bdf8;
+  --accent2: #818cf8;
+  --accent3: #34d399;
+  --accent-glow: rgba(56,189,248,0.18);
+  --accent2-glow: rgba(129,140,248,0.18);
+  --gold: #f59e0b;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-hero: 'Bebas Neue', sans-serif;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --nav-h: 72px;
+}
+body.light {
+  --bg: #f0f4f8;
+  --bg2: #e2eaf4;
+  --bg3: #dce6f0;
+  --surface: rgba(255,255,255,0.85);
+  --surface-hover: rgba(255,255,255,0.95);
+  --border: rgba(0,0,0,0.08);
+  --border-accent: rgba(56,189,248,0.35);
+  --text: #0f172a;
+  --text-muted: #475569;
+  --text-sub: #64748b;
+  --accent: #0284c7;
+  --accent2: #4f46e5;
+  --accent3: #059669;
+  --accent-glow: rgba(2,132,199,0.15);
+  --gold: #d97706;
+}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .4s,color .4s;line-height:1.6;letter-spacing:-.01em}
+canvas#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
+.noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:300px}
+body.light .noise{opacity:.015}
+.wrap{position:relative;z-index:2}
 
-        html { scroll-behavior: smooth; }
+/* ─── NAVBAR ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(6,11,20,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .3s}
+body.light .nav{background:rgba(240,244,248,.85)}
+.nav.scrolled{box-shadow:0 8px 48px rgba(0,0,0,.25)}
+.logo{font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--text);letter-spacing:-1.2px;display:flex;align-items:center;gap:.3rem;text-decoration:none}
+.logo-mark{color:var(--accent)}
+.logo-pulse{width:7px;height:7px;border-radius:50%;background:var(--accent3);display:inline-block;animation:pulse 2s ease-in-out infinite;margin-bottom:2px}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}50%{box-shadow:0 0 0 6px rgba(52,211,153,0)}}
+.nav-links{list-style:none;display:flex;align-items:center;gap:.1rem}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;padding:.45rem .9rem;border-radius:8px;transition:all .2s;letter-spacing:.01em}
+.nav-links a:hover{color:var(--text);background:var(--surface-hover)}
+.nav-links a.active{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-btn{font-family:var(--font-body);font-size:.875rem;font-weight:600;background:var(--accent);color:#fff;border:none;padding:.5rem 1.3rem;border-radius:8px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
+.nav-btn:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}
+.theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text-sub);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.theme-btn:hover{background:var(--surface-hover);color:var(--text)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.ham span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
 
-        body {
-            font-family: var(--font-body);
-            background: var(--blue-900);
-            color: var(--white);
-            overflow-x: hidden;
-        }
+/* ─── HERO ─── */
+#home{min-height:100vh;display:flex;align-items:center;padding:calc(var(--nav-h) + 4rem) 3rem 4rem;position:relative;overflow:hidden}
+.hero-grid{max-width:1220px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+@media(max-width:1024px){.hero-grid{grid-template-columns:1fr;max-width:680px}}
+@media(max-width:1024px){.hero-vis{display:none}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.72rem;font-weight:400;color:var(--accent3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem;padding:.35rem .9rem;border:1px solid rgba(52,211,153,.2);border-radius:40px;background:rgba(52,211,153,.06)}
+.hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 1.5s infinite}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,9vw,8.5rem);font-weight:400;line-height:.95;letter-spacing:1px;margin-bottom:1.5rem;text-transform:uppercase}
+.hero-h1 .line2{display:block;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:1.08rem;line-height:1.75;color:var(--text-sub);max-width:480px;margin-bottom:2.5rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-p{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-body);font-weight:600;font-size:.9rem;padding:.8rem 1.9rem;background:var(--accent);color:#fff;border-radius:var(--radius-sm);text-decoration:none;transition:all .25s;border:none;cursor:pointer}
+.btn-p:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 10px 32px var(--accent-glow)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-body);font-weight:600;font-size:.9rem;padding:.8rem 1.9rem;background:transparent;color:var(--text);border-radius:var(--radius-sm);text-decoration:none;transition:all .25s;border:1px solid var(--border);cursor:pointer}
+.btn-o:hover{background:var(--surface-hover);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+.stat-n{font-family:var(--font-display);font-size:2.1rem;font-weight:800;line-height:1;color:var(--text)}
+.stat-l{font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted);margin-top:.3rem;letter-spacing:.05em}
 
-        /* ── CANVAS ── */
-        #bg-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
+/* Hero visual */
+.hero-vis{position:relative;display:flex;align-items:center;justify-content:center;height:480px}
+.server-rack{width:220px;background:var(--bg3);border:1px solid var(--border-accent);border-radius:var(--radius);padding:1.2rem;position:relative;box-shadow:0 0 80px rgba(56,189,248,.08),0 0 0 1px var(--border)}
+.rack-header{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
+.rack-header i{color:var(--accent);font-size:1.1rem}
+.rack-header span{font-family:var(--font-mono);font-size:.72rem;color:var(--text-sub);letter-spacing:.05em}
+.rack-unit{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.6rem .85rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:space-between;font-family:var(--font-mono);font-size:.68rem;color:var(--text-sub);transition:.3s}
+.rack-unit:hover{border-color:var(--border-accent)}
+.rack-led{width:6px;height:6px;border-radius:50%;background:var(--accent3);box-shadow:0 0 6px var(--accent3);animation:blink-led 2s infinite;flex-shrink:0}
+.rack-led.warn{background:var(--gold);box-shadow:0 0 6px var(--gold);animation-delay:.5s}
+.rack-led.off{background:#334155;box-shadow:none;animation:none}
+@keyframes blink-led{0%,100%{opacity:1}50%{opacity:.3}}
+.rack-bar{height:3px;background:var(--border);border-radius:2px;margin-top:.4rem;overflow:hidden}
+.rack-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));animation:fill-anim 3s ease-in-out infinite alternate}
+@keyframes fill-anim{from{width:45%}to{width:90%}}
+.rack-fill2{background:linear-gradient(90deg,var(--accent3),var(--accent));animation-delay:.8s}
+.rack-fill3{background:linear-gradient(90deg,var(--accent2),var(--accent));animation-delay:1.4s;width:60%}
+.vis-chip{position:absolute;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:.65rem 1rem;display:flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:600;white-space:nowrap;animation:chipfloat 4s ease-in-out infinite;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.vis-chip i{font-size:.9rem}
+.vis-chip.c1{top:8%;right:-20px;color:var(--accent3);animation-delay:0s}
+.vis-chip.c1 i{color:var(--accent3)}
+.vis-chip.c2{top:35%;left:-40px;color:var(--accent);animation-delay:.8s}
+.vis-chip.c2 i{color:var(--accent)}
+.vis-chip.c3{bottom:18%;right:-30px;color:var(--accent2);animation-delay:1.6s}
+.vis-chip.c3 i{color:var(--accent2)}
+.vis-chip.c4{bottom:4%;left:-10px;color:var(--gold);animation-delay:2s}
+.vis-chip.c4 i{color:var(--gold)}
+@keyframes chipfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.vis-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.08) 0%,transparent 70%);pointer-events:none}
 
-        /* ── NOISE OVERLAY ── */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 256px 256px;
-        }
+/* ─── MARQUEE ─── */
+.marquee-wrap{padding:1.4rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:rgba(56,189,248,.02)}
+.marquee-inner{display:flex;gap:2.5rem;animation:marquee 25s linear infinite;width:max-content}
+.marquee-tag{display:flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.75rem;font-weight:500;color:var(--text-muted);white-space:nowrap;letter-spacing:.04em;padding:.3rem .9rem;border-radius:40px;border:1px solid var(--border);background:var(--surface)}
+.marquee-tag i{font-size:.85rem;color:var(--accent)}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-        /* ── MAIN WRAPPER ── */
-        .main-wrapper { position: relative; z-index: 2; }
+/* ─── SECTIONS ─── */
+.section{padding:7rem 3rem;border-top:1px solid var(--border);position:relative}
+.cont{max-width:1220px;margin:0 auto}
+.sec-head{margin-bottom:3.5rem}
+.sec-label{font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
+.sec-label::before{content:'//';color:var(--text-muted);font-weight:300}
+.sec-title{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.9rem);font-weight:800;letter-spacing:-1.2px;line-height:1.1;margin-bottom:1rem;color:var(--text)}
+.sec-title em{font-style:normal;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-sub{font-size:1rem;color:var(--text-sub);max-width:580px;line-height:1.75;font-weight:300}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;margin:1.2rem 0 2.5rem}
 
-        /* ── NAV ── */
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            z-index: 999;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.1rem 3rem;
-            background: rgba(10,22,40,0.75);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.4s;
-        }
-        .navbar.scrolled {
-            padding: 0.8rem 3rem;
-            background: rgba(8,17,33,0.92);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-        }
+/* ─── CARDS ─── */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.25rem}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
+body.light .card{background:rgba(255,255,255,.8);box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(56,189,248,.06),transparent 60%);opacity:0;transition:opacity .3s}
+.card:hover::after{opacity:1}
+.card:hover{border-color:var(--border-accent);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.12)}
+.card-ico{width:48px;height:48px;border-radius:12px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.18);display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;transition:.3s}
+.card:hover .card-ico{background:rgba(56,189,248,.18);box-shadow:0 0 20px var(--accent-glow)}
+.card-ico i{font-size:1.3rem;color:var(--accent)}
+.card-ico.purple{background:rgba(129,140,248,.1);border-color:rgba(129,140,248,.18)}
+.card-ico.purple i{color:var(--accent2)}
+.card:hover .card-ico.purple{background:rgba(129,140,248,.18);box-shadow:0 0 20px var(--accent2-glow)}
+.card-ico.green{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.18)}
+.card-ico.green i{color:var(--accent3)}
+.card:hover .card-ico.green{background:rgba(52,211,153,.18);box-shadow:0 0 20px rgba(52,211,153,.25)}
+.card-ico.gold{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.18)}
+.card-ico.gold i{color:var(--gold)}
+.card h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:.7rem;color:var(--text);letter-spacing:-.4px}
+.card p{font-size:.875rem;color:var(--text-sub);line-height:1.7;font-weight:300}
+.feat{list-style:none;margin-top:1.1rem;display:flex;flex-direction:column;gap:.45rem}
+.feat li{font-size:.83rem;color:var(--text-sub);display:flex;align-items:center;gap:.6rem;font-weight:400}
+.feat li i{color:var(--accent);font-size:.7rem;width:12px;flex-shrink:0}
+.feat li i.purple{color:var(--accent2)}
+.feat li i.green{color:var(--accent3)}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.1rem}
+.tag{font-family:var(--font-mono);font-size:.68rem;font-weight:400;padding:.28rem .7rem;border-radius:40px;border:1px solid var(--border-accent);color:var(--accent);background:rgba(56,189,248,.06);letter-spacing:.03em}
+.tag.p{border-color:rgba(129,140,248,.25);color:var(--accent2);background:rgba(129,140,248,.06)}
+.tag.g{border-color:rgba(52,211,153,.25);color:var(--accent3);background:rgba(52,211,153,.06)}
+.tag.gold{border-color:rgba(245,158,11,.25);color:var(--gold);background:rgba(245,158,11,.06)}
 
-        .logo {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--white);
-        }
-        .logo span {
-            color: var(--blue-400);
-        }
-        .logo-dot {
-            width: 7px; height: 7px;
-            background: var(--cyan);
-            border-radius: 50%;
-            display: inline-block;
-            margin-left: 2px;
-            animation: pulse-dot 2s infinite;
-        }
-        @keyframes pulse-dot {
-            0%,100% { box-shadow: 0 0 0 0 rgba(6,182,212,0.5); }
-            50% { box-shadow: 0 0 0 6px rgba(6,182,212,0); }
-        }
+/* Card spanning */
+.card-wide{grid-column:span 2}
+.card-tall{grid-row:span 2}
 
-        .nav-links { display: flex; gap: 0.25rem; list-style: none; }
-        .nav-links a {
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--white);
-            background: rgba(255,255,255,0.07);
-        }
-        .nav-links a.active { color: var(--blue-300); }
+/* ─── PRICING ─── */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.price-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden;transition:.3s}
+.price-card.featured{border-color:var(--accent);box-shadow:0 0 0 1px rgba(56,189,248,.2),0 20px 60px rgba(56,189,248,.08)}
+.price-badge{position:absolute;top:1.2rem;right:1.2rem;font-family:var(--font-mono);font-size:.65rem;font-weight:500;padding:.2rem .7rem;background:var(--accent);color:#fff;border-radius:40px;letter-spacing:.08em}
+.price-tier{font-family:var(--font-mono);font-size:.72rem;font-weight:500;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem}
+.price-name{font-family:var(--font-display);font-size:1.6rem;font-weight:800;color:var(--text);margin-bottom:.4rem;letter-spacing:-.5px}
+.price-num{font-family:var(--font-display);font-size:3rem;font-weight:800;color:var(--text);line-height:1}
+.price-num sup{font-size:1.2rem;vertical-align:top;margin-top:.5rem;color:var(--text-sub);font-weight:400}
+.price-num span{font-size:.9rem;font-weight:400;color:var(--text-muted)}
+.price-desc{font-size:.85rem;color:var(--text-sub);margin:.8rem 0 1.4rem;line-height:1.6;font-weight:300}
+.price-feats{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.8rem}
+.price-feats li{font-size:.83rem;color:var(--text-sub);display:flex;align-items:center;gap:.6rem}
+.price-feats li i{color:var(--accent3);font-size:.75rem}
+.price-feats li.no{color:var(--text-muted)}
+.price-feats li.no i{color:var(--border)}
+.price-btn{display:block;text-align:center;padding:.75rem;border-radius:var(--radius-sm);font-weight:600;font-size:.875rem;text-decoration:none;transition:.2s;border:1px solid var(--border);color:var(--text);background:var(--surface-hover)}
+.price-card.featured .price-btn{background:var(--accent);color:#fff;border-color:var(--accent)}
+.price-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px var(--accent-glow)}
 
-        .nav-cta {
-            background: var(--blue-500);
-            color: var(--white) !important;
-            padding: 0.5rem 1.2rem !important;
-            border-radius: 8px !important;
-            font-weight: 600 !important;
-            transition: all 0.2s !important;
-        }
-        .nav-cta:hover { background: var(--blue-400) !important; transform: translateY(-1px); box-shadow: 0 4px 20px var(--blue-glow); }
+/* ─── PROCESS ─── */
+.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:2.5rem;position:relative}
+.process-grid::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--border-accent),var(--accent),var(--border-accent),transparent);z-index:0}
+.proc-step{display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 1rem;position:relative;z-index:1}
+.proc-num{width:64px;height:64px;border-radius:50%;background:var(--bg3);border:1px solid var(--border-accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--accent);margin-bottom:1.1rem;position:relative;box-shadow:0 0 24px var(--accent-glow)}
+.proc-num::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px dashed rgba(56,189,248,.2);animation:spin-slow 8s linear infinite}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+.proc-step h4{font-family:var(--font-display);font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
+.proc-step p{font-size:.8rem;color:var(--text-muted);line-height:1.55;font-weight:300}
 
-        .mobile-menu { display: none; font-size: 1.5rem; cursor: pointer; color: var(--white); }
+/* ─── TESTIMONIALS ─── */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem}
+.testi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;transition:.3s}
+.testi-card:hover{border-color:var(--border-accent);transform:translateY(-3px)}
+.testi-stars{display:flex;gap:.25rem;margin-bottom:1rem}
+.testi-stars i{color:var(--gold);font-size:.85rem}
+.testi-quote{font-size:.9rem;color:var(--text-sub);line-height:1.75;font-style:italic;margin-bottom:1.3rem;font-weight:300}
+.testi-author{display:flex;align-items:center;gap:.8rem}
+.testi-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:.9rem;font-weight:700;color:#fff;flex-shrink:0}
+.testi-name{font-weight:600;font-size:.875rem;color:var(--text)}
+.testi-role{font-size:.75rem;color:var(--text-muted);font-family:var(--font-mono)}
 
-        /* ── HERO ── */
-        #home {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 8rem 3rem 4rem;
-            position: relative;
-            overflow: hidden;
-        }
+/* ─── WHY US ─── */
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
+.why-list{display:flex;flex-direction:column;gap:1.2rem}
+.why-item{display:flex;gap:1.1rem;padding:1.2rem 1.4rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);transition:.3s}
+.why-item:hover{border-color:var(--border-accent);background:var(--surface-hover)}
+.why-ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem}
+.why-ico.a{background:rgba(56,189,248,.1);color:var(--accent)}
+.why-ico.b{background:rgba(129,140,248,.1);color:var(--accent2)}
+.why-ico.c{background:rgba(52,211,153,.1);color:var(--accent3)}
+.why-ico.d{background:rgba(245,158,11,.1);color:var(--gold)}
+.why-ico.e{background:rgba(56,189,248,.1);color:var(--accent)}
+.why-ico.f{background:rgba(129,140,248,.1);color:var(--accent2)}
+.why-text h4{font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.why-text p{font-size:.83rem;color:var(--text-sub);line-height:1.6;font-weight:300}
+.why-visual{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;overflow:hidden}
+.uptime-ring{width:200px;height:200px;margin:0 auto 1.5rem;position:relative;display:flex;align-items:center;justify-content:center}
+.ring-svg{position:absolute;inset:0}
+.ring-text{text-align:center;z-index:1}
+.ring-pct{font-family:var(--font-display);font-size:2.4rem;font-weight:800;color:var(--accent);line-height:1}
+.ring-lbl{font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted);letter-spacing:.1em;text-transform:uppercase;margin-top:.25rem}
+.metric-row{display:flex;justify-content:space-around;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+.metric-item{text-align:center}
+.metric-val{font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--text)}
+.metric-lbl{font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted);margin-top:.2rem;letter-spacing:.05em}
 
-        .hero-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
+/* ─── INFO BANNER ─── */
+.info-box{display:flex;align-items:center;gap:1.2rem;padding:1.4rem 1.8rem;background:rgba(56,189,248,.04);border:1px solid rgba(56,189,248,.15);border-radius:var(--radius);margin-top:2.5rem;font-size:.875rem;color:var(--text-sub)}
+.info-box i{color:var(--accent);font-size:1.3rem;flex-shrink:0}
+.info-box strong{color:var(--text)}
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(59,130,246,0.12);
-            border: 1px solid rgba(59,130,246,0.3);
-            border-radius: 40px;
-            padding: 0.4rem 1rem;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--blue-300);
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        .hero-badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            background: var(--cyan);
-            border-radius: 50%;
-            animation: pulse-dot 1.5s infinite;
-        }
+/* ─── CTA SECTION ─── */
+.cta-section{padding:7rem 3rem;border-top:1px solid var(--border);position:relative;overflow:hidden;text-align:center}
+.cta-inner{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.07) 0%,transparent 70%);pointer-events:none}
+.cta-section h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.5rem);font-weight:800;letter-spacing:-2px;margin-bottom:1.2rem;line-height:1.05}
+.cta-section p{font-size:1.05rem;color:var(--text-sub);margin-bottom:2.5rem;font-weight:300}
+.cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.cta-contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:4rem}
+.contact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;text-align:left;transition:.3s}
+.contact-card:hover{border-color:var(--border-accent);transform:translateY(-3px)}
+.contact-card .card-ico{margin-bottom:1rem}
+.contact-card h4{font-family:var(--font-display);font-size:1.05rem;font-weight:700;margin-bottom:.5rem;color:var(--text)}
+.contact-card p{font-size:.85rem;color:var(--text-sub);font-weight:300}
+.contact-card a{font-size:.85rem;color:var(--accent);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:.4rem;margin-top:.8rem}
+.contact-card a:hover{text-decoration:underline}
 
-        .hero-title {
-            font-family: var(--font-display);
-            font-size: clamp(2.8rem, 5vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.05;
-            letter-spacing: -2px;
-            margin-bottom: 1.5rem;
-        }
-        .hero-title em {
-            font-style: normal;
-            background: linear-gradient(135deg, var(--blue-300), var(--cyan));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+/* ─── TECH STACK ─── */
+.stack-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem;margin-top:2rem}
+.stack-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.1rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;transition:.3s;cursor:default}
+.stack-item:hover{border-color:var(--border-accent);background:var(--surface-hover);transform:translateY(-2px)}
+.stack-item i{font-size:1.6rem;color:var(--accent)}
+.stack-item span{font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted);text-align:center;letter-spacing:.03em}
 
-        .hero-desc {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            max-width: 480px;
-        }
+/* ─── FOOTER ─── */
+footer{padding:3.5rem 3rem 2rem;border-top:1px solid var(--border);background:rgba(0,0,0,.15)}
+body.light footer{background:rgba(0,0,0,.02)}
+.footer-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .logo{font-size:1.5rem;margin-bottom:1rem;display:inline-flex}
+.footer-brand p{font-size:.85rem;color:var(--text-muted);line-height:1.7;max-width:280px;margin-bottom:1.2rem;font-weight:300}
+.footer-socials{display:flex;gap:.6rem}
+.soc-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:.85rem;text-decoration:none;transition:.2s}
+.soc-btn:hover{border-color:var(--border-accent);color:var(--accent)}
+.footer-col h5{font-family:var(--font-display);font-size:.92rem;font-weight:800;color:var(--text);margin-bottom:1.2rem;letter-spacing:-.3px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.55rem}
+.footer-col ul a{font-size:.83rem;color:var(--text-muted);text-decoration:none;transition:.2s;font-weight:300}
+.footer-col ul a:hover{color:var(--accent)}
+.footer-bottom{max-width:1220px;margin:0 auto;padding-top:1.5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:.78rem;color:var(--text-muted)}
+.footer-badge{display:flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.68rem;color:var(--text-muted);padding:.3rem .75rem;border:1px solid var(--border);border-radius:40px}
+.footer-badge i{color:var(--accent3)}
 
-        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* ─── REVEAL ─── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: var(--blue-500);
-            color: var(--white);
-            padding: 0.85rem 2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            transition: all 0.25s;
-            border: 1px solid transparent;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            background: var(--blue-400);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--blue-glow);
-        }
-        .btn-ghost {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: transparent;
-            color: var(--white);
-            padding: 0.85rem 2rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.15);
-            transition: all 0.25s;
-            cursor: pointer;
-        }
-        .btn-ghost:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(255,255,255,0.3);
-            transform: translateY(-2px);
-        }
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px){
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+  .process-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .process-grid::before{display:none}
+  .price-grid{grid-template-columns:1fr 1fr}
+  .stack-grid{grid-template-columns:repeat(4,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+}
 
-        .hero-stats {
-            display: flex;
-            gap: 2.5rem;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255,255,255,0.07);
-        }
-        .stat-item .stat-num {
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1;
-        }
-        .stat-item .stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.3rem;
-        }
+/* ─── TABLET / LAPTOP (keep top nav, just compress) ─── */
+@media(min-width:901px){
+  .mobile-nav{display:none !important}
+  .ham{display:none !important}
+}
 
-        /* Hero right: animated tech card */
-        .hero-visual {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* ─── MOBILE: bottom nav bar ─── */
+@media(max-width:900px){
+  /* Hide desktop nav links & get-started btn, keep logo & theme btn */
+  .nav-links{display:none !important}
+  .nav-btn{display:none !important}
+  .ham{display:none !important}
+  .nav{padding:0 1.25rem;height:60px}
+  :root{--nav-h:60px}
 
-        .tech-orb {
-            width: 380px;
-            height: 380px;
-            border-radius: 50%;
-            position: relative;
-            animation: orb-float 6s ease-in-out infinite;
-        }
-        @keyframes orb-float {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-18px); }
-        }
-        .orb-core {
-            position: absolute;
-            inset: 40px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 35% 35%, rgba(96,165,250,0.25), rgba(10,22,40,0.8));
-            border: 1px solid rgba(96,165,250,0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .orb-core i {
-            font-size: 4rem;
-            color: var(--blue-300);
-            filter: drop-shadow(0 0 20px var(--blue-glow));
-        }
-        .orb-ring {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 1px solid rgba(59,130,246,0.25);
-            animation: orb-spin 12s linear infinite;
-        }
-        .orb-ring::after {
-            content: '';
-            position: absolute;
-            width: 12px; height: 12px;
-            background: var(--blue-400);
-            border-radius: 50%;
-            top: -6px; left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 20px var(--blue-glow);
-        }
-        .orb-ring-2 {
-            position: absolute;
-            inset: 20px;
-            border-radius: 50%;
-            border: 1px solid rgba(6,182,212,0.2);
-            animation: orb-spin 8s linear infinite reverse;
-        }
-        .orb-ring-2::after {
-            content: '';
-            position: absolute;
-            width: 8px; height: 8px;
-            background: var(--cyan);
-            border-radius: 50%;
-            bottom: -4px; left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 15px rgba(6,182,212,0.6);
-        }
-        @keyframes orb-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  /* Page padding adjustments */
+  .section{padding:4rem 1.25rem}
+  #home{padding:calc(var(--nav-h) + 2.5rem) 1.25rem 8rem}
+  .hero-vis{display:none}
 
-        .float-chip {
-            position: absolute;
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 0.7rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.82rem;
-            font-weight: 600;
-            white-space: nowrap;
-            animation: chip-float 4s ease-in-out infinite;
-        }
-        .float-chip i { color: var(--blue-400); font-size: 1rem; }
-        .float-chip:nth-child(4) { top: 10%; right: -20px; animation-delay: 0.5s; }
-        .float-chip:nth-child(5) { bottom: 20%; left: -30px; animation-delay: 1s; }
-        .float-chip:nth-child(6) { bottom: 5%; right: 10%; animation-delay: 1.8s; }
-        @keyframes chip-float {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
+  /* Grids collapse */
+  .grid-3,.grid-2,.cta-contact-grid,.testi-grid,.why-grid{grid-template-columns:1fr}
+  .card-wide{grid-column:span 1}
+  .process-grid{grid-template-columns:1fr 1fr}
+  .price-grid{grid-template-columns:1fr}
+  .stack-grid{grid-template-columns:repeat(3,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:1.5rem}
+  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
 
-        /* ── SECTIONS ── */
-        .page-section {
-            padding: 7rem 3rem;
-            position: relative;
-            border-top: 1px solid rgba(255,255,255,0.04);
-        }
-        .container { max-width: 1200px; margin: 0 auto; }
+  /* ── BOTTOM NAV BAR ── */
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;left:0;right:0;
+    z-index:999;
+    height:64px;
+    background:rgba(6,11,20,.92);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+    border-top:1px solid var(--border);
+    align-items:center;
+    justify-content:space-around;
+    padding:0 .5rem;
+    padding-bottom:env(safe-area-inset-bottom);
+  }
+  body.light .mobile-nav{background:rgba(240,244,248,.96)}
+  .mobile-nav a{
+    display:flex;flex-direction:column;align-items:center;gap:.25rem;
+    color:var(--text-muted);text-decoration:none;
+    font-family:var(--font-mono);font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:.4rem .5rem;border-radius:10px;transition:all .2s;
+    min-width:48px;flex:1;
+  }
+  .mobile-nav a i{font-size:1.15rem;transition:all .2s}
+  .mobile-nav a:hover,.mobile-nav a.mob-active{color:var(--accent)}
+  .mobile-nav a:hover i,.mobile-nav a.mob-active i{color:var(--accent);filter:drop-shadow(0 0 6px var(--accent-glow))}
+  .mobile-nav a.mob-cta{
+    background:var(--accent);color:#fff !important;
+    border-radius:12px;padding:.5rem .6rem;
+    box-shadow:0 4px 20px var(--accent-glow);
+  }
+  .mobile-nav a.mob-cta i{color:#fff !important;filter:none !important}
 
-        .section-eyebrow {
-            font-size: 0.78rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--blue-400);
-            margin-bottom: 0.8rem;
-        }
-        .section-title {
-            font-family: var(--font-display);
-            font-size: clamp(2rem, 3.5vw, 3rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 1rem;
-            color: var(--white);
-        }
-        .section-sub {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            line-height: 1.7;
-            margin-bottom: 3rem;
-        }
+  /* Wrap body content above bottom nav */
+  .wrap{padding-bottom:64px}
+}
 
-        /* ── CARDS ── */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-        .double-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
+@media(max-width:480px){
+  .stack-grid{grid-template-columns:repeat(2,1fr)}
+  .process-grid{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column}
+  .btn-p,.btn-o{width:100%;justify-content:center}
+  .footer-grid{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(3.5rem,16vw,5.5rem)}
+}
 
-        .service-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-            will-change: transform;
-        }
-        .service-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 0% 0%, rgba(59,130,246,0.08), transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-        .service-card:hover::before { opacity: 1; }
-        .service-card:hover {
-            border-color: rgba(59,130,246,0.4);
-            transform: translateY(-5px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(59,130,246,0.1);
-        }
-
-        .card-icon {
-            width: 52px; height: 52px;
-            border-radius: 12px;
-            background: rgba(59,130,246,0.12);
-            border: 1px solid rgba(59,130,246,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.3rem;
-            transition: all 0.3s;
-        }
-        .service-card:hover .card-icon {
-            background: rgba(59,130,246,0.2);
-            box-shadow: 0 0 25px rgba(59,130,246,0.25);
-        }
-        .card-icon i { font-size: 1.4rem; color: var(--blue-400); }
-
-        .service-card h3 {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.8rem;
-            color: var(--white);
-        }
-        .service-card p {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            line-height: 1.65;
-        }
-
-        .feature-list {
-            list-style: none;
-            margin-top: 1.2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.55rem;
-        }
-        .feature-list li {
-            font-size: 0.88rem;
-            color: #cbd5e1;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .feature-list li i {
-            color: var(--blue-400);
-            font-size: 0.75rem;
-            width: 14px;
-            flex-shrink: 0;
-        }
-
-        .badge-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1.2rem;
-        }
-        .badge {
-            background: rgba(59,130,246,0.1);
-            border: 1px solid rgba(59,130,246,0.2);
-            color: var(--blue-300);
-            font-size: 0.74rem;
-            font-weight: 600;
-            padding: 0.3rem 0.75rem;
-            border-radius: 40px;
-            letter-spacing: 0.02em;
-        }
-
-        /* ── GLOWING DIVIDER ── */
-        .glow-divider {
-            width: 60px; height: 3px;
-            background: linear-gradient(90deg, var(--blue-500), var(--cyan));
-            border-radius: 4px;
-            margin-bottom: 2.5rem;
-        }
-
-        /* ── INFO BANNER ── */
-        .info-banner {
-            margin-top: 2.5rem;
-            background: rgba(59,130,246,0.07);
-            border: 1px solid rgba(59,130,246,0.2);
-            border-radius: 14px;
-            padding: 1.3rem 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 0.9rem;
-            color: #cbd5e1;
-        }
-        .info-banner i { color: var(--blue-400); font-size: 1.3rem; flex-shrink: 0; }
-        .info-banner strong { color: var(--white); }
-
-        /* ── MARQUEE ── */
-        .marquee-section {
-            padding: 2rem 0;
-            border-top: 1px solid rgba(255,255,255,0.04);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-            overflow: hidden;
-            background: rgba(255,255,255,0.015);
-        }
-        .marquee-track {
-            display: flex;
-            gap: 3rem;
-            animation: marquee 22s linear infinite;
-            width: max-content;
-        }
-        .marquee-item {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            white-space: nowrap;
-        }
-        .marquee-item i { color: var(--blue-400); }
-        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        /* ── FOOTER ── */
-        footer {
-            padding: 3rem;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            background: rgba(0,0,0,0.2);
-        }
-        footer p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.8; }
-        footer .footer-logo {
-            font-family: var(--font-display);
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-        footer .footer-logo span { color: var(--blue-400); }
-
-        /* ── SCROLL REVEAL ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-            .hero-inner { grid-template-columns: 1fr; }
-            .hero-visual { display: none; }
-            .navbar { padding: 1rem 1.5rem; }
-            .page-section { padding: 5rem 1.5rem; }
-            .nav-links { display: none; width: 100%; flex-direction: column; background: rgba(8,17,33,0.96); position: absolute; top: 100%; left: 0; padding: 1.5rem; gap: 0.25rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
-            .nav-links.show { display: flex; }
-            .mobile-menu { display: block; }
-            .double-grid { grid-template-columns: 1fr; }
-            #home { padding: 7rem 1.5rem 3rem; }
-            .hero-stats { gap: 1.5rem; }
-        }
-
-        /* ── PARTICLE CANVAS ── */
-        #particle-canvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-    </style>
+/* Large screens: comfortable max-width */
+@media(min-width:1400px){
+  .nav{padding:0 4rem}
+  .section{padding:8rem 4rem}
+  #home{padding:calc(var(--nav-h) + 5rem) 4rem 5rem}
+}
+@media(min-width:1800px){
+  .nav{padding:0 6rem}
+  .section{padding:9rem 6rem}
+  #home{padding:calc(var(--nav-h) + 6rem) 6rem 5rem}
+}
+</style>
 </head>
 <body>
 
-<canvas id="particle-canvas"></canvas>
+<canvas id="bg-canvas"></canvas>
+<div class="noise"></div>
 
-<div class="main-wrapper">
-    <!-- NAV -->
-    <nav class="navbar" id="navbar">
-        <div class="logo">Nexus<span>Core</span><span class="logo-dot"></span></div>
-        <div class="mobile-menu" id="mobile-menu"><i class="fas fa-bars"></i></div>
-        <ul class="nav-links" id="nav-links">
-            <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#hosting" class="nav-link">Web Hosting</a></li>
-            <li><a href="#development" class="nav-link">Development</a></li>
-            <li><a href="#maintenance" class="nav-link">Maintenance</a></li>
-            <li><a href="#support" class="nav-link">Tech Support</a></li>
-            <li><a href="#infra-software" class="nav-link">Infra & Software</a></li>
-            <li><a href="#support" class="nav-link nav-cta">Get Started</a></li>
-        </ul>
-    </nav>
+<div class="wrap">
 
-    <!-- HERO -->
-    <section id="home">
-        <div class="hero-inner">
-            <div class="hero-left">
-                <div class="hero-badge">Premium IT & Hosting Solutions</div>
-                <h1 class="hero-title">
-                    The Best Solution<br>For <em>Your Business</em>
-                </h1>
-                <p class="hero-desc">
-                    Enterprise-grade infrastructure, 24/7 expert support, and complete DevOps management — everything your business needs to scale reliably.
-                </p>
-                <div class="hero-actions">
-                    <a href="#hosting" class="btn-primary"><i class="fas fa-rocket"></i> Explore Services</a>
-                    <a href="#support" class="btn-ghost"><i class="fas fa-headset"></i> Contact Support</a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-num" data-target="99.9">0</div>
-                        <div class="stat-label">% Uptime SLA</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num" data-target="24">0</div>
-                        <div class="stat-label">/ 7 Monitoring</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-num" data-target="500">0</div>
-                        <div class="stat-label">+ Clients Served</div>
-                    </div>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="tech-orb">
-                    <div class="orb-ring"></div>
-                    <div class="orb-ring-2"></div>
-                    <div class="orb-core">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <div class="float-chip"><i class="fas fa-shield-alt"></i> DDoS Protected</div>
-                    <div class="float-chip"><i class="fas fa-bolt"></i> 99.9% Uptime</div>
-                    <div class="float-chip"><i class="fas fa-clock"></i> 24/7 Support</div>
-                </div>
-            </div>
+<!-- NAVBAR -->
+<nav class="nav" id="nav">
+  <a href="#home" class="logo">Nexus<span class="logo-mark">Core</span><span class="logo-pulse"></span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#home" class="nl active">Home</a></li>
+    <li><a href="#hosting" class="nl">Hosting</a></li>
+    <li><a href="#development" class="nl">Development</a></li>
+    <li><a href="#maintenance" class="nl">Maintenance</a></li>
+    <li><a href="#support" class="nl">Support</a></li>
+    <li><a href="#infra" class="nl">Infrastructure</a></li>
+    <li><a href="#pricing" class="nl">Pricing</a></li>
+    <li><a href="#contact" class="nl">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+    <a href="#contact" class="nav-btn"><i class="fas fa-rocket"></i> Get Started</a>
+    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- MOBILE BOTTOM NAV BAR -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="#home" class="mob-active" data-mob="home"><i class="fas fa-house"></i>Home</a>
+  <a href="#hosting" data-mob="hosting"><i class="fas fa-server"></i>Hosting</a>
+  <a href="#development" data-mob="development"><i class="fas fa-code"></i>Dev</a>
+  <a href="#pricing" data-mob="pricing"><i class="fas fa-tag"></i>Pricing</a>
+  <a href="#support" data-mob="support"><i class="fas fa-headset"></i>Support</a>
+  <a href="#contact" class="mob-cta" data-mob="contact"><i class="fas fa-rocket"></i>Start</a>
+</nav>
+<section id="home">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-eyebrow">Enterprise IT & Hosting Solutions</div>
+      <h1 class="hero-h1">
+        Powering the<br>
+        <span class="line2">Digital Backbone</span><br>
+        of Business
+      </h1>
+      <p class="hero-sub">Enterprise-grade infrastructure, 24/7 expert DevOps teams, and complete managed IT — engineered to scale with you from startup to Fortune 500.</p>
+      <div class="hero-actions">
+        <a href="#hosting" class="btn-p"><i class="fas fa-server"></i> Explore Services</a>
+        <a href="#contact" class="btn-o"><i class="fas fa-headset"></i> Talk to an Expert</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-n" data-target="99.9">0</div>
+          <div class="stat-l">% Uptime SLA</div>
         </div>
-    </section>
-
-    <!-- MARQUEE -->
-    <div class="marquee-section">
-        <div class="marquee-track">
-            <div class="marquee-item"><i class="fab fa-wordpress"></i> WordPress</div>
-            <div class="marquee-item"><i class="fab fa-react"></i> ReactJS</div>
-            <div class="marquee-item"><i class="fab fa-node-js"></i> Node.js</div>
-            <div class="marquee-item"><i class="fas fa-cloud"></i> Cloud VPS</div>
-            <div class="marquee-item"><i class="fas fa-lock"></i> SSL Certificates</div>
-            <div class="marquee-item"><i class="fas fa-database"></i> Database Hosting</div>
-            <div class="marquee-item"><i class="fas fa-shield-alt"></i> DDoS Protection</div>
-            <div class="marquee-item"><i class="fas fa-cogs"></i> DevOps</div>
-            <div class="marquee-item"><i class="fab fa-magento"></i> Magento</div>
-            <div class="marquee-item"><i class="fas fa-headset"></i> 24/7 Support</div>
-            <div class="marquee-item"><i class="fas fa-server"></i> Dedicated Servers</div>
-            <!-- duplicate for seamless -->
-            <div class="marquee-item"><i class="fab fa-wordpress"></i> WordPress</div>
-            <div class="marquee-item"><i class="fab fa-react"></i> ReactJS</div>
-            <div class="marquee-item"><i class="fab fa-node-js"></i> Node.js</div>
-            <div class="marquee-item"><i class="fas fa-cloud"></i> Cloud VPS</div>
-            <div class="marquee-item"><i class="fas fa-lock"></i> SSL Certificates</div>
-            <div class="marquee-item"><i class="fas fa-database"></i> Database Hosting</div>
-            <div class="marquee-item"><i class="fas fa-shield-alt"></i> DDoS Protection</div>
-            <div class="marquee-item"><i class="fas fa-cogs"></i> DevOps</div>
-            <div class="marquee-item"><i class="fab fa-magento"></i> Magento</div>
-            <div class="marquee-item"><i class="fas fa-headset"></i> 24/7 Support</div>
-            <div class="marquee-item"><i class="fas fa-server"></i> Dedicated Servers</div>
+        <div>
+          <div class="stat-n" data-target="24">0</div>
+          <div class="stat-l">/ 7 Monitoring</div>
         </div>
+        <div>
+          <div class="stat-n" data-target="500">0</div>
+          <div class="stat-l">+ Clients Served</div>
+        </div>
+        <div>
+          <div class="stat-n" data-target="12">0</div>
+          <div class="stat-l">Years Experience</div>
+        </div>
+      </div>
     </div>
-
-    <!-- WEB HOSTING -->
-    <section id="hosting" class="page-section">
-        <div class="container">
-            <p class="section-eyebrow reveal">Web Hosting Solutions</p>
-            <h2 class="section-title reveal reveal-delay-1">Reliable. Secure. Scalable.</h2>
-            <div class="glow-divider reveal reveal-delay-2"></div>
-            <p class="section-sub reveal reveal-delay-2">99.9% uptime, automated backups, 24/7 monitoring. Built for startups to enterprises.</p>
-            <div class="cards-grid">
-                <div class="service-card reveal reveal-delay-1">
-                    <div class="card-icon"><i class="fas fa-server"></i></div>
-                    <h3>Shared / VPS / Dedicated</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-circle-check"></i> Shared Hosting</li>
-                        <li><i class="fas fa-circle-check"></i> VPS & Dedicated Servers</li>
-                        <li><i class="fas fa-circle-check"></i> Windows VPS / Forex VPS</li>
-                        <li><i class="fas fa-circle-check"></i> ASP.Net Core Hosting</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal reveal-delay-2">
-                    <div class="card-icon"><i class="fas fa-cloud"></i></div>
-                    <h3>Cloud Hosting</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-circle-check"></i> Application Hosting</li>
-                        <li><i class="fas fa-circle-check"></i> Database Hosting</li>
-                        <li><i class="fas fa-circle-check"></i> Cloud VPS & Cluster Cloud</li>
-                        <li><i class="fas fa-circle-check"></i> Backup Storage</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal reveal-delay-3">
-                    <div class="card-icon"><i class="fas fa-lock"></i></div>
-                    <h3>Security & SSL</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-circle-check"></i> SSL Certificates (RapidSSL)</li>
-                        <li><i class="fas fa-circle-check"></i> Multi-domain & Wildcard SSL</li>
-                        <li><i class="fas fa-circle-check"></i> DDoS Protection</li>
-                        <li><i class="fas fa-circle-check"></i> Malware Scanning</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="badge-list reveal" style="margin-top:2rem;">
-                <span class="badge">WordPress Optimized</span>
-                <span class="badge">Cloud Cost Optimization</span>
-                <span class="badge">99.9% Uptime SLA</span>
-                <span class="badge">Automated Backups</span>
-            </div>
+    <div class="hero-vis">
+      <div class="vis-glow"></div>
+      <div class="server-rack">
+        <div class="rack-header"><i class="fas fa-server"></i><span>NEXUS-RACK-01 // LIVE</span></div>
+        <div class="rack-unit"><span><i class="fas fa-circle" style="color:var(--accent3);font-size:.5rem;margin-right:.4rem"></i> Web Server — US-EAST</span><span class="rack-led"></span></div>
+        <div class="rack-bar"><div class="rack-fill" style="width:78%"></div></div>
+        <div class="rack-unit" style="margin-top:.7rem"><span><i class="fas fa-circle" style="color:var(--accent3);font-size:.5rem;margin-right:.4rem"></i> DB Cluster — EU-WEST</span><span class="rack-led"></span></div>
+        <div class="rack-bar"><div class="rack-fill rack-fill2" style="width:62%"></div></div>
+        <div class="rack-unit" style="margin-top:.7rem"><span><i class="fas fa-circle" style="color:var(--gold);font-size:.5rem;margin-right:.4rem"></i> CDN Node — APAC</span><span class="rack-led warn"></span></div>
+        <div class="rack-bar"><div class="rack-fill rack-fill3"></div></div>
+        <div class="rack-unit" style="margin-top:.7rem"><span><i class="fas fa-circle" style="color:var(--text-muted);font-size:.5rem;margin-right:.4rem"></i> Backup — STANDBY</span><span class="rack-led off"></span></div>
+        <div class="rack-bar"><div class="rack-fill" style="width:100%;animation:none;background:linear-gradient(90deg,#1e293b,#334155)"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:1.1rem;padding-top:1rem;border-top:1px solid var(--border)">
+          <div style="text-align:center"><div style="font-family:var(--font-mono);font-size:1rem;font-weight:600;color:var(--accent3)">99.9%</div><div style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted);margin-top:.2rem">UPTIME</div></div>
+          <div style="text-align:center"><div style="font-family:var(--font-mono);font-size:1rem;font-weight:600;color:var(--accent)">4.2ms</div><div style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted);margin-top:.2rem">AVG LATENCY</div></div>
+          <div style="text-align:center"><div style="font-family:var(--font-mono);font-size:1rem;font-weight:600;color:var(--accent2)">512</div><div style="font-family:var(--font-mono);font-size:.6rem;color:var(--text-muted);margin-top:.2rem">ACTIVE NODES</div></div>
         </div>
-    </section>
+      </div>
+      <div class="vis-chip c1"><i class="fas fa-shield-check"></i> DDoS Protected</div>
+      <div class="vis-chip c2"><i class="fas fa-bolt"></i> 99.9% Uptime</div>
+      <div class="vis-chip c3"><i class="fas fa-lock"></i> SSL Secured</div>
+      <div class="vis-chip c4"><i class="fas fa-clock"></i> 24/7 NOC</div>
+    </div>
+  </div>
+</section>
 
-    <!-- DEVELOPMENT -->
-    <section id="development" class="page-section">
-        <div class="container">
-            <p class="section-eyebrow reveal">Website Development</p>
-            <h2 class="section-title reveal reveal-delay-1">Custom Digital Experiences</h2>
-            <div class="glow-divider reveal reveal-delay-2"></div>
-            <p class="section-sub reveal reveal-delay-2">Responsive, high-performing digital storefronts — from corporate sites to full-scale eCommerce platforms.</p>
-            <div class="double-grid">
-                <div class="service-card reveal reveal-delay-1">
-                    <div class="card-icon"><i class="fab fa-wordpress"></i></div>
-                    <h3>CMS & Frameworks</h3>
-                    <div class="badge-list">
-                        <span class="badge">WordPress</span><span class="badge">PHP</span><span class="badge">Custom CMS</span><span class="badge">Drupal</span><span class="badge">Joomla</span><span class="badge">WHMCS</span>
-                    </div>
-                    <ul class="feature-list" style="margin-top:1.2rem;">
-                        <li><i class="fab fa-react"></i> ReactJS & Node.js</li>
-                        <li><i class="fas fa-mobile-alt"></i> React Native / Mobile Apps</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal reveal-delay-2">
-                    <div class="card-icon"><i class="fas fa-shopping-cart"></i></div>
-                    <h3>eCommerce Solutions</h3>
-                    <ul class="feature-list">
-                        <li><i class="fab fa-magento"></i> Magento & WooCommerce</li>
-                        <li><i class="fas fa-credit-card"></i> Secure payment integrations</li>
-                        <li><i class="fas fa-palette"></i> UX/UI design for engagement</li>
-                        <li><i class="fas fa-chart-line"></i> Conversion-optimized stores</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="service-card reveal" style="margin-top:1.5rem;">
-                <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
-                <h3>Mobile + Web Applications</h3>
-                <p>React Native, mobile app development, custom business logic & API integrations — end-to-end scalable solutions built for growth.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- MAINTENANCE -->
-    <section id="maintenance" class="page-section">
-        <div class="container">
-            <p class="section-eyebrow reveal">Maintenance</p>
-            <h2 class="section-title reveal reveal-delay-1">Website & Server Maintenance</h2>
-            <div class="glow-divider reveal reveal-delay-2"></div>
-            <p class="section-sub reveal reveal-delay-2">Proactive security patches, bug fixes, performance optimization & 24/7 surveillance — always one step ahead.</p>
-            <div class="cards-grid">
-                <div class="service-card reveal reveal-delay-1">
-                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Performance & Optimization</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-bolt"></i> Regular speed optimization</li>
-                        <li><i class="fas fa-arrows-rotate"></i> Server & website migration</li>
-                        <li><i class="fas fa-chart-bar"></i> Vulnerability scanning</li>
-                        <li><i class="fas fa-shield-virus"></i> Malware protection & updates</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal reveal-delay-2">
-                    <div class="card-icon"><i class="fas fa-screwdriver-wrench"></i></div>
-                    <h3>Server Management</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-circle-check"></i> Control panel install / migration</li>
-                        <li><i class="fas fa-circle-check"></i> Email migration & VM management</li>
-                        <li><i class="fas fa-circle-check"></i> Cloud support & cost optimization</li>
-                        <li><i class="fas fa-circle-check"></i> Managed software installation</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal reveal-delay-3">
-                    <div class="card-icon"><i class="fas fa-eye"></i></div>
-                    <h3>24/7 Monitoring & Emergency</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-satellite-dish"></i> Real-time server health checks</li>
-                        <li><i class="fas fa-triangle-exclamation"></i> Emergency support & incident response</li>
-                        <li><i class="fas fa-cloud-arrow-up"></i> Automated backups & disaster recovery</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TECH SUPPORT -->
-    <section id="support" class="page-section">
-        <div class="container">
-            <p class="section-eyebrow reveal">Tech Support & DevOps</p>
-            <h2 class="section-title reveal reveal-delay-1">Always On, Always There</h2>
-            <div class="glow-divider reveal reveal-delay-2"></div>
-            <p class="section-sub reveal reveal-delay-2">24/7 white-label assistance, live chat, email & phone support — tailored for service providers.</p>
-            <div class="double-grid">
-                <div class="service-card reveal reveal-delay-1">
-                    <div class="card-icon"><i class="fas fa-headset"></i></div>
-                    <h3>End-User & White-Label Support</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-envelope"></i> Email & help desk</li>
-                        <li><i class="fas fa-comment-dots"></i> Live chat assistance</li>
-                        <li><i class="fas fa-phone"></i> Phone support & flexible hours</li>
-                        <li><i class="fas fa-user-tie"></i> Dedicated engineers on hire</li>
-                    </ul>
-                </div>
-                <div class="service-card reveal reveal-delay-2">
-                    <div class="card-icon"><i class="fas fa-gears"></i></div>
-                    <h3>DevOps Management</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-circle-check"></i> Customized DevOps solutions</li>
-                        <li><i class="fas fa-circle-check"></i> 24/7 expert team</li>
-                        <li><i class="fas fa-circle-check"></i> Flexible plans & cloud cost optimization</li>
-                        <li><i class="fas fa-circle-check"></i> Infrastructure as Code</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="badge-list reveal" style="margin-top:2rem;">
-                <span class="badge">Part Time Agents</span>
-                <span class="badge">Premium Support</span>
-                <span class="badge">Shared Support Plans</span>
-                <span class="badge">Affordable Plans</span>
-                <span class="badge">Phone Support</span>
-            </div>
-            <div style="margin-top:2rem;" class="reveal">
-                <a href="#" class="btn-primary"><i class="fas fa-headset"></i> View Support Plans</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- INFRA & SOFTWARE -->
-    <section id="infra-software" class="page-section">
-        <div class="container">
-            <p class="section-eyebrow reveal">Infrastructure & Software</p>
-            <h2 class="section-title reveal reveal-delay-1">Infrastructure & Software Innovation</h2>
-            <div class="glow-divider reveal reveal-delay-2"></div>
-            <p class="section-sub reveal reveal-delay-2">Complete IT systems management, custom software development, enterprise cloud & SSL.</p>
-            <div class="cards-grid">
-                <div class="service-card reveal reveal-delay-1">
-                    <div class="card-icon"><i class="fas fa-building"></i></div>
-                    <h3>Infrastructure Management</h3>
-                    <div class="badge-list">
-                        <span class="badge">Server Management</span><span class="badge">Emergency Support</span><span class="badge">Control Panel Migration</span><span class="badge">Cloud Support</span><span class="badge">VM Management</span><span class="badge">Vulnerability Scanning</span>
-                    </div>
-                    <p style="margin-top:1rem;">Ensuring secure, efficient IT operations with expert optimization.</p>
-                </div>
-                <div class="service-card reveal reveal-delay-2">
-                    <div class="card-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3>Software Development</h3>
-                    <div class="badge-list">
-                        <span class="badge">WordPress</span><span class="badge">WHMCS</span><span class="badge">Drupal</span><span class="badge">ReactJS</span><span class="badge">Magento</span><span class="badge">WooCommerce</span><span class="badge">React Native</span><span class="badge">Node.js</span>
-                    </div>
-                    <p style="margin-top:1rem;">Tailored, scalable, high-performance applications from design to deployment.</p>
-                </div>
-                <div class="service-card reveal reveal-delay-3">
-                    <div class="card-icon"><i class="fas fa-database"></i></div>
-                    <h3>Advanced Cloud & SSL</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-cloud-arrow-up"></i> Cloud VPS hosting & cluster storage</li>
-                        <li><i class="fas fa-certificate"></i> RapidSSL / multi-domain / wildcard</li>
-                        <li><i class="fas fa-shield-virus"></i> DDoS protection & backup storage</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="info-banner reveal" style="margin-top:2.5rem;">
-                <i class="fas fa-circle-info"></i>
-                <p><strong>All-in-One Support:</strong> Shared Support, Part-time Agents, Premium Plans, Phone Support, Dedicated Engineers — we keep your digital assets flawless around the clock.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-logo">Nexus<span>Core</span></div>
-        <p>24/7 Technical Support &nbsp;·&nbsp; Enterprise Hosting &nbsp;·&nbsp; DevOps Excellence</p>
-        <p style="margin-top:0.5rem;"><i class="fas fa-globe"></i> Secure &nbsp;·&nbsp; Scalable &nbsp;·&nbsp; Always On</p>
-        <p style="margin-top:1.2rem; font-size:0.78rem;">© 2025 NexusCore. All rights reserved.</p>
-    </footer>
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner" id="marquee">
+    <div class="marquee-tag"><i class="fab fa-wordpress"></i> WordPress</div>
+    <div class="marquee-tag"><i class="fab fa-react"></i> React</div>
+    <div class="marquee-tag"><i class="fab fa-node-js"></i> Node.js</div>
+    <div class="marquee-tag"><i class="fas fa-cloud"></i> Cloud VPS</div>
+    <div class="marquee-tag"><i class="fas fa-lock"></i> SSL Certificates</div>
+    <div class="marquee-tag"><i class="fas fa-database"></i> Database Hosting</div>
+    <div class="marquee-tag"><i class="fas fa-shield-alt"></i> DDoS Protection</div>
+    <div class="marquee-tag"><i class="fas fa-cogs"></i> DevOps</div>
+    <div class="marquee-tag"><i class="fab fa-magento"></i> Magento</div>
+    <div class="marquee-tag"><i class="fas fa-headset"></i> 24/7 NOC</div>
+    <div class="marquee-tag"><i class="fas fa-server"></i> Dedicated Servers</div>
+    <div class="marquee-tag"><i class="fab fa-docker"></i> Docker & Kubernetes</div>
+    <div class="marquee-tag"><i class="fab fa-aws"></i> AWS Migrations</div>
+    <div class="marquee-tag"><i class="fas fa-code-branch"></i> CI/CD Pipelines</div>
+    <div class="marquee-tag"><i class="fas fa-chart-line"></i> Performance Tuning</div>
+    <!-- duplicate -->
+    <div class="marquee-tag"><i class="fab fa-wordpress"></i> WordPress</div>
+    <div class="marquee-tag"><i class="fab fa-react"></i> React</div>
+    <div class="marquee-tag"><i class="fab fa-node-js"></i> Node.js</div>
+    <div class="marquee-tag"><i class="fas fa-cloud"></i> Cloud VPS</div>
+    <div class="marquee-tag"><i class="fas fa-lock"></i> SSL Certificates</div>
+    <div class="marquee-tag"><i class="fas fa-database"></i> Database Hosting</div>
+    <div class="marquee-tag"><i class="fas fa-shield-alt"></i> DDoS Protection</div>
+    <div class="marquee-tag"><i class="fas fa-cogs"></i> DevOps</div>
+    <div class="marquee-tag"><i class="fab fa-magento"></i> Magento</div>
+    <div class="marquee-tag"><i class="fas fa-headset"></i> 24/7 NOC</div>
+    <div class="marquee-tag"><i class="fas fa-server"></i> Dedicated Servers</div>
+    <div class="marquee-tag"><i class="fab fa-docker"></i> Docker & Kubernetes</div>
+    <div class="marquee-tag"><i class="fab fa-aws"></i> AWS Migrations</div>
+    <div class="marquee-tag"><i class="fas fa-code-branch"></i> CI/CD Pipelines</div>
+    <div class="marquee-tag"><i class="fas fa-chart-line"></i> Performance Tuning</div>
+  </div>
 </div>
 
+<!-- WEB HOSTING -->
+<section id="hosting" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Web Hosting Solutions</div>
+      <h2 class="sec-title">Reliable. Secure. <em>Scalable.</em></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">Enterprise infrastructure with 99.9% uptime SLA, automated backups, real-time monitoring — built for everything from personal blogs to high-traffic platforms.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-server"></i></div>
+        <h3>Shared & VPS Hosting</h3>
+        <p>Flexible, cost-effective plans for businesses of all sizes with guaranteed resources and root-level access.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check"></i> cPanel / Plesk control panel</li>
+          <li><i class="fas fa-circle-check"></i> VPS with full root access</li>
+          <li><i class="fas fa-circle-check"></i> Windows VPS & Forex VPS</li>
+          <li><i class="fas fa-circle-check"></i> ASP.Net Core Hosting</li>
+          <li><i class="fas fa-circle-check"></i> Instant provisioning</li>
+        </ul>
+        <div class="tags"><span class="tag">SSD NVMe</span><span class="tag">cPanel</span><span class="tag">Linux/Windows</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fas fa-cloud"></i></div>
+        <h3>Cloud Hosting</h3>
+        <p>Infinitely scalable cloud architecture with automatic failover and distributed redundancy across global regions.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check purple"></i> Application & DB Hosting</li>
+          <li><i class="fas fa-circle-check purple"></i> Cloud VPS & Cluster Cloud</li>
+          <li><i class="fas fa-circle-check purple"></i> Auto-scaling resources</li>
+          <li><i class="fas fa-circle-check purple"></i> Backup & Disaster Recovery</li>
+          <li><i class="fas fa-circle-check purple"></i> Multi-region deployment</li>
+        </ul>
+        <div class="tags"><span class="tag p">Multi-Region</span><span class="tag p">Auto-Scale</span><span class="tag p">HA</span></div>
+      </div>
+      <div class="card rv d3">
+        <div class="card-ico green"><i class="fas fa-shield-halved"></i></div>
+        <h3>Security & SSL</h3>
+        <p>Comprehensive protection stack with proactive threat detection, DDoS mitigation, and industry-standard encryption.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check green"></i> RapidSSL & Comodo Certs</li>
+          <li><i class="fas fa-circle-check green"></i> Wildcard & Multi-domain SSL</li>
+          <li><i class="fas fa-circle-check green"></i> DDoS mitigation up to 10 Tbps</li>
+          <li><i class="fas fa-circle-check green"></i> Real-time malware scanning</li>
+          <li><i class="fas fa-circle-check green"></i> WAF & IP reputation filter</li>
+        </ul>
+        <div class="tags"><span class="tag g">DDoS Protected</span><span class="tag g">WAF</span><span class="tag g">SSL/TLS 1.3</span></div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:1.25rem">
+      <div class="card card-wide rv d1">
+        <div class="card-ico gold"><i class="fas fa-server"></i></div>
+        <h3>Dedicated Servers</h3>
+        <p>Bare-metal performance with enterprise-grade hardware, customizable to your exact specifications. Full isolation, no shared resources — just raw power at your disposal.</p>
+        <div class="tags" style="margin-top:1rem"><span class="tag gold">Bare Metal</span><span class="tag gold">Custom HW Config</span><span class="tag gold">IPMI Access</span><span class="tag gold">RAID</span><span class="tag gold">10 Gbps NIC</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico"><i class="fas fa-rotate"></i></div>
+        <h3>Backup & Recovery</h3>
+        <p>Automated incremental backups with point-in-time recovery, geo-replicated storage, and sub-1-hour RTO.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check"></i> Daily / weekly / monthly cycles</li>
+          <li><i class="fas fa-circle-check"></i> Off-site geo-redundant storage</li>
+          <li><i class="fas fa-circle-check"></i> One-click restore</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-box rv">
+      <i class="fas fa-circle-info"></i>
+      <p><strong>WordPress & Magento Optimized:</strong> All hosting plans include pre-configured PHP-FPM, OPcache, Redis object caching, and Nginx rules tuned specifically for WordPress and Magento performance out of the box.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DEVELOPMENT -->
+<section id="development" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Website & App Development</div>
+      <h2 class="sec-title">Custom Digital <em>Experiences</em></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">From sleek corporate websites to full-scale eCommerce platforms and mobile apps — we design, develop, and deploy digital products that perform.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card rv d1">
+        <div class="card-ico purple"><i class="fab fa-wordpress"></i></div>
+        <h3>CMS & Framework Development</h3>
+        <p>Custom-built websites on industry-leading platforms, tailored to your brand and business logic.</p>
+        <div class="tags"><span class="tag p">WordPress</span><span class="tag p">PHP</span><span class="tag p">Drupal</span><span class="tag p">Joomla</span><span class="tag p">WHMCS</span><span class="tag p">Custom CMS</span></div>
+        <ul class="feat" style="margin-top:1.1rem">
+          <li><i class="fas fa-circle-check purple"></i> ReactJS & Next.js frontend</li>
+          <li><i class="fas fa-circle-check purple"></i> REST & GraphQL API development</li>
+          <li><i class="fas fa-circle-check purple"></i> Theme & plugin customization</li>
+          <li><i class="fas fa-circle-check purple"></i> Headless CMS architecture</li>
+        </ul>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico gold"><i class="fas fa-cart-shopping"></i></div>
+        <h3>eCommerce Solutions</h3>
+        <p>Conversion-optimized online stores with seamless payment integrations and exceptional UX.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Magento 2 & Adobe Commerce</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> WooCommerce development</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Payment gateway integration</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Inventory & order management</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> SEO & performance optimization</li>
+        </ul>
+        <div class="tags" style="margin-top:1.1rem"><span class="tag gold">Magento</span><span class="tag gold">WooCommerce</span><span class="tag gold">Shopify</span></div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:1.25rem">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-mobile-screen"></i></div>
+        <h3>Mobile Applications</h3>
+        <p>Cross-platform mobile apps built with React Native — one codebase, two platforms, native performance.</p>
+        <div class="tags"><span class="tag">React Native</span><span class="tag">iOS</span><span class="tag">Android</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fas fa-palette"></i></div>
+        <h3>UI/UX Design</h3>
+        <p>User-centric design with Figma prototyping, design systems, and brand consistency across all touchpoints.</p>
+        <div class="tags"><span class="tag p">Figma</span><span class="tag p">Design Systems</span><span class="tag p">Prototyping</span></div>
+      </div>
+      <div class="card rv d3">
+        <div class="card-ico green"><i class="fas fa-plug"></i></div>
+        <h3>API & Integrations</h3>
+        <p>Third-party API integrations, webhooks, ERP/CRM connectivity, and custom middleware solutions.</p>
+        <div class="tags"><span class="tag g">REST</span><span class="tag g">GraphQL</span><span class="tag g">Webhooks</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAINTENANCE -->
+<section id="maintenance" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Maintenance & Monitoring</div>
+      <h2 class="sec-title">Proactive. Precise. <em>Always On.</em></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">We don't wait for things to break. Our NOC team monitors, patches, and optimizes your infrastructure around the clock — 365 days a year.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-gauge-high"></i></div>
+        <h3>Performance Optimization</h3>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check"></i> Regular speed & load time audits</li>
+          <li><i class="fas fa-circle-check"></i> Database query optimization</li>
+          <li><i class="fas fa-circle-check"></i> CDN configuration & tuning</li>
+          <li><i class="fas fa-circle-check"></i> Caching layer management (Redis, Memcached)</li>
+          <li><i class="fas fa-circle-check"></i> Core Web Vitals improvement</li>
+        </ul>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fas fa-screwdriver-wrench"></i></div>
+        <h3>Server Management</h3>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check purple"></i> OS & kernel patching</li>
+          <li><i class="fas fa-circle-check purple"></i> Control panel install & migration</li>
+          <li><i class="fas fa-circle-check purple"></i> Email server management</li>
+          <li><i class="fas fa-circle-check purple"></i> VM & container management</li>
+          <li><i class="fas fa-circle-check purple"></i> Managed software installation</li>
+        </ul>
+      </div>
+      <div class="card rv d3">
+        <div class="card-ico green"><i class="fas fa-radar"></i></div>
+        <h3>24/7 Monitoring & Incident Response</h3>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check green"></i> Real-time uptime & health checks</li>
+          <li><i class="fas fa-circle-check green"></i> Anomaly detection & alerting</li>
+          <li><i class="fas fa-circle-check green"></i> Emergency incident response (&lt;15 min SLA)</li>
+          <li><i class="fas fa-circle-check green"></i> Automated failover & recovery</li>
+          <li><i class="fas fa-circle-check green"></i> Post-incident root cause analysis</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:1.25rem">
+      <div class="card rv d1">
+        <div class="card-ico gold"><i class="fas fa-shield-virus"></i></div>
+        <h3>Security Hardening</h3>
+        <p>Comprehensive vulnerability scanning, malware removal, and security configuration audits to keep threats at bay.</p>
+        <ul class="feat" style="margin-top:.9rem">
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Weekly vulnerability scans</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Automated malware removal</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Firewall rules management</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Security audit reports</li>
+        </ul>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico"><i class="fas fa-arrows-rotate"></i></div>
+        <h3>Migration Services</h3>
+        <p>Seamless zero-downtime migrations — servers, databases, websites, email, and entire cloud environments.</p>
+        <ul class="feat" style="margin-top:.9rem">
+          <li><i class="fas fa-circle-check"></i> Server-to-server migrations</li>
+          <li><i class="fas fa-circle-check"></i> CMS & database migrations</li>
+          <li><i class="fas fa-circle-check"></i> Cloud provider transitions</li>
+          <li><i class="fas fa-circle-check"></i> DNS & email porting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT & DEVOPS -->
+<section id="support" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Tech Support & DevOps</div>
+      <h2 class="sec-title">Expert Teams. <em>Zero Gaps.</em></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">White-label support, dedicated engineers, and end-to-end DevOps management — structured for service providers, agencies, and enterprises.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-headset"></i></div>
+        <h3>End-User & White-Label Support</h3>
+        <p>Fully branded support under your company's name — your clients get premium assistance, you get the credit.</p>
+        <ul class="feat" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> Branded email & help desk</li>
+          <li><i class="fas fa-circle-check"></i> Live chat support with custom widget</li>
+          <li><i class="fas fa-circle-check"></i> Phone support with custom IVR</li>
+          <li><i class="fas fa-circle-check"></i> Flexible shift coverage</li>
+          <li><i class="fas fa-circle-check"></i> Escalation management</li>
+          <li><i class="fas fa-circle-check"></i> SLA reporting & dashboards</li>
+        </ul>
+        <div class="tags" style="margin-top:1.1rem"><span class="tag">White-Label</span><span class="tag">Part-Time Agents</span><span class="tag">Shared Plans</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fas fa-infinity"></i></div>
+        <h3>DevOps as a Service</h3>
+        <p>Your dedicated DevOps team without the overhead — CI/CD, infrastructure automation, and cloud optimization at scale.</p>
+        <ul class="feat" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check purple"></i> CI/CD pipeline design & management</li>
+          <li><i class="fas fa-circle-check purple"></i> Docker & Kubernetes orchestration</li>
+          <li><i class="fas fa-circle-check purple"></i> Infrastructure as Code (Terraform)</li>
+          <li><i class="fas fa-circle-check purple"></i> Cloud cost optimization</li>
+          <li><i class="fas fa-circle-check purple"></i> Monitoring with Grafana / Prometheus</li>
+          <li><i class="fas fa-circle-check purple"></i> Dedicated on-call engineer</li>
+        </ul>
+        <div class="tags" style="margin-top:1.1rem"><span class="tag p">Docker</span><span class="tag p">Kubernetes</span><span class="tag p">Terraform</span><span class="tag p">Grafana</span></div>
+      </div>
+    </div>
+
+    <!-- Process flow -->
+    <div style="margin-top:3.5rem" class="rv">
+      <h3 style="font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--text);text-align:center;margin-bottom:.5rem">How We Onboard You</h3>
+      <p style="font-size:.875rem;color:var(--text-muted);text-align:center;margin-bottom:2.5rem;font-weight:300">From first contact to full deployment in as little as 48 hours</p>
+    </div>
+    <div class="process-grid rv">
+      <div class="proc-step"><div class="proc-num">01</div><h4>Discovery Call</h4><p>We understand your stack, pain points, and goals in a 30-min call</p></div>
+      <div class="proc-step"><div class="proc-num">02</div><h4>Audit & Plan</h4><p>Full infrastructure audit with a tailored action plan and SLA proposal</p></div>
+      <div class="proc-step"><div class="proc-num">03</div><h4>Onboarding</h4><p>Access provisioning, tooling setup, and team introductions</p></div>
+      <div class="proc-step"><div class="proc-num">04</div><h4>Deployment</h4><p>Zero-downtime migration or launch with full monitoring activated</p></div>
+      <div class="proc-step"><div class="proc-num">05</div><h4>Ongoing Support</h4><p>24/7 NOC, monthly reports, quarterly reviews, and continuous optimization</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE & SOFTWARE -->
+<section id="infra" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Infrastructure & Software</div>
+      <h2 class="sec-title">Infrastructure at <em>Enterprise Scale</em></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">Complete IT systems design, custom software development, enterprise cloud architecture, and advanced security — all under one roof.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-network-wired"></i></div>
+        <h3>Infrastructure Management</h3>
+        <p>Design, deploy, and manage enterprise infrastructure with zero single points of failure.</p>
+        <div class="tags"><span class="tag">Server Mgmt</span><span class="tag">Control Panel</span><span class="tag">VM Mgmt</span><span class="tag">Cloud Support</span></div>
+        <ul class="feat" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> Multi-cloud architecture design</li>
+          <li><i class="fas fa-circle-check"></i> Vulnerability scanning & remediation</li>
+          <li><i class="fas fa-circle-check"></i> Emergency response team (15 min SLA)</li>
+        </ul>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fas fa-code"></i></div>
+        <h3>Custom Software Development</h3>
+        <p>Tailored, scalable software from requirements to production — built with the right tech for the job.</p>
+        <div class="tags"><span class="tag p">WordPress</span><span class="tag p">WHMCS</span><span class="tag p">ReactJS</span><span class="tag p">Node.js</span><span class="tag p">Magento</span><span class="tag p">React Native</span></div>
+        <ul class="feat" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check purple"></i> Agile development sprints</li>
+          <li><i class="fas fa-circle-check purple"></i> Code review & quality assurance</li>
+          <li><i class="fas fa-circle-check purple"></i> Documentation & handoff</li>
+        </ul>
+      </div>
+      <div class="card rv d3">
+        <div class="card-ico green"><i class="fas fa-database"></i></div>
+        <h3>Advanced Cloud & SSL</h3>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check green"></i> Cloud VPS & cluster storage</li>
+          <li><i class="fas fa-circle-check green"></i> RapidSSL / multi-domain / wildcard</li>
+          <li><i class="fas fa-circle-check green"></i> DDoS protection & backup storage</li>
+          <li><i class="fas fa-circle-check green"></i> AWS / GCP / Azure management</li>
+          <li><i class="fas fa-circle-check green"></i> Hybrid cloud architecture</li>
+        </ul>
+        <div class="tags" style="margin-top:1.1rem"><span class="tag g">AWS</span><span class="tag g">GCP</span><span class="tag g">Azure</span></div>
+      </div>
+    </div>
+
+    <!-- Tech Stack -->
+    <div style="margin-top:3rem" class="rv">
+      <h3 style="font-family:var(--font-display);font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:.4rem">Technologies We Work With</h3>
+      <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:1.4rem;font-weight:300">A battle-tested stack across cloud, dev, and operations</p>
+    </div>
+    <div class="stack-grid rv">
+      <div class="stack-item"><i class="fab fa-aws" style="color:#f90"></i><span>AWS</span></div>
+      <div class="stack-item"><i class="fab fa-docker" style="color:#2496ed"></i><span>Docker</span></div>
+      <div class="stack-item"><i class="fab fa-react" style="color:#61dafb"></i><span>React</span></div>
+      <div class="stack-item"><i class="fab fa-node-js" style="color:#68a063"></i><span>Node.js</span></div>
+      <div class="stack-item"><i class="fab fa-wordpress" style="color:#21759b"></i><span>WordPress</span></div>
+      <div class="stack-item"><i class="fab fa-magento" style="color:#f26322"></i><span>Magento</span></div>
+      <div class="stack-item"><i class="fas fa-dharmachakra" style="color:#326ce5"></i><span>Kubernetes</span></div>
+      <div class="stack-item"><i class="fab fa-linux" style="color:#fcc624"></i><span>Linux</span></div>
+      <div class="stack-item"><i class="fas fa-database" style="color:var(--accent)"></i><span>MySQL / PgSQL</span></div>
+      <div class="stack-item"><i class="fab fa-git-alt" style="color:#f1502f"></i><span>Git / CI-CD</span></div>
+      <div class="stack-item"><i class="fas fa-chart-area" style="color:var(--accent2)"></i><span>Grafana</span></div>
+      <div class="stack-item"><i class="fas fa-shield-alt" style="color:var(--accent3)"></i><span>Cloudflare</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Why NexusCore</div>
+      <h2 class="sec-title">The Standard Others <em>Benchmark Against</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-list rv">
+        <div class="why-item">
+          <div class="why-ico a"><i class="fas fa-clock-rotate-left"></i></div>
+          <div class="why-text"><h4>Sub-15 Minute Emergency Response</h4><p>Our NOC team is live 24/7/365 with guaranteed 15-minute SLA for critical incidents.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-ico b"><i class="fas fa-user-tie"></i></div>
+          <div class="why-text"><h4>Dedicated Account Engineers</h4><p>Not a ticket queue — a named engineer who knows your infrastructure and history.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-ico c"><i class="fas fa-shield-check"></i></div>
+          <div class="why-text"><h4>Transparent SLA Reporting</h4><p>Monthly reports covering uptime, incident logs, response times, and recommendations.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-ico d"><i class="fas fa-coins"></i></div>
+          <div class="why-text"><h4>Cloud Cost Optimization</h4><p>We actively reduce your cloud spend — clients typically save 20-40% within 90 days.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-ico e"><i class="fas fa-handshake"></i></div>
+          <div class="why-text"><h4>White-Label Partnership</h4><p>Fully branded support for resellers and agencies — your clients never know we exist.</p></div>
+        </div>
+        <div class="why-item">
+          <div class="why-ico f"><i class="fas fa-scale-balanced"></i></div>
+          <div class="why-text"><h4>Flexible, No-Lockout Plans</h4><p>Month-to-month, annual, or custom agreements — scale up or down whenever you need.</p></div>
+        </div>
+      </div>
+      <div class="why-visual rv d2">
+        <div style="text-align:center;margin-bottom:1.5rem">
+          <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.8rem">Live Infrastructure Health</div>
+          <div class="uptime-ring">
+            <svg class="ring-svg" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="82" fill="none" stroke="var(--border)" stroke-width="8"/>
+              <circle cx="100" cy="100" r="82" fill="none" stroke="url(#rg)" stroke-width="8" stroke-dasharray="515" stroke-dashoffset="5" stroke-linecap="round" transform="rotate(-90 100 100)"/>
+              <defs><linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#818cf8"/></linearGradient></defs>
+            </svg>
+            <div class="ring-text"><div class="ring-pct">99.9%</div><div class="ring-lbl">Uptime</div></div>
+          </div>
+        </div>
+        <div class="metric-row">
+          <div class="metric-item"><div class="metric-val">4.2ms</div><div class="metric-lbl">Avg Latency</div></div>
+          <div class="metric-item"><div class="metric-val">512</div><div class="metric-lbl">Active Nodes</div></div>
+          <div class="metric-item"><div class="metric-val">0</div><div class="metric-lbl">Open Incidents</div></div>
+        </div>
+        <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+          <div style="font-family:var(--font-mono);font-size:.68rem;color:var(--text-muted);margin-bottom:.9rem;letter-spacing:.08em">RECENT ACTIVITY LOG</div>
+          <div style="display:flex;flex-direction:column;gap:.55rem">
+            <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--accent3);display:flex;gap:.6rem"><span style="color:var(--text-muted)">02:14</span> ✓ Auto-backup completed — us-east-01</div>
+            <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--accent3);display:flex;gap:.6rem"><span style="color:var(--text-muted)">01:58</span> ✓ SSL cert renewed — client-042</div>
+            <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--gold);display:flex;gap:.6rem"><span style="color:var(--text-muted)">01:33</span> ⚠ CPU spike detected → mitigated</div>
+            <div style="font-family:var(--font-mono);font-size:.7rem;color:var(--accent3);display:flex;gap:.6rem"><span style="color:var(--text-muted)">00:47</span> ✓ Security patch applied — 14 nodes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Client Testimonials</div>
+      <h2 class="sec-title">Trusted by <em>Growing Businesses</em></h2>
+      <div class="divider"></div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card rv d1">
+        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="testi-quote">"NexusCore migrated our entire infrastructure to the cloud with zero downtime. Their team responded to every question in minutes. Best hosting partner we've ever had."</p>
+        <div class="testi-author"><div class="testi-av">AM</div><div><div class="testi-name">Alex Mitchell</div><div class="testi-role">CTO @ ScaleForce Inc.</div></div></div>
+      </div>
+      <div class="testi-card rv d2">
+        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="testi-quote">"We resell NexusCore's white-label support to 200+ clients and our CSAT scores have never been higher. They feel like an internal team, not a vendor."</p>
+        <div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--accent2),var(--accent3))">SR</div><div><div class="testi-name">Sophia Reeves</div><div class="testi-role">Director @ HostBridge Agency</div></div></div>
+      </div>
+      <div class="testi-card rv d3">
+        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p class="testi-quote">"Their DevOps team cut our AWS bill by 34% in the first two months while improving our deployment frequency from weekly to daily. Incredible value."</p>
+        <div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--accent3),var(--gold))">KP</div><div><div class="testi-name">Karan Patel</div><div class="testi-role">Founder @ BuildStack</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="section">
+  <div class="cont">
+    <div class="sec-head rv">
+      <div class="sec-label">Pricing Plans</div>
+      <h2 class="sec-title">Simple, <em>Transparent Pricing</em></h2>
+      <div class="divider"></div>
+      <p class="sec-sub">No hidden fees, no surprise bills. Choose a plan that scales with your needs or contact us for a custom enterprise quote.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card rv d1">
+        <div class="price-tier">Starter</div>
+        <div class="price-name">Launchpad</div>
+        <div class="price-num"><sup>$</sup>49<span>/mo</span></div>
+        <p class="price-desc">Perfect for small businesses and startups getting their digital foundation in place.</p>
+        <ul class="price-feats">
+          <li><i class="fas fa-circle-check"></i> 1 VPS — 2 vCPU / 4GB RAM</li>
+          <li><i class="fas fa-circle-check"></i> 100GB NVMe SSD</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL certificate</li>
+          <li><i class="fas fa-circle-check"></i> Daily backups (7-day retention)</li>
+          <li><i class="fas fa-circle-check"></i> Email & chat support</li>
+          <li class="no"><i class="fas fa-xmark"></i> White-label support</li>
+          <li class="no"><i class="fas fa-xmark"></i> Dedicated engineer</li>
+        </ul>
+        <a href="#contact" class="price-btn">Get Started</a>
+      </div>
+      <div class="price-card featured rv d2">
+        <div class="price-badge">MOST POPULAR</div>
+        <div class="price-tier">Growth</div>
+        <div class="price-name">Scale</div>
+        <div class="price-num"><sup>$</sup>199<span>/mo</span></div>
+        <p class="price-desc">For growing companies that need reliability, security, and proactive management.</p>
+        <ul class="price-feats">
+          <li><i class="fas fa-circle-check"></i> 3 VPS — Up to 8 vCPU / 16GB</li>
+          <li><i class="fas fa-circle-check"></i> 500GB NVMe + CDN</li>
+          <li><i class="fas fa-circle-check"></i> Wildcard SSL + DDoS protection</li>
+          <li><i class="fas fa-circle-check"></i> Hourly backups (30-day retention)</li>
+          <li><i class="fas fa-circle-check"></i> 24/7 phone, chat & email</li>
+          <li><i class="fas fa-circle-check"></i> Monthly performance report</li>
+          <li class="no"><i class="fas fa-xmark"></i> Dedicated engineer</li>
+        </ul>
+        <a href="#contact" class="price-btn">Get Started</a>
+      </div>
+      <div class="price-card rv d3">
+        <div class="price-tier">Enterprise</div>
+        <div class="price-name">Nexus Pro</div>
+        <div class="price-num"><sup>$</sup>599<span>/mo</span></div>
+        <p class="price-desc">Full-service managed IT — unlimited servers, white-label support, and a dedicated engineer.</p>
+        <ul class="price-feats">
+          <li><i class="fas fa-circle-check"></i> Unlimited managed servers</li>
+          <li><i class="fas fa-circle-check"></i> Full DevOps team access</li>
+          <li><i class="fas fa-circle-check"></i> White-label support included</li>
+          <li><i class="fas fa-circle-check"></i> Dedicated account engineer</li>
+          <li><i class="fas fa-circle-check"></i> &lt;15 min emergency SLA</li>
+          <li><i class="fas fa-circle-check"></i> Custom SLA agreement</li>
+          <li><i class="fas fa-circle-check"></i> Quarterly strategy reviews</li>
+        </ul>
+        <a href="#contact" class="price-btn">Contact Sales</a>
+      </div>
+    </div>
+    <div class="info-box rv" style="margin-top:2rem">
+      <i class="fas fa-handshake"></i>
+      <p><strong>Custom Enterprise Plans Available.</strong> Need a tailored solution with specific SLAs, compliance requirements, or white-label configurations? <a href="#contact" style="color:var(--accent);text-decoration:none;font-weight:500">Talk to our sales team →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA + CONTACT -->
+<section id="contact" class="cta-section">
+  <div class="cta-inner rv">
+    <div class="hero-eyebrow" style="justify-content:center;margin:0 auto 1.5rem">Ready to Scale?</div>
+    <h2 class="sec-title" style="font-size:clamp(2.2rem,4.5vw,3.8rem);letter-spacing:-2px;text-align:center;max-width:none">Your infrastructure deserves<br><em>enterprise-grade care</em></h2>
+    <p style="font-size:1.05rem;color:var(--text-sub);margin:1.2rem 0 2.5rem;font-weight:300">Join 500+ businesses trusting NexusCore with their digital backbone. Start with a free infrastructure audit.</p>
+    <div class="cta-actions">
+      <a href="mailto:hello@nexuscore.io" class="btn-p"><i class="fas fa-envelope"></i> Email Us</a>
+      <a href="tel:+1234567890" class="btn-o"><i class="fas fa-phone"></i> Schedule a Call</a>
+    </div>
+  </div>
+  <div class="cta-contact-grid cont rv d2" style="margin-top:4rem">
+    <div class="contact-card">
+      <div class="card-ico"><i class="fas fa-envelope"></i></div>
+      <h4>Email Support</h4>
+      <p>Technical and sales queries answered within 2 hours during business hours, 4 hours off-hours.</p>
+      <a href="mailto:support@nexuscore.io">support@nexuscore.io <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="contact-card">
+      <div class="card-ico purple"><i class="fas fa-comment-dots"></i></div>
+      <h4>Live Chat</h4>
+      <p>Instant chat with a real engineer — no bots, no scripts. Available around the clock, 365 days.</p>
+      <a href="#" style="color:var(--accent2)">Open Live Chat <i class="fas fa-arrow-right"></i></a>
+    </div>
+    <div class="contact-card">
+      <div class="card-ico green"><i class="fas fa-phone-volume"></i></div>
+      <h4>Phone & Emergency Line</h4>
+      <p>Critical incidents and dedicated account calls. Priority line available on Scale and Nexus Pro plans.</p>
+      <a href="tel:+1234567890" style="color:var(--accent3)">+1 (234) 567-890 <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#home" class="logo">Nexus<span class="logo-mark">Core</span><span class="logo-pulse" style="margin-left:.3rem"></span></a>
+      <p>Enterprise hosting, managed DevOps, custom development, and 24/7 technical support — powering digital businesses worldwide.</p>
+      <div class="footer-socials">
+        <a href="#" class="soc-btn"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-github"></i></a>
+        <a href="#" class="soc-btn"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#hosting">Web Hosting</a></li>
+        <li><a href="#hosting">Dedicated Servers</a></li>
+        <li><a href="#development">Web Development</a></li>
+        <li><a href="#development">Mobile Apps</a></li>
+        <li><a href="#maintenance">Server Maintenance</a></li>
+        <li><a href="#support">DevOps as a Service</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Solutions</h5>
+      <ul>
+        <li><a href="#support">White-Label Support</a></li>
+        <li><a href="#infra">Cloud Architecture</a></li>
+        <li><a href="#infra">Security & SSL</a></li>
+        <li><a href="#maintenance">Migration Services</a></li>
+        <li><a href="#pricing">Pricing Plans</a></li>
+        <li><a href="#contact">Custom Enterprise</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Case Studies</a></li>
+        <li><a href="#">Blog & Guides</a></li>
+        <li><a href="#">Status Page</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 NexusCore. All rights reserved. Built for scale, secured for trust.</p>
+    <div class="footer-badge"><i class="fas fa-circle"></i> All Systems Operational</div>
+  </div>
+</footer>
+
+</div><!-- /.wrap -->
+
 <script>
-// ── PARTICLE BACKGROUND ──
-(function() {
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H, particles, mouse = { x: null, y: null };
+// ─── BACKGROUND CANVAS ───
+(function(){
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles, mouse = {x: null, y: null};
+  function isLight(){ return document.body.classList.contains('light'); }
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  function makeParticles(){
+    const count = Math.floor((W * H) / 16000);
+    particles = Array.from({length: count}, () => ({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-.5)*.3, vy: (Math.random()-.5)*.3,
+      r: Math.random()*1.6+.4,
+      alpha: Math.random()*.45+.15,
+      col: Math.random()>.55 ? '56,189,248' : Math.random()>.5 ? '129,140,248' : '52,211,153'
+    }));
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // subtle gradient nebula
+    const gr = ctx.createRadialGradient(W*.3,H*.4,0,W*.3,H*.4,W*.5);
+    gr.addColorStop(0, isLight() ? 'rgba(56,189,248,.025)' : 'rgba(56,189,248,.04)');
+    gr.addColorStop(1,'transparent');
+    ctx.fillStyle = gr; ctx.fillRect(0,0,W,H);
+    const gr2 = ctx.createRadialGradient(W*.75,H*.65,0,W*.75,H*.65,W*.4);
+    gr2.addColorStop(0, isLight() ? 'rgba(129,140,248,.02)' : 'rgba(129,140,248,.03)');
+    gr2.addColorStop(1,'transparent');
+    ctx.fillStyle = gr2; ctx.fillRect(0,0,W,H);
 
-    function resize() {
-        W = canvas.width = window.innerWidth;
-        H = canvas.height = window.innerHeight;
+    for(let i=0;i<particles.length;i++){
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0) p.x=W; if(p.x>W) p.x=0; if(p.y<0) p.y=H; if(p.y>H) p.y=0;
+      if(mouse.x!==null){
+        const dx=p.x-mouse.x, dy=p.y-mouse.y, d=Math.hypot(dx,dy);
+        if(d<120){ p.x+=dx*.012; p.y+=dy*.012; }
+      }
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(${p.col},${isLight()?p.alpha*.4:p.alpha})`;
+      ctx.fill();
+      for(let j=i+1;j<particles.length;j++){
+        const p2=particles[j], dx=p.x-p2.x, dy=p.y-p2.y, d=Math.hypot(dx,dy);
+        if(d<140){ ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.strokeStyle=`rgba(56,189,248,${(1-d/140)*(isLight()?.05:.1)})`; ctx.lineWidth=.4; ctx.stroke(); }
+      }
     }
-
-    function createParticles() {
-        const count = Math.floor((W * H) / 14000);
-        particles = [];
-        for (let i = 0; i < count; i++) {
-            particles.push({
-                x: Math.random() * W,
-                y: Math.random() * H,
-                vx: (Math.random() - 0.5) * 0.35,
-                vy: (Math.random() - 0.5) * 0.35,
-                r: Math.random() * 1.8 + 0.4,
-                alpha: Math.random() * 0.5 + 0.2,
-                color: Math.random() > 0.6 ? '96,165,250' : '6,182,212'
-            });
-        }
-    }
-
-    function drawLine(p1, p2, alpha) {
-        ctx.beginPath();
-        ctx.moveTo(p1.x, p1.y);
-        ctx.lineTo(p2.x, p2.y);
-        ctx.strokeStyle = `rgba(96,165,250,${alpha})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, W, H);
-
-        for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0) p.x = W;
-            if (p.x > W) p.x = 0;
-            if (p.y < 0) p.y = H;
-            if (p.y > H) p.y = 0;
-
-            // mouse repulsion
-            if (mouse.x !== null) {
-                const dx = p.x - mouse.x, dy = p.y - mouse.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < 100) {
-                    p.x += dx * 0.015;
-                    p.y += dy * 0.015;
-                }
-            }
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
-            ctx.fill();
-
-            // connect nearby
-            for (let j = i + 1; j < particles.length; j++) {
-                const p2 = particles[j];
-                const dx = p.x - p2.x, dy = p.y - p2.y;
-                const dist = Math.sqrt(dx*dx + dy*dy);
-                if (dist < 130) {
-                    drawLine(p, p2, (1 - dist / 130) * 0.12);
-                }
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => { resize(); createParticles(); });
-    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-    window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
-    resize();
-    createParticles();
-    animate();
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize',()=>{ resize(); makeParticles(); });
+  window.addEventListener('mousemove',e=>{ mouse.x=e.clientX; mouse.y=e.clientY; });
+  window.addEventListener('mouseleave',()=>{ mouse.x=null; mouse.y=null; });
+  resize(); makeParticles(); draw();
 })();
 
-// ── NAVBAR SCROLL ──
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 50);
+// ─── THEME TOGGLE ───
+const themeBtn = document.getElementById('theme-btn');
+themeBtn.addEventListener('click',()=>{
+  document.body.classList.toggle('light');
+  themeBtn.innerHTML = document.body.classList.contains('light')
+    ? '<i class="fas fa-sun"></i>'
+    : '<i class="fas fa-moon"></i>';
 });
 
-// ── MOBILE MENU ──
-document.getElementById('mobile-menu').addEventListener('click', () => {
-    document.getElementById('nav-links').classList.toggle('show');
+// ─── NAVBAR scroll ───
+const nav = document.getElementById('nav');
+window.addEventListener('scroll',()=>{ nav.classList.toggle('scrolled', window.scrollY > 50); });
+
+// ─── ACTIVE NAV (desktop top + mobile bottom) ───
+const secs = document.querySelectorAll('section[id], div[id]');
+const nls = document.querySelectorAll('.nl');
+const mobLinks = document.querySelectorAll('.mobile-nav a[data-mob]');
+
+function updateActiveNav(){
+  let cur = '';
+  document.querySelectorAll('[id]').forEach(s=>{
+    if(s.offsetTop && window.scrollY + 120 >= s.offsetTop) cur = s.id;
+  });
+  nls.forEach(l=>{ l.classList.toggle('active', l.getAttribute('href')==='#'+cur); });
+  mobLinks.forEach(l=>{
+    const target = l.getAttribute('data-mob');
+    const isCTA = l.classList.contains('mob-cta');
+    if(!isCTA) l.classList.toggle('mob-active', l.getAttribute('href')==='#'+cur);
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
 });
 
-// ── ACTIVE NAV ──
-const sections = document.querySelectorAll('.page-section, #home');
-const navLinks = document.querySelectorAll('.nav-link');
-window.addEventListener('scroll', () => {
-    let cur = '';
-    sections.forEach(s => {
-        if (window.scrollY + 150 >= s.offsetTop) cur = s.id;
-    });
-    navLinks.forEach(l => {
-        l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
-    });
+// ─── REVEAL ON SCROLL ───
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); observer.unobserve(e.target); } });
+}, {threshold: 0.1});
+document.querySelectorAll('.rv').forEach(el=>observer.observe(el));
+
+// ─── CARD MOUSE GLOW ───
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
+    const y = ((e.clientY - r.top) / r.height * 100).toFixed(1);
+    card.style.setProperty('--mx', x+'%');
+    card.style.setProperty('--my', y+'%');
+  });
 });
 
-// ── SMOOTH SCROLL ──
-document.querySelectorAll('.nav-link, .btn-primary, .btn-ghost').forEach(a => {
-    a.addEventListener('click', e => {
-        const href = a.getAttribute('href');
-        if (href && href.startsWith('#')) {
-            e.preventDefault();
-            const t = document.querySelector(href);
-            if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-            document.getElementById('nav-links').classList.remove('show');
-        }
+// ─── COUNTER ANIMATION ───
+window.addEventListener('DOMContentLoaded',()=>{
+  const statNums = document.querySelectorAll('.stat-n[data-target]');
+  statNums.forEach(el=>{
+    const target = parseFloat(el.dataset.target);
+    anime({
+      targets: el,
+      innerHTML: [0, target],
+      round: target < 10 ? 10 : 1,
+      duration: 2000,
+      delay: 800,
+      easing: 'easeOutExpo',
+      update: function(){
+        const val = parseFloat(el.innerHTML);
+        if(target === 99.9) el.innerHTML = val.toFixed(1);
+        else if(target === 24) el.innerHTML = Math.floor(val);
+        else el.innerHTML = Math.floor(val) + '+';
+      }
     });
-});
+  });
 
-// ── SCROLL REVEAL ──
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // hero entrance
+  anime.timeline({easing:'easeOutExpo'})
+    .add({targets:'.hero-eyebrow', opacity:[0,1], translateY:[20,0], duration:700})
+    .add({targets:'.hero-h1', opacity:[0,1], translateY:[35,0], duration:900},'-=450')
+    .add({targets:'.hero-sub', opacity:[0,1], translateY:[20,0], duration:700},'-=550')
+    .add({targets:'.hero-actions', opacity:[0,1], translateY:[15,0], duration:600},'-=450')
+    .add({targets:'.stat-n', opacity:[0,1], translateY:[15,0], delay:anime.stagger(100), duration:600},'-=350')
+    .add({targets:'.server-rack', opacity:[0,1], scale:[.9,1], translateX:[30,0], duration:900},'-=800')
+    .add({targets:'.vis-chip', opacity:[0,1], translateX:[20,0], delay:anime.stagger(150), duration:500},'-=500');
 
-// ── ANIME.JS HERO ENTRANCE ──
-document.addEventListener('DOMContentLoaded', () => {
-    anime.timeline({ easing: 'easeOutExpo' })
-        .add({ targets: '.hero-badge', opacity: [0,1], translateY: [15,0], duration: 700 })
-        .add({ targets: '.hero-title', opacity: [0,1], translateY: [30,0], duration: 800 }, '-=400')
-        .add({ targets: '.hero-desc', opacity: [0,1], translateY: [20,0], duration: 700 }, '-=500')
-        .add({ targets: '.hero-actions', opacity: [0,1], translateY: [15,0], duration: 600 }, '-=400')
-        .add({ targets: '.stat-item', opacity: [0,1], translateY: [15,0], delay: anime.stagger(120), duration: 600 }, '-=300')
-        .add({ targets: '.tech-orb', opacity: [0,1], scale: [0.85,1], duration: 900 }, '-=700');
-
-    // counter animation
-    document.querySelectorAll('.stat-num').forEach(el => {
-        const target = parseFloat(el.dataset.target);
-        anime({ targets: el, innerHTML: [0, target], round: target < 10 ? 10 : 1, duration: 1800, delay: 600, easing: 'easeOutExpo',
-            update: function(a) {
-                const val = parseFloat(el.innerHTML);
-                el.innerHTML = target === 99.9 ? val.toFixed(1) : Math.floor(val) + (target === 24 ? '' : '+');
-            }
-        });
-    });
-
-    // Card hover micro-interactions
-    document.querySelectorAll('.service-card').forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            anime({ targets: card.querySelector('.card-icon'), scale: 1.1, duration: 200, easing: 'easeOutQuad' });
-        });
-        card.addEventListener('mouseleave', () => {
-            anime({ targets: card.querySelector('.card-icon'), scale: 1, duration: 200, easing: 'easeOutQuad' });
-        });
-    });
+  // card hover icon
+  document.querySelectorAll('.card').forEach(card=>{
+    const ico = card.querySelector('.card-ico');
+    if(!ico) return;
+    card.addEventListener('mouseenter',()=>anime({targets:ico, scale:1.1, duration:180, easing:'easeOutQuad'}));
+    card.addEventListener('mouseleave',()=>anime({targets:ico, scale:1, duration:180, easing:'easeOutQuad'}));
+  });
 });
 </script>
 </body>
