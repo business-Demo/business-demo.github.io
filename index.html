@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NexusCore | Enterprise IT & Hosting Solutions</title>
+<title>RK Websolution | Enterprise IT & Hosting Solutions</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Cabinet+Grotesk:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
@@ -28,6 +28,9 @@
   --accent-glow: rgba(56,189,248,0.18);
   --accent2-glow: rgba(129,140,248,0.18);
   --gold: #f59e0b;
+  --heading-grad: linear-gradient(115deg,#7dd3fc 0%,#60a5fa 35%,#a78bfa 72%,#34d399 100%);
+  --heading-soft: linear-gradient(140deg,rgba(125,211,252,.22),rgba(167,139,250,.14),rgba(52,211,153,.16));
+  --heading-stroke: rgba(125,211,252,.28);
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'IBM Plex Mono', monospace;
@@ -35,6 +38,8 @@
   --radius: 16px;
   --radius-sm: 10px;
   --nav-h: 72px;
+  --space-section: 7rem;
+  --space-container: 3rem;
 }
 body.light {
   --bg: #f0f4f8;
@@ -52,45 +57,214 @@ body.light {
   --accent3: #059669;
   --accent-glow: rgba(2,132,199,0.15);
   --gold: #d97706;
+  --heading-grad: linear-gradient(115deg,#0f172a 0%,#0369a1 36%,#4338ca 74%,#0f766e 100%);
+  --heading-soft: linear-gradient(140deg,rgba(56,189,248,.18),rgba(129,140,248,.12),rgba(5,150,105,.12));
+  --heading-stroke: rgba(2,132,199,.22);
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+img,svg,video{max-width:100%;height:auto}
 html{scroll-behavior:smooth;font-size:16px}
 body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;transition:background .4s,color .4s;line-height:1.6;letter-spacing:-.01em}
 canvas#bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
 .noise{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:300px}
 body.light .noise{opacity:.015}
 .wrap{position:relative;z-index:2}
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .price-grid > *, .testi-grid > *, .cta-contact-grid > *, .blog-grid > *{min-width:0}
 
 /* ─── NAVBAR ─── */
-.nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;background:rgba(6,11,20,.75);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .3s}
-body.light .nav{background:rgba(240,244,248,.85)}
-.nav.scrolled{box-shadow:0 8px 48px rgba(0,0,0,.25)}
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:0 var(--space-container);
+  background:rgba(6,11,20,.55);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:background .4s,box-shadow .4s,border-color .4s;
+}
+/* Glowing top accent stripe */
+.nav::before{
+  content:'';
+  position:absolute;left:0;right:0;top:0;height:1px;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(56,189,248,.0) 5%,
+    rgba(56,189,248,.9) 30%,
+    rgba(129,140,248,.8) 55%,
+    rgba(52,211,153,.7) 80%,
+    rgba(52,211,153,.0) 95%,
+    transparent 100%);
+  pointer-events:none;
+}
+/* Subtle bottom inner glow */
+.nav::after{
+  content:'';
+  position:absolute;left:10%;right:10%;bottom:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(56,189,248,.12),transparent);
+  pointer-events:none;
+}
+body.light .nav{
+  background:rgba(255,255,255,.82);
+  border-bottom-color:rgba(15,23,42,.08);
+}
+body.light .nav::before{
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(56,189,248,.0) 5%,
+    rgba(14,165,233,.85) 30%,
+    rgba(99,102,241,.75) 55%,
+    rgba(16,185,129,.65) 80%,
+    rgba(16,185,129,.0) 95%,
+    transparent 100%);
+}
+body.light .nav::after{ opacity:.4; }
+.nav.scrolled{
+  background:rgba(6,11,20,.82);
+  box-shadow:0 8px 40px rgba(0,0,0,.28);
+  border-bottom-color:rgba(255,255,255,.09);
+}
+body.light .nav.scrolled{
+  background:rgba(255,255,255,.96);
+  box-shadow:0 4px 24px rgba(15,23,42,.1);
+  border-bottom-color:rgba(15,23,42,.1);
+}
+.nav-shell{
+  max-width:100%;margin:0;
+  height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem 1.25rem;
+  position:relative;z-index:1;
+}
+.nav-brand{
+  display:flex;align-items:center;gap:.72rem;
+  text-decoration:none;color:inherit;
+  flex-shrink:0;
+  min-width:0;
+}
+.nav-brand-ico{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  background:linear-gradient(145deg,rgba(56,189,248,.22),rgba(129,140,248,.18) 55%,rgba(52,211,153,.14));
+  border:1px solid rgba(56,189,248,.3);
+  color:var(--accent);
+  font-size:1.05rem;
+  box-shadow:0 0 18px rgba(56,189,248,.2),0 4px 12px rgba(0,0,0,.2);
+}
+.nav-brand-text{display:flex;flex-direction:column;gap:.12rem;min-width:0}
+.nav-brand-name{
+  font-family:var(--font-display);
+  font-size:1.05rem;font-weight:700;
+  letter-spacing:-.35px;line-height:1.15;
+  color:var(--text);
+  white-space:nowrap;
+}
+.nav-brand-name em{
+  font-style:normal;
+  background:var(--heading-grad);
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+}
+.nav-brand-tag{
+  font-family:var(--font-mono);
+  font-size:.58rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-muted);
+  white-space:nowrap;
+}
+.nav-brand-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent3);
+  box-shadow:0 0 0 0 rgba(52,211,153,.45);
+  animation:pulse 2.2s ease-in-out infinite;
+  flex-shrink:0;
+  align-self:center;
+}
+.nav-center{
+  flex:1;
+  display:flex;
+  justify-content:center;
+  min-width:0;
+}
+.nav-rail{
+  display:flex;align-items:center;
+  padding:5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 2px 16px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.08);
+  max-width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.nav-rail::-webkit-scrollbar{display:none}
+body.light .nav-rail{background:rgba(15,23,42,.05);border-color:rgba(15,23,42,.1);box-shadow:0 2px 12px rgba(15,23,42,.06)}
+.nav-links{list-style:none;display:flex;align-items:center;gap:4px;margin:0;padding:0}
+.nav-links li{display:flex}
+.nav-links a{
+  font-family:var(--font-mono);
+  font-size:.6rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-muted);
+  text-decoration:none;
+  padding:.48rem .72rem;
+  border-radius:999px;
+  transition:color .2s,background .2s,box-shadow .2s;
+  white-space:nowrap;
+}
+.nav-links a:hover{color:var(--text);background:rgba(255,255,255,.08)}
+.nav-links a.active{
+  color:var(--accent);
+  background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(129,140,248,.1));
+  box-shadow:0 0 0 1px rgba(56,189,248,.3),0 0 12px rgba(56,189,248,.1);
+  font-weight:600;
+}
+body.light .nav-links a.active{
+  color:#0369a1;
+  background:linear-gradient(135deg,rgba(14,165,233,.12),rgba(99,102,241,.08));
+  box-shadow:0 0 0 1px rgba(14,165,233,.3),0 2px 8px rgba(14,165,233,.1);
+}
+.nav-right{display:flex;align-items:center;gap:.5rem;flex-shrink:0}
+.nav-btn{
+  font-family:var(--font-body);
+  font-size:.78rem;font-weight:650;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;border:none;
+  padding:.52rem 1.2rem;
+  border-radius:999px;
+  cursor:pointer;transition:transform .2s,filter .2s,box-shadow .2s;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:.45rem;
+  box-shadow:0 6px 22px var(--accent-glow);
+}
+.nav-btn:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 10px 28px var(--accent-glow)}
+.theme-btn{
+  width:40px;height:40px;border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text-sub);
+  font-size:.95rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s,border-color .2s,transform .2s;
+}
+.theme-btn:hover{background:var(--surface-hover);color:var(--text);border-color:var(--border-accent)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.ham span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
 .logo{font-family:var(--font-display);font-size:1.5rem;font-weight:800;color:var(--text);letter-spacing:-1.2px;display:flex;align-items:center;gap:.3rem;text-decoration:none}
 .logo-mark{color:var(--accent)}
 .logo-pulse{width:7px;height:7px;border-radius:50%;background:var(--accent3);display:inline-block;animation:pulse 2s ease-in-out infinite;margin-bottom:2px}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,211,153,.5)}50%{box-shadow:0 0 0 6px rgba(52,211,153,0)}}
-.nav-links{list-style:none;display:flex;align-items:center;gap:.1rem}
-.nav-links a{font-size:.875rem;font-weight:500;color:var(--text-muted);text-decoration:none;padding:.45rem .9rem;border-radius:8px;transition:all .2s;letter-spacing:.01em}
-.nav-links a:hover{color:var(--text);background:var(--surface-hover)}
-.nav-links a.active{color:var(--accent)}
-.nav-right{display:flex;align-items:center;gap:.75rem}
-.nav-btn{font-family:var(--font-body);font-size:.875rem;font-weight:600;background:var(--accent);color:#fff;border:none;padding:.5rem 1.3rem;border-radius:8px;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem}
-.nav-btn:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}
-.theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text-sub);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.theme-btn:hover{background:var(--surface-hover);color:var(--text)}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
-.ham span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
 
 /* ─── HERO ─── */
-#home{min-height:100vh;display:flex;align-items:center;padding:calc(var(--nav-h) + 4rem) 3rem 4rem;position:relative;overflow:hidden}
-.hero-grid{max-width:1220px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+#home{min-height:100vh;padding:calc(var(--nav-h) + 3.5rem) 3rem 3rem;position:relative;overflow:hidden}
+.hero-grid{max-width:1220px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;min-height:calc(100vh - var(--nav-h) - 8rem)}
 @media(max-width:1024px){.hero-grid{grid-template-columns:1fr;max-width:680px}}
 @media(max-width:1024px){.hero-vis{display:none}}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-mono);font-size:.72rem;font-weight:400;color:var(--accent3);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.4rem;padding:.35rem .9rem;border:1px solid rgba(52,211,153,.2);border-radius:40px;background:rgba(52,211,153,.06)}
 .hero-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 1.5s infinite}
-.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,9vw,8.5rem);font-weight:400;line-height:.95;letter-spacing:1px;margin-bottom:1.5rem;text-transform:uppercase}
-.hero-h1 .line2{display:block;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.2rem,8.6vw,8.2rem);font-weight:400;line-height:1.02;letter-spacing:.6px;margin-bottom:1.5rem;text-transform:uppercase;text-shadow:0 10px 35px rgba(2,132,199,.18);max-width:14ch;text-wrap:balance}
+.hero-h1 .line1,.hero-h1 .line3{display:block}
+.hero-h1 .line2{display:block;background:var(--heading-grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 8px 24px rgba(56,189,248,.18))}
 .hero-sub{font-size:1.08rem;line-height:1.75;color:var(--text-sub);max-width:480px;margin-bottom:2.5rem;font-weight:300}
 .hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
 .btn-p{display:inline-flex;align-items:center;gap:.6rem;font-family:var(--font-body);font-weight:600;font-size:.9rem;padding:.8rem 1.9rem;background:var(--accent);color:#fff;border-radius:var(--radius-sm);text-decoration:none;transition:all .25s;border:none;cursor:pointer}
@@ -101,8 +275,39 @@ body.light .nav{background:rgba(240,244,248,.85)}
 .stat-n{font-family:var(--font-display);font-size:2.1rem;font-weight:800;line-height:1;color:var(--text)}
 .stat-l{font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted);margin-top:.3rem;letter-spacing:.05em}
 
+/* Home services highlight strip */
+.home-services{
+  max-width:1220px;margin:2.4rem auto 0;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:linear-gradient(160deg,rgba(56,189,248,.07),rgba(129,140,248,.05) 45%,rgba(52,211,153,.05));
+  padding:1rem;
+}
+.home-services-head{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding:.45rem .45rem .95rem;
+}
+.home-services-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:-.3px}
+.home-services-sub{font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em}
+.home-services-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem}
+.svc-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:.85rem .8rem;
+  display:flex;flex-direction:column;gap:.45rem;
+  transition:.25s;text-decoration:none;color:inherit;
+}
+.svc-card:hover{transform:translateY(-2px);border-color:var(--border-accent);background:var(--surface-hover)}
+.svc-ico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(56,189,248,.14);color:var(--accent)}
+.svc-ico.p{background:rgba(129,140,248,.14);color:var(--accent2)}
+.svc-ico.g{background:rgba(52,211,153,.14);color:var(--accent3)}
+.svc-ico.o{background:rgba(245,158,11,.14);color:var(--gold)}
+.svc-title{font-size:.83rem;font-weight:650;color:var(--text);line-height:1.35}
+.svc-meta{font-size:.72rem;color:var(--text-sub);line-height:1.45}
+
 /* Hero visual */
-.hero-vis{position:relative;display:flex;align-items:center;justify-content:center;height:480px}
+.hero-vis{position:relative;display:flex;align-items:center;justify-content:center;height:480px;align-self:start;margin-top:.35rem}
 .server-rack{width:220px;background:var(--bg3);border:1px solid var(--border-accent);border-radius:var(--radius);padding:1.2rem;position:relative;box-shadow:0 0 80px rgba(56,189,248,.08),0 0 0 1px var(--border)}
 .rack-header{display:flex;align-items:center;gap:.7rem;margin-bottom:1.2rem;padding-bottom:.9rem;border-bottom:1px solid var(--border)}
 .rack-header i{color:var(--accent);font-size:1.1rem}
@@ -139,13 +344,14 @@ body.light .nav{background:rgba(240,244,248,.85)}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ─── SECTIONS ─── */
-.section{padding:7rem 3rem;border-top:1px solid var(--border);position:relative}
-.cont{max-width:1220px;margin:0 auto}
+.section{padding:var(--space-section) var(--space-container);border-top:1px solid var(--border);position:relative;scroll-margin-top:calc(var(--nav-h) + 1rem)}
+.cont{max-width:1220px;margin:0 auto;width:100%}
 .sec-head{margin-bottom:3.5rem}
 .sec-label{font-family:var(--font-mono);font-size:.72rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;display:flex;align-items:center;gap:.6rem}
 .sec-label::before{content:'//';color:var(--text-muted);font-weight:300}
-.sec-title{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.9rem);font-weight:800;letter-spacing:-1.2px;line-height:1.1;margin-bottom:1rem;color:var(--text)}
-.sec-title em{font-style:normal;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec-title{font-family:var(--font-display);font-size:clamp(2rem,3.5vw,2.9rem);font-weight:800;letter-spacing:-1.2px;line-height:1.1;margin-bottom:1rem;color:var(--text);position:relative}
+.sec-title::after{content:'';position:absolute;left:0;bottom:-.42rem;width:70px;height:4px;border-radius:10px;background:var(--heading-grad);box-shadow:0 8px 20px var(--accent-glow)}
+.sec-title em{font-style:normal;background:var(--heading-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sec-sub{font-size:1rem;color:var(--text-sub);max-width:580px;line-height:1.75;font-weight:300}
 .divider{width:48px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:4px;margin:1.2rem 0 2.5rem}
 
@@ -155,6 +361,8 @@ body.light .nav{background:rgba(240,244,248,.85)}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.75rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
 body.light .card{background:rgba(255,255,255,.8);box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.card,.price-card,.testi-card,.contact-card,.blog-card{height:100%}
+.card,.price-card,.testi-card,.contact-card{display:flex;flex-direction:column}
 .card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(56,189,248,.06),transparent 60%);opacity:0;transition:opacity .3s}
 .card:hover::after{opacity:1}
 .card:hover{border-color:var(--border-accent);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.12)}
@@ -169,7 +377,7 @@ body.light .card{background:rgba(255,255,255,.8);box-shadow:0 2px 12px rgba(0,0,
 .card:hover .card-ico.green{background:rgba(52,211,153,.18);box-shadow:0 0 20px rgba(52,211,153,.25)}
 .card-ico.gold{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.18)}
 .card-ico.gold i{color:var(--gold)}
-.card h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:.7rem;color:var(--text);letter-spacing:-.4px}
+.card h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:.7rem;color:var(--text);letter-spacing:-.4px;background:linear-gradient(115deg,var(--text) 0%,var(--accent) 140%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .card p{font-size:.875rem;color:var(--text-sub);line-height:1.7;font-weight:300}
 .feat{list-style:none;margin-top:1.1rem;display:flex;flex-direction:column;gap:.45rem}
 .feat li{font-size:.83rem;color:var(--text-sub);display:flex;align-items:center;gap:.6rem;font-weight:400}
@@ -198,6 +406,7 @@ body.light .card{background:rgba(255,255,255,.8);box-shadow:0 2px 12px rgba(0,0,
 .price-num span{font-size:.9rem;font-weight:400;color:var(--text-muted)}
 .price-desc{font-size:.85rem;color:var(--text-sub);margin:.8rem 0 1.4rem;line-height:1.6;font-weight:300}
 .price-feats{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.8rem}
+.price-feats{flex:1}
 .price-feats li{font-size:.83rem;color:var(--text-sub);display:flex;align-items:center;gap:.6rem}
 .price-feats li i{color:var(--accent3);font-size:.75rem}
 .price-feats li.no{color:var(--text-muted)}
@@ -299,6 +508,99 @@ body.light footer{background:rgba(0,0,0,.02)}
 .footer-badge{display:flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.68rem;color:var(--text-muted);padding:.3rem .75rem;border:1px solid var(--border);border-radius:40px}
 .footer-badge i{color:var(--accent3)}
 
+/* ─── BLOG SECTION ─── */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.blog-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;transition:.3s;display:flex;flex-direction:column;
+}
+.blog-card:hover{border-color:var(--border-accent);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.12)}
+.blog-thumb{
+  height:160px;display:flex;align-items:flex-end;padding:1rem;
+  background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(129,140,248,.12));
+  border-bottom:1px solid var(--border);
+}
+.blog-pill{
+  font-family:var(--font-mono);font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;
+  border:1px solid var(--border-accent);border-radius:40px;padding:.2rem .6rem;color:var(--accent);
+  background:rgba(56,189,248,.08);
+}
+.blog-body{padding:1.2rem 1.25rem 1.3rem}
+.blog-meta{font-family:var(--font-mono);font-size:.68rem;color:var(--text-muted);letter-spacing:.04em;margin-bottom:.55rem}
+.blog-title{font-family:var(--font-display);font-size:1.08rem;letter-spacing:-.3px;line-height:1.3;margin-bottom:.55rem}
+.blog-desc{font-size:.86rem;color:var(--text-sub);line-height:1.65}
+.blog-link{
+  margin-top:1rem;display:inline-flex;align-items:center;gap:.45rem;font-size:.84rem;
+  color:var(--accent);font-weight:600;text-decoration:none;
+}
+.blog-body .blog-link{margin-top:auto;padding-top:.5rem}
+.blog-link:hover{text-decoration:underline}
+.blog-cta{
+  margin-top:1.35rem;padding:1.15rem 1.2rem;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:rgba(56,189,248,.05);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+}
+.blog-cta p{font-size:.88rem;color:var(--text-sub)}
+
+/* Consistent typography in data-heavy blocks */
+.card p,.price-desc,.price-feats li,.contact-card p,.testi-quote,.why-text p,.sec-sub,.blog-desc,.blog-meta{
+  line-height:1.65;
+  word-break:break-word;
+}
+
+/* Hosting tab: clean ticket-style service layout */
+#hosting .cont{display:flex;flex-direction:column;gap:1.25rem}
+#hosting .cont > .grid-2,
+#hosting .cont > .grid-3{margin-top:0 !important;align-items:stretch}
+#hosting .card{
+  padding:1.6rem;
+  border-radius:14px;
+  background:linear-gradient(180deg,var(--surface),rgba(255,255,255,.015));
+}
+body.light #hosting .card{background:rgba(255,255,255,.9)}
+#hosting .card h3{min-height:2.8rem}
+#hosting .card p{min-height:5.4rem}
+#hosting .card .feat{flex:1}
+#hosting .card .tags{margin-top:auto !important}
+#hosting .card .tags .tag{
+  border-radius:999px;
+  padding:.28rem .72rem;
+  font-weight:500;
+}
+#hosting .card .tags .tag::before{
+  content:'';
+  width:6px;height:6px;border-radius:50%;
+  background:currentColor;opacity:.45;
+  display:inline-block;margin-right:.4rem;vertical-align:middle;
+}
+#hosting .hosting-single-row{grid-template-columns:1fr}
+#hosting .hosting-single-row .card-wide{grid-column:span 1}
+#hosting .hosting-single-row .hosting-spotlight{
+  max-width:980px;
+  margin:0 auto;
+  border:1px solid rgba(245,158,11,.34);
+  box-shadow:0 14px 42px rgba(245,158,11,.12),0 0 0 1px rgba(245,158,11,.08) inset;
+}
+#hosting .hosting-single-row .hosting-spotlight::before{
+  content:'Dedicated Tier';
+  position:absolute;
+  top:14px;right:14px;
+  font-family:var(--font-mono);
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--gold);
+  border:1px solid rgba(245,158,11,.3);
+  background:rgba(245,158,11,.08);
+  border-radius:999px;
+  padding:.25rem .62rem;
+}
+#hosting .hosting-single-row .hosting-spotlight h3{padding-right:108px}
+#hosting .hosting-single-row .hosting-spotlight .feat{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.55rem 1.2rem;
+}
+
 /* ─── REVEAL ─── */
 .rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
 .rv.vis{opacity:1;transform:translateY(0)}
@@ -306,12 +608,17 @@ body.light footer{background:rgba(0,0,0,.02)}
 
 /* ─── RESPONSIVE ─── */
 @media(max-width:1100px){
+  .nav{padding:0 1.75rem}
+  .nav-links a{padding:.45rem .5rem;font-size:.58rem;letter-spacing:.07em}
   .grid-4{grid-template-columns:repeat(2,1fr)}
   .process-grid{grid-template-columns:repeat(3,1fr);gap:1.5rem}
   .process-grid::before{display:none}
   .price-grid{grid-template-columns:1fr 1fr}
   .stack-grid{grid-template-columns:repeat(4,1fr)}
   .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .blog-grid{grid-template-columns:1fr 1fr}
+  .home-services-grid{grid-template-columns:repeat(3,1fr)}
+  :root{--space-section:5.5rem;--space-container:1.75rem}
 }
 
 /* ─── TABLET / LAPTOP (keep top nav, just compress) ─── */
@@ -323,15 +630,20 @@ body.light footer{background:rgba(0,0,0,.02)}
 /* ─── MOBILE: bottom nav bar ─── */
 @media(max-width:900px){
   /* Hide desktop nav links & get-started btn, keep logo & theme btn */
+  .nav-center{display:none !important}
   .nav-links{display:none !important}
   .nav-btn{display:none !important}
   .ham{display:none !important}
-  .nav{padding:0 1.25rem;height:60px}
+  .nav{padding:0 1.25rem}
   :root{--nav-h:60px}
+  .nav-shell{height:var(--nav-h)}
+  .nav-brand-ico{width:36px;height:36px;border-radius:10px;font-size:.95rem}
+  .nav-brand-name{font-size:.95rem}
+  .nav-brand-tag{display:none}
 
   /* Page padding adjustments */
-  .section{padding:4rem 1.25rem}
-  #home{padding:calc(var(--nav-h) + 2.5rem) 1.25rem 8rem}
+  .section{padding:var(--space-section) 1.25rem}
+  #home{padding:calc(var(--nav-h) + 2rem) 1.25rem 8rem}
   .hero-vis{display:none}
 
   /* Grids collapse */
@@ -340,9 +652,14 @@ body.light footer{background:rgba(0,0,0,.02)}
   .process-grid{grid-template-columns:1fr 1fr}
   .price-grid{grid-template-columns:1fr}
   .stack-grid{grid-template-columns:repeat(3,1fr)}
+  .blog-grid{grid-template-columns:1fr}
+  .home-services-grid{grid-template-columns:repeat(2,1fr)}
   .footer-grid{grid-template-columns:1fr 1fr;gap:1.5rem}
   .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
   .hero-stats{gap:1.5rem;flex-wrap:wrap}
+  #hosting .hosting-single-row .hosting-spotlight{max-width:100%}
+  #hosting .hosting-single-row .hosting-spotlight .feat{grid-template-columns:1fr}
+  #hosting .hosting-single-row .hosting-spotlight h3{padding-right:0}
 
   /* ── BOTTOM NAV BAR ── */
   .mobile-nav{
@@ -356,17 +673,20 @@ body.light footer{background:rgba(0,0,0,.02)}
     -webkit-backdrop-filter:blur(24px);
     border-top:1px solid var(--border);
     align-items:center;
-    justify-content:space-around;
-    padding:0 .5rem;
+    justify-content:flex-start;
+    overflow-x:auto;
+    padding:0 .35rem;
     padding-bottom:env(safe-area-inset-bottom);
+    scrollbar-width:none;
   }
+  .mobile-nav::-webkit-scrollbar{display:none}
   body.light .mobile-nav{background:rgba(240,244,248,.96)}
   .mobile-nav a{
     display:flex;flex-direction:column;align-items:center;gap:.25rem;
     color:var(--text-muted);text-decoration:none;
     font-family:var(--font-mono);font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;
     padding:.4rem .5rem;border-radius:10px;transition:all .2s;
-    min-width:48px;flex:1;
+    min-width:62px;flex:0 0 auto;
   }
   .mobile-nav a i{font-size:1.15rem;transition:all .2s}
   .mobile-nav a:hover,.mobile-nav a.mob-active{color:var(--accent)}
@@ -389,22 +709,215 @@ body.light footer{background:rgba(0,0,0,.02)}
   .btn-p,.btn-o{width:100%;justify-content:center}
   .footer-grid{grid-template-columns:1fr}
   .hero-h1{font-size:clamp(3.5rem,16vw,5.5rem)}
+  .home-services{padding:.8rem}
+  .home-services-grid{grid-template-columns:1fr}
+  :root{--space-section:4.25rem;--space-container:1rem}
 }
 
+/* ─── PAGE SWITCHING ─── */
+.page-section {
+  display: none;
+}
+.page-section.page-active {
+  display: block;
+  animation: pageIn .4s cubic-bezier(.4,0,.2,1);
+}
+section#home.page-active {
+  display: block;
+}
+/* Hero grid inside home needs flex layout */
+section#home.page-active .hero-grid {
+  display: grid;
+}
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Marquee lives inside #home — no override needed */
+
+/* ─── PAGE HEROES ─── */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding: calc(var(--nav-h) + 3.5rem) 3rem 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ph-gradient);
+  opacity: .06;
+  pointer-events: none;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: var(--ph-glow);
+  pointer-events: none;
+  opacity: .55;
+}
+.ph-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.ph-left { flex: 1; }
+.ph-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ph-color);
+  margin-bottom: 1rem;
+  padding: .28rem .9rem;
+  border: 1px solid var(--ph-border);
+  border-radius: 40px;
+  background: var(--ph-pill-bg);
+}
+.ph-breadcrumb i { font-size: .8rem; }
+.ph-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 1rem;
+  text-shadow:0 8px 28px rgba(2,132,199,.14);
+}
+.ph-title em {
+  font-style: normal;
+  background: var(--heading-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.ph-sub {
+  font-size: .95rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 520px;
+}
+.ph-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: 1.4rem;
+}
+.ph-badge {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .04em;
+  padding: .3rem .8rem;
+  border-radius: 40px;
+  border: 1px solid var(--ph-border);
+  background: var(--ph-pill-bg);
+  color: var(--ph-color);
+}
+.ph-right {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .65rem;
+  padding: .9rem 1rem;
+  border-radius: 16px;
+  border:1px solid var(--heading-stroke);
+  background:var(--heading-soft);
+  box-shadow:0 12px 32px rgba(2,132,199,.12);
+}
+.ph-stat {
+  text-align: right;
+}
+.ph-stat-val {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--ph-color);
+  line-height: 1;
+}
+.ph-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  color: var(--text-muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-top: .15rem;
+}
+.ph-icon-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 20px;
+  border: 1px solid var(--ph-border);
+  background: var(--ph-pill-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .5rem;
+}
+.ph-icon-wrap i {
+  font-size: 2.8rem;
+  color: var(--ph-color);
+}
+/* Per-page color themes */
+#hosting   { --ph-color:#38bdf8; --ph-border:rgba(56,189,248,.25); --ph-pill-bg:rgba(56,189,248,.07); --ph-glow:radial-gradient(circle,rgba(56,189,248,.12) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#38bdf8,#0284c7); }
+#development { --ph-color:#818cf8; --ph-border:rgba(129,140,248,.25); --ph-pill-bg:rgba(129,140,248,.07); --ph-glow:radial-gradient(circle,rgba(129,140,248,.13) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#818cf8,#4f46e5); }
+#maintenance { --ph-color:#34d399; --ph-border:rgba(52,211,153,.25); --ph-pill-bg:rgba(52,211,153,.07); --ph-glow:radial-gradient(circle,rgba(52,211,153,.12) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#34d399,#059669); }
+#support     { --ph-color:#f59e0b; --ph-border:rgba(245,158,11,.25); --ph-pill-bg:rgba(245,158,11,.07); --ph-glow:radial-gradient(circle,rgba(245,158,11,.12) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#f59e0b,#d97706); }
+/* Infra banner: matches site accent palette — sky/cloud blue tones */
+#infra {
+  --ph-color: #38bdf8;
+  --ph-border: rgba(56,189,248,.28);
+  --ph-pill-bg: rgba(56,189,248,.08);
+  --ph-glow: radial-gradient(circle,rgba(56,189,248,.18) 0%,rgba(129,140,248,.1) 55%,transparent 75%);
+  --ph-gradient: linear-gradient(135deg,#38bdf8 0%,#7dd3fc 50%,#60a5fa 100%);
+}
+#why         { --ph-color:#38bdf8; --ph-border:rgba(56,189,248,.25); --ph-pill-bg:rgba(56,189,248,.07); --ph-glow:radial-gradient(circle,rgba(56,189,248,.1) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#38bdf8,#818cf8); }
+#testimonials { --ph-color:#818cf8; --ph-border:rgba(129,140,248,.25); --ph-pill-bg:rgba(129,140,248,.07); --ph-glow:radial-gradient(circle,rgba(129,140,248,.1) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#818cf8,#34d399); }
+#pricing     { --ph-color:#34d399; --ph-border:rgba(52,211,153,.25); --ph-pill-bg:rgba(52,211,153,.07); --ph-glow:radial-gradient(circle,rgba(52,211,153,.1) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#34d399,#818cf8); }
+#contact     { --ph-color:#38bdf8; --ph-border:rgba(56,189,248,.25); --ph-pill-bg:rgba(56,189,248,.07); --ph-glow:radial-gradient(circle,rgba(56,189,248,.1) 0%,transparent 70%); --ph-gradient:linear-gradient(135deg,#38bdf8,#34d399); }
+@media(max-width:900px){
+  .page-hero { padding: calc(var(--nav-h) + 2rem) 1.25rem 2rem; }
+  .ph-right { display: none; }
+  .ph-title { font-size: clamp(2.5rem, 12vw, 4rem); }
+}
+
+.cta-section.page-section .cta-inner { padding-top: 0; }
 /* Large screens: comfortable max-width */
 @media(min-width:1400px){
   .nav{padding:0 4rem}
   .section{padding:8rem 4rem}
-  #home{padding:calc(var(--nav-h) + 5rem) 4rem 5rem}
+  #home{padding:calc(var(--nav-h) + 3.5rem) 4rem 4rem}
 }
 @media(min-width:1800px){
   .nav{padding:0 6rem}
   .section{padding:9rem 6rem}
-  #home{padding:calc(var(--nav-h) + 6rem) 6rem 5rem}
+  #home{padding:calc(var(--nav-h) + 3.5rem) 6rem 4rem}
 }
 </style>
 </head>
-<body>
+<body class="light">
 
 <canvas id="bg-canvas"></canvas>
 <div class="noise"></div>
@@ -412,22 +925,36 @@ body.light footer{background:rgba(0,0,0,.02)}
 <div class="wrap">
 
 <!-- NAVBAR -->
-<nav class="nav" id="nav">
-  <a href="#home" class="logo">Nexus<span class="logo-mark">Core</span><span class="logo-pulse"></span></a>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#home" class="nl active">Home</a></li>
-    <li><a href="#hosting" class="nl">Hosting</a></li>
-    <li><a href="#development" class="nl">Development</a></li>
-    <li><a href="#maintenance" class="nl">Maintenance</a></li>
-    <li><a href="#support" class="nl">Support</a></li>
-    <li><a href="#infra" class="nl">Infrastructure</a></li>
-    <li><a href="#pricing" class="nl">Pricing</a></li>
-    <li><a href="#contact" class="nl">Contact</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="theme-btn" id="theme-btn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
-    <a href="#contact" class="nav-btn"><i class="fas fa-rocket"></i> Get Started</a>
-    <div class="ham" id="ham"><span></span><span></span><span></span></div>
+<nav class="nav" id="nav" aria-label="Primary">
+  <div class="nav-shell">
+    <a href="#home" class="nav-brand">
+      <span class="nav-brand-ico" aria-hidden="true"><i class="fas fa-layer-group"></i></span>
+      <span class="nav-brand-text">
+        <span class="nav-brand-name">RK <em>Websolution</em></span>
+        <span class="nav-brand-tag">Managed IT · Hosting · DevOps</span>
+      </span>
+      <span class="nav-brand-dot" aria-hidden="true"></span>
+    </a>
+    <div class="nav-center">
+      <div class="nav-rail">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#home" class="nl active">Overview</a></li>
+          <li><a href="#hosting" class="nl">Hosting</a></li>
+          <li><a href="#development" class="nl">Development</a></li>
+          <li><a href="#maintenance" class="nl">Maintenance</a></li>
+          <li><a href="#support" class="nl">Support</a></li>
+          <li><a href="#infra" class="nl">Infrastructure</a></li>
+          <li><a href="#pricing" class="nl">Pricing</a></li>
+          <li><a href="#blog" class="nl">Insights</a></li>
+          <li><a href="#contact" class="nl">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button type="button" class="theme-btn" id="theme-btn" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+      <a href="https://wa.me/919978247432?text=Hi%2C%20I%27d%20like%20to%20book%20a%20consult" target="_blank" rel="noopener" class="nav-btn"><i class="fab fa-whatsapp"></i> Book a consult</a>
+      <div class="ham" id="ham"><span></span><span></span><span></span></div>
+    </div>
   </div>
 </nav>
 
@@ -436,18 +963,21 @@ body.light footer{background:rgba(0,0,0,.02)}
   <a href="#home" class="mob-active" data-mob="home"><i class="fas fa-house"></i>Home</a>
   <a href="#hosting" data-mob="hosting"><i class="fas fa-server"></i>Hosting</a>
   <a href="#development" data-mob="development"><i class="fas fa-code"></i>Dev</a>
+  <a href="#maintenance" data-mob="maintenance"><i class="fas fa-screwdriver-wrench"></i>Maint</a>
+  <a href="#infra" data-mob="infra"><i class="fas fa-network-wired"></i>Infra</a>
   <a href="#pricing" data-mob="pricing"><i class="fas fa-tag"></i>Pricing</a>
+  <a href="#blog" data-mob="blog"><i class="fas fa-book-open"></i>Blog</a>
   <a href="#support" data-mob="support"><i class="fas fa-headset"></i>Support</a>
   <a href="#contact" class="mob-cta" data-mob="contact"><i class="fas fa-rocket"></i>Start</a>
 </nav>
-<section id="home">
+<section id="home" class="page-section page-active">
   <div class="hero-grid">
     <div>
       <div class="hero-eyebrow">Enterprise IT & Hosting Solutions</div>
       <h1 class="hero-h1">
-        Powering the<br>
-        <span class="line2">Digital Backbone</span><br>
-        of Business
+        <span class="line1">Powering Your</span>
+        <span class="line2">Digital Backbone</span>
+        <span class="line3">for Business Growth</span>
       </h1>
       <p class="hero-sub">Enterprise-grade infrastructure, 24/7 expert DevOps teams, and complete managed IT — engineered to scale with you from startup to Fortune 500.</p>
       <div class="hero-actions">
@@ -497,9 +1027,50 @@ body.light footer{background:rgba(0,0,0,.02)}
       <div class="vis-chip c4"><i class="fas fa-clock"></i> 24/7 NOC</div>
     </div>
   </div>
-</section>
 
-<!-- MARQUEE -->
+  <div class="home-services rv d1">
+    <div class="home-services-head">
+      <div>
+        <div class="home-services-title">Explore Our Core Business Services</div>
+        <div class="home-services-sub">Managed End-to-End by RK Websolution</div>
+      </div>
+      <a href="#pricing" class="btn-o" style="padding:.55rem 1rem;font-size:.8rem"><i class="fas fa-tags"></i> View Plans</a>
+    </div>
+    <div class="home-services-grid">
+      <a class="svc-card" href="#hosting">
+        <span class="svc-ico"><i class="fas fa-server"></i></span>
+        <span class="svc-title">Web & Cloud Hosting</span>
+        <span class="svc-meta">Shared, VPS, dedicated and high-availability hosting stacks.</span>
+      </a>
+      <a class="svc-card" href="#development">
+        <span class="svc-ico p"><i class="fas fa-code"></i></span>
+        <span class="svc-title">Web Development</span>
+        <span class="svc-meta">Business websites, apps, e-commerce, and custom platforms.</span>
+      </a>
+      <a class="svc-card" href="#maintenance">
+        <span class="svc-ico g"><i class="fas fa-screwdriver-wrench"></i></span>
+        <span class="svc-title">Maintenance & Security</span>
+        <span class="svc-meta">Patch management, hardening, backups, and monitoring.</span>
+      </a>
+      <a class="svc-card" href="#support">
+        <span class="svc-ico o"><i class="fas fa-headset"></i></span>
+        <span class="svc-title">24/7 Technical Support</span>
+        <span class="svc-meta">Expert ticketing and incident response around the clock.</span>
+      </a>
+      <a class="svc-card" href="#infra">
+        <span class="svc-ico"><i class="fas fa-network-wired"></i></span>
+        <span class="svc-title">Infrastructure Solutions</span>
+        <span class="svc-meta">Architecture, scaling, migration, CI/CD and observability.</span>
+      </a>
+      <a class="svc-card" href="#contact">
+        <span class="svc-ico p"><i class="fas fa-briefcase"></i></span>
+        <span class="svc-title">Business Consulting</span>
+        <span class="svc-meta">Right-fit recommendations for budget, growth, and reliability.</span>
+      </a>
+    </div>
+  </div>
+
+<!-- MARQUEE (inside #home so it only shows on Home tab) -->
 <div class="marquee-wrap">
   <div class="marquee-inner" id="marquee">
     <div class="marquee-tag"><i class="fab fa-wordpress"></i> WordPress</div>
@@ -535,91 +1106,236 @@ body.light footer{background:rgba(0,0,0,.02)}
     <div class="marquee-tag"><i class="fas fa-chart-line"></i> Performance Tuning</div>
   </div>
 </div>
+</section><!-- end #home -->
 
 <!-- WEB HOSTING -->
-<section id="hosting" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Web Hosting Solutions</div>
-      <h2 class="sec-title">Reliable. Secure. <em>Scalable.</em></h2>
-      <div class="divider"></div>
-      <p class="sec-sub">Enterprise infrastructure with 99.9% uptime SLA, automated backups, real-time monitoring — built for everything from personal blogs to high-traffic platforms.</p>
-    </div>
-    <div class="grid-3">
-      <div class="card rv d1">
-        <div class="card-ico"><i class="fas fa-server"></i></div>
-        <h3>Shared & VPS Hosting</h3>
-        <p>Flexible, cost-effective plans for businesses of all sizes with guaranteed resources and root-level access.</p>
-        <ul class="feat">
-          <li><i class="fas fa-circle-check"></i> cPanel / Plesk control panel</li>
-          <li><i class="fas fa-circle-check"></i> VPS with full root access</li>
-          <li><i class="fas fa-circle-check"></i> Windows VPS & Forex VPS</li>
-          <li><i class="fas fa-circle-check"></i> ASP.Net Core Hosting</li>
-          <li><i class="fas fa-circle-check"></i> Instant provisioning</li>
-        </ul>
-        <div class="tags"><span class="tag">SSD NVMe</span><span class="tag">cPanel</span><span class="tag">Linux/Windows</span></div>
+<section id="hosting" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-server"></i> Web Hosting Solutions</div>
+        <div class="ph-title">Reliable.<br><em>Scalable.</em><br>Always Up.</div>
+        <p class="ph-sub">Enterprise-grade hosting infrastructure with 99.9% uptime SLA, NVMe SSDs, automated backups, and real-time monitoring — from personal blogs to Fortune 500 traffic.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-shield-alt"></i> DDoS Protected</span>
+          <span class="ph-badge"><i class="fas fa-lock"></i> Free SSL</span>
+          <span class="ph-badge"><i class="fas fa-bolt"></i> NVMe SSD</span>
+          <span class="ph-badge"><i class="fas fa-headset"></i> 24/7 NOC</span>
+        </div>
       </div>
-      <div class="card rv d2">
-        <div class="card-ico purple"><i class="fas fa-cloud"></i></div>
-        <h3>Cloud Hosting</h3>
-        <p>Infinitely scalable cloud architecture with automatic failover and distributed redundancy across global regions.</p>
-        <ul class="feat">
-          <li><i class="fas fa-circle-check purple"></i> Application & DB Hosting</li>
-          <li><i class="fas fa-circle-check purple"></i> Cloud VPS & Cluster Cloud</li>
-          <li><i class="fas fa-circle-check purple"></i> Auto-scaling resources</li>
-          <li><i class="fas fa-circle-check purple"></i> Backup & Disaster Recovery</li>
-          <li><i class="fas fa-circle-check purple"></i> Multi-region deployment</li>
-        </ul>
-        <div class="tags"><span class="tag p">Multi-Region</span><span class="tag p">Auto-Scale</span><span class="tag p">HA</span></div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-server"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">99.9%</div><div class="ph-stat-lbl">Uptime SLA</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">4.2ms</div><div class="ph-stat-lbl">Avg Latency</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">512+</div><div class="ph-stat-lbl">Active Nodes</div></div>
       </div>
-      <div class="card rv d3">
-        <div class="card-ico green"><i class="fas fa-shield-halved"></i></div>
-        <h3>Security & SSL</h3>
-        <p>Comprehensive protection stack with proactive threat detection, DDoS mitigation, and industry-standard encryption.</p>
-        <ul class="feat">
-          <li><i class="fas fa-circle-check green"></i> RapidSSL & Comodo Certs</li>
-          <li><i class="fas fa-circle-check green"></i> Wildcard & Multi-domain SSL</li>
-          <li><i class="fas fa-circle-check green"></i> DDoS mitigation up to 10 Tbps</li>
-          <li><i class="fas fa-circle-check green"></i> Real-time malware scanning</li>
-          <li><i class="fas fa-circle-check green"></i> WAF & IP reputation filter</li>
-        </ul>
-        <div class="tags"><span class="tag g">DDoS Protected</span><span class="tag g">WAF</span><span class="tag g">SSL/TLS 1.3</span></div>
-      </div>
-    </div>
-    <div class="grid-3" style="margin-top:1.25rem">
-      <div class="card card-wide rv d1">
-        <div class="card-ico gold"><i class="fas fa-server"></i></div>
-        <h3>Dedicated Servers</h3>
-        <p>Bare-metal performance with enterprise-grade hardware, customizable to your exact specifications. Full isolation, no shared resources — just raw power at your disposal.</p>
-        <div class="tags" style="margin-top:1rem"><span class="tag gold">Bare Metal</span><span class="tag gold">Custom HW Config</span><span class="tag gold">IPMI Access</span><span class="tag gold">RAID</span><span class="tag gold">10 Gbps NIC</span></div>
-      </div>
-      <div class="card rv d2">
-        <div class="card-ico"><i class="fas fa-rotate"></i></div>
-        <h3>Backup & Recovery</h3>
-        <p>Automated incremental backups with point-in-time recovery, geo-replicated storage, and sub-1-hour RTO.</p>
-        <ul class="feat">
-          <li><i class="fas fa-circle-check"></i> Daily / weekly / monthly cycles</li>
-          <li><i class="fas fa-circle-check"></i> Off-site geo-redundant storage</li>
-          <li><i class="fas fa-circle-check"></i> One-click restore</li>
-        </ul>
-      </div>
-    </div>
-    <div class="info-box rv">
-      <i class="fas fa-circle-info"></i>
-      <p><strong>WordPress & Magento Optimized:</strong> All hosting plans include pre-configured PHP-FPM, OPcache, Redis object caching, and Nginx rules tuned specifically for WordPress and Magento performance out of the box.</p>
     </div>
   </div>
+  <div class="cont" style="padding-top:3.5rem">
+
+    <!-- Row 1: Shared + Windows Shared -->
+    <div class="grid-2">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-server"></i></div>
+        <h3>Shared Hosting</h3>
+        <p>Reliable and affordable hosting solution designed for personal websites, blogs, and growing businesses. Fast performance, easy management, and secure hosting backed by enterprise-grade infrastructure.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check"></i> High-Speed SSD Storage</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> One-Click Application Installer</li>
+          <li><i class="fas fa-circle-check"></i> 99.9% Uptime Guarantee</li>
+          <li><i class="fas fa-circle-check"></i> 24/7 Technical Support</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag">SSD Storage</span><span class="tag">Free SSL</span><span class="tag">cPanel</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fab fa-windows"></i></div>
+        <h3>Windows Shared Hosting</h3>
+        <p>Optimized Windows hosting platform for ASP.NET, MSSQL, and Windows-based applications. Reliable performance, secure infrastructure, and seamless compatibility for Microsoft technologies.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check purple"></i> ASP.NET & MSSQL Support</li>
+          <li><i class="fas fa-circle-check purple"></i> Plesk Control Panel</li>
+          <li><i class="fas fa-circle-check purple"></i> High-Speed SSD Storage</li>
+          <li><i class="fas fa-circle-check purple"></i> Secure Windows Environment</li>
+          <li><i class="fas fa-circle-check purple"></i> 24/7 Technical Support</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag p">ASP.NET</span><span class="tag p">MSSQL</span><span class="tag p">Plesk</span></div>
+      </div>
+    </div>
+
+    <!-- Row 2: VPS + Windows VPS + Forex VPS -->
+    <div class="grid-3 hosting-single-row" style="margin-top:1.25rem">
+      <div class="card rv d1">
+        <div class="card-ico"><i class="fas fa-microchip"></i></div>
+        <h3>VPS Hosting</h3>
+        <p>Powerful VPS hosting built for high-performance websites, applications, and business workloads. Dedicated resources, full root access, and scalable infrastructure with enterprise-level reliability.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check"></i> Dedicated CPU & RAM Resources</li>
+          <li><i class="fas fa-circle-check"></i> Full Root Access</li>
+          <li><i class="fas fa-circle-check"></i> NVMe SSD Storage</li>
+          <li><i class="fas fa-circle-check"></i> Scalable Infrastructure</li>
+          <li><i class="fas fa-circle-check"></i> Advanced DDoS Protection</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag">NVMe SSD</span><span class="tag">Root Access</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico purple"><i class="fab fa-windows"></i></div>
+        <h3>Windows VPS Hosting</h3>
+        <p>Enterprise-grade Windows VPS servers designed for remote desktops, business applications, and Microsoft workloads. Dedicated resources, secure virtualization, and complete administrative control.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check purple"></i> Windows Server Support</li>
+          <li><i class="fas fa-circle-check purple"></i> Dedicated CPU & RAM</li>
+          <li><i class="fas fa-circle-check purple"></i> Remote Desktop Access (RDP)</li>
+          <li><i class="fas fa-circle-check purple"></i> NVMe SSD Storage</li>
+          <li><i class="fas fa-circle-check purple"></i> Secure & Scalable Infrastructure</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag p">RDP</span><span class="tag p">Windows Server</span></div>
+      </div>
+      <div class="card rv d3">
+        <div class="card-ico gold"><i class="fas fa-chart-line"></i></div>
+        <h3>Forex VPS Hosting</h3>
+        <p>Low-latency Forex VPS hosting optimized for uninterrupted automated trading and expert advisors (EA). Stable connectivity, faster execution, and 24/7 uptime for your trading platforms.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Ultra-Low Latency Network</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> 24/7 Uptime for Trading Bots</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Optimized for MT4 & MT5</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> High-Speed SSD Storage</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Secure & Reliable Infrastructure</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag gold">MT4 / MT5</span><span class="tag gold">Low Latency</span></div>
+      </div>
+    </div>
+
+    <!-- Row 3: Dedicated Server (wide) + Backup -->
+    <div class="grid-3" style="margin-top:1.25rem">
+      <div class="card card-wide hosting-spotlight rv d1">
+        <div class="card-ico gold"><i class="fas fa-hdd"></i></div>
+        <h3>Dedicated Server Hosting</h3>
+        <p>High-performance dedicated server hosting built for enterprise applications, high-traffic websites, and mission-critical workloads. Complete hardware isolation, maximum performance, and enterprise-grade security with fully dedicated infrastructure.</p>
+        <ul class="feat" style="margin-top:.9rem">
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> 100% Dedicated CPU & RAM Resources</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Enterprise Intel Xeon / AMD EPYC Processors</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Ultra-Fast NVMe SSD Storage</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> Advanced DDoS Protection & Secure Infrastructure</li>
+          <li><i class="fas fa-circle-check" style="color:var(--gold)"></i> 99.9% Uptime Guarantee with 24/7 Expert Support</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag gold">Bare Metal</span><span class="tag gold">Intel Xeon / AMD EPYC</span><span class="tag gold">IPMI Access</span><span class="tag gold">RAID</span><span class="tag gold">10 Gbps NIC</span></div>
+      </div>
+    </div>
+
+    <!-- Row 4: Odoo + n8n + ERPNext -->
+    <div class="grid-3" style="margin-top:1.25rem">
+      <div class="card rv d1">
+        <div class="card-ico purple"><i class="fas fa-cubes"></i></div>
+        <h3>Odoo Hosting</h3>
+        <p>Enterprise-grade Odoo hosting built for seamless ERP deployment, business automation, and scalable operations. Run your Odoo applications with high availability and optimized server performance.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check purple"></i> Optimized Odoo Environment</li>
+          <li><i class="fas fa-circle-check purple"></i> Dedicated & Scalable Resources</li>
+          <li><i class="fas fa-circle-check purple"></i> Automated Backup Solutions</li>
+          <li><i class="fas fa-circle-check purple"></i> Secure Business Infrastructure</li>
+          <li><i class="fas fa-circle-check purple"></i> 24/7 Technical Support</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag p">Odoo ERP</span><span class="tag p">Auto Backup</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico green"><i class="fas fa-diagram-project"></i></div>
+        <h3>n8n Hosting</h3>
+        <p>Reliable n8n hosting platform designed for workflow automation, integrations, and business process management. Deploy and scale automation workflows securely with high-performance cloud infrastructure.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check green"></i> Optimized Workflow Automation</li>
+          <li><i class="fas fa-circle-check green"></i> Secure & Scalable Infrastructure</li>
+          <li><i class="fas fa-circle-check green"></i> Docker & API Support</li>
+          <li><i class="fas fa-circle-check green"></i> Automated Backup & Monitoring</li>
+          <li><i class="fas fa-circle-check green"></i> High Availability Hosting</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag g">Docker</span><span class="tag g">API Ready</span><span class="tag g">HA</span></div>
+      </div>
+      <div class="card rv d3">
+        <div class="card-ico"><i class="fas fa-building-columns"></i></div>
+        <h3>ERPNext Hosting</h3>
+        <p>High-performance ERPNext hosting tailored for businesses managing ERP, accounting, HR, and operations on a single platform. Secure, scalable, and enterprise-ready infrastructure.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check"></i> Optimized ERPNext Performance</li>
+          <li><i class="fas fa-circle-check"></i> Secure Business Hosting Environment</li>
+          <li><i class="fas fa-circle-check"></i> Automated Backups & Monitoring</li>
+          <li><i class="fas fa-circle-check"></i> Scalable Infrastructure</li>
+          <li><i class="fas fa-circle-check"></i> 24/7 Technical Assistance</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag">ERPNext</span><span class="tag">Frappe</span><span class="tag">Auto Backup</span></div>
+      </div>
+    </div>
+
+    <!-- Row 5: Advanced Cloud (wide) + SSL -->
+    <div class="grid-3" style="margin-top:1.25rem">
+      <div class="card card-wide rv d1">
+        <div class="card-ico purple"><i class="fas fa-cloud"></i></div>
+        <h3>Advanced Cloud</h3>
+        <p>Enterprise-grade cloud infrastructure designed for scalability, performance, and high availability. Deploy applications, websites, and business workloads on secure and flexible cloud environments with maximum reliability.</p>
+        <div class="grid-2" style="margin-top:1rem;gap:.75rem">
+          <ul class="feat">
+            <li><i class="fas fa-circle-check purple"></i> Scalable Cloud Infrastructure</li>
+            <li><i class="fas fa-circle-check purple"></i> High Availability Architecture</li>
+            <li><i class="fas fa-circle-check purple"></i> SSD & NVMe Powered Storage</li>
+            <li><i class="fas fa-circle-check purple"></i> Load Balancing & Auto Scaling</li>
+            <li><i class="fas fa-circle-check purple"></i> Advanced Network Security</li>
+          </ul>
+          <ul class="feat">
+            <li><i class="fas fa-circle-check purple"></i> Dedicated & Private Cloud Options</li>
+            <li><i class="fas fa-circle-check purple"></i> Backup & Disaster Recovery</li>
+            <li><i class="fas fa-circle-check purple"></i> Multi-Location Deployment</li>
+            <li><i class="fas fa-circle-check purple"></i> API & Automation Ready</li>
+            <li><i class="fas fa-circle-check purple"></i> 24/7 Infrastructure Support</li>
+          </ul>
+        </div>
+        <div class="tags" style="margin-top:1rem"><span class="tag p">Multi-Region</span><span class="tag p">Auto-Scale</span><span class="tag p">HA</span><span class="tag p">Private Cloud</span><span class="tag p">DR Ready</span></div>
+      </div>
+      <div class="card rv d2">
+        <div class="card-ico green"><i class="fas fa-shield-halved"></i></div>
+        <h3>SSL Certificates</h3>
+        <p>Secure your website, applications, and customer data with trusted SSL certificates and advanced encryption. Build customer trust and protect online transactions with industry-standard SSL solutions.</p>
+        <ul class="feat">
+          <li><i class="fas fa-circle-check green"></i> Domain Validation (DV) SSL</li>
+          <li><i class="fas fa-circle-check green"></i> Organization Validation (OV) SSL</li>
+          <li><i class="fas fa-circle-check green"></i> Extended Validation (EV) SSL</li>
+          <li><i class="fas fa-circle-check green"></i> Wildcard SSL Certificates</li>
+          <li><i class="fas fa-circle-check green"></i> Multi-Domain SSL Support</li>
+          <li><i class="fas fa-circle-check green"></i> 256-Bit Encryption Security</li>
+          <li><i class="fas fa-circle-check green"></i> SSL Installation Assistance</li>
+        </ul>
+        <div class="tags" style="margin-top:1rem"><span class="tag g">DV / OV / EV</span><span class="tag g">Wildcard</span><span class="tag g">256-bit</span></div>
+      </div>
+    </div>
+
+  </div><!-- /.cont -->
 </section>
 
 <!-- DEVELOPMENT -->
-<section id="development" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Website & App Development</div>
-      <h2 class="sec-title">Custom Digital <em>Experiences</em></h2>
-      <div class="divider"></div>
-      <p class="sec-sub">From sleek corporate websites to full-scale eCommerce platforms and mobile apps — we design, develop, and deploy digital products that perform.</p>
+<section id="development" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-code"></i> Website & App Development</div>
+        <div class="ph-title">Build<br><em>Digital</em><br>Products.</div>
+        <p class="ph-sub">From sleek corporate websites to full-scale eCommerce platforms and mobile apps — we design, develop, and deploy digital products that perform and convert.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fab fa-react"></i> React / Next.js</span>
+          <span class="ph-badge"><i class="fab fa-wordpress"></i> WordPress</span>
+          <span class="ph-badge"><i class="fas fa-cart-shopping"></i> eCommerce</span>
+          <span class="ph-badge"><i class="fas fa-mobile-screen"></i> Mobile Apps</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-laptop-code"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">150+</div><div class="ph-stat-lbl">Projects Shipped</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">12+</div><div class="ph-stat-lbl">Frameworks</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">48h</div><div class="ph-stat-lbl">Avg Kickoff</div></div>
+      </div>
     </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
     <div class="grid-2">
       <div class="card rv d1">
         <div class="card-ico purple"><i class="fab fa-wordpress"></i></div>
@@ -667,18 +1383,34 @@ body.light footer{background:rgba(0,0,0,.02)}
         <div class="tags"><span class="tag g">REST</span><span class="tag g">GraphQL</span><span class="tag g">Webhooks</span></div>
       </div>
     </div>
-  </div>
+  </div><!-- /.cont -->
 </section>
 
 <!-- MAINTENANCE -->
-<section id="maintenance" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Maintenance & Monitoring</div>
-      <h2 class="sec-title">Proactive. Precise. <em>Always On.</em></h2>
-      <div class="divider"></div>
-      <p class="sec-sub">We don't wait for things to break. Our NOC team monitors, patches, and optimizes your infrastructure around the clock — 365 days a year.</p>
+<section id="maintenance" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-screwdriver-wrench"></i> Maintenance & Monitoring</div>
+        <div class="ph-title">Proactive.<br><em>Always On.</em><br>365 Days.</div>
+        <p class="ph-sub">We don't wait for things to break. Our NOC team monitors, patches, and optimizes your infrastructure around the clock — before issues ever reach your users.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-radar"></i> Real-Time Monitoring</span>
+          <span class="ph-badge"><i class="fas fa-shield-virus"></i> Security Patches</span>
+          <span class="ph-badge"><i class="fas fa-gauge-high"></i> Performance Audits</span>
+          <span class="ph-badge"><i class="fas fa-clock"></i> &lt;15 Min SLA</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-radar"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">24/7</div><div class="ph-stat-lbl">NOC Coverage</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">&lt;15m</div><div class="ph-stat-lbl">Response SLA</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">0</div><div class="ph-stat-lbl">Open Incidents</div></div>
+      </div>
     </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
     <div class="grid-3">
       <div class="card rv d1">
         <div class="card-ico"><i class="fas fa-gauge-high"></i></div>
@@ -738,18 +1470,34 @@ body.light footer{background:rgba(0,0,0,.02)}
         </ul>
       </div>
     </div>
-  </div>
+  </div><!-- /.cont -->
 </section>
 
 <!-- SUPPORT & DEVOPS -->
-<section id="support" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Tech Support & DevOps</div>
-      <h2 class="sec-title">Expert Teams. <em>Zero Gaps.</em></h2>
-      <div class="divider"></div>
-      <p class="sec-sub">White-label support, dedicated engineers, and end-to-end DevOps management — structured for service providers, agencies, and enterprises.</p>
+<section id="support" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-headset"></i> Tech Support & DevOps</div>
+        <div class="ph-title">Expert<br><em>Teams.</em><br>Zero Gaps.</div>
+        <p class="ph-sub">White-label support, dedicated engineers, and end-to-end DevOps management — structured for service providers, agencies, and enterprises that demand excellence.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-infinity"></i> DevOps as a Service</span>
+          <span class="ph-badge"><i class="fab fa-docker"></i> Docker / K8s</span>
+          <span class="ph-badge"><i class="fas fa-tag"></i> White-Label Ready</span>
+          <span class="ph-badge"><i class="fas fa-user-tie"></i> Named Engineer</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-headset"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">500+</div><div class="ph-stat-lbl">Clients Served</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">48h</div><div class="ph-stat-lbl">Onboarding</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">40%</div><div class="ph-stat-lbl">Avg Cost Saved</div></div>
+      </div>
     </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
     <div class="grid-2">
       <div class="card rv d1">
         <div class="card-ico"><i class="fas fa-headset"></i></div>
@@ -793,18 +1541,34 @@ body.light footer{background:rgba(0,0,0,.02)}
       <div class="proc-step"><div class="proc-num">04</div><h4>Deployment</h4><p>Zero-downtime migration or launch with full monitoring activated</p></div>
       <div class="proc-step"><div class="proc-num">05</div><h4>Ongoing Support</h4><p>24/7 NOC, monthly reports, quarterly reviews, and continuous optimization</p></div>
     </div>
-  </div>
+  </div><!-- /.cont -->
 </section>
 
 <!-- INFRASTRUCTURE & SOFTWARE -->
-<section id="infra" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Infrastructure & Software</div>
-      <h2 class="sec-title">Infrastructure at <em>Enterprise Scale</em></h2>
-      <div class="divider"></div>
-      <p class="sec-sub">Complete IT systems design, custom software development, enterprise cloud architecture, and advanced security — all under one roof.</p>
+<section id="infra" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-network-wired"></i> Infrastructure & Software</div>
+        <div class="ph-title">Enterprise<br><em>Scale</em><br>Architecture.</div>
+        <p class="ph-sub">Complete IT systems design, custom software development, enterprise cloud architecture, and advanced security — all engineered under one roof for maximum reliability.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fab fa-aws"></i> AWS / GCP / Azure</span>
+          <span class="ph-badge"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
+          <span class="ph-badge"><i class="fas fa-shield-alt"></i> Zero-Trust Security</span>
+          <span class="ph-badge"><i class="fas fa-code-branch"></i> CI/CD Pipelines</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-network-wired"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">3</div><div class="ph-stat-lbl">Cloud Providers</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">12+</div><div class="ph-stat-lbl">Tech Stack Items</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">0</div><div class="ph-stat-lbl">Single POF</div></div>
+      </div>
     </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
     <div class="grid-3">
       <div class="card rv d1">
         <div class="card-ico"><i class="fas fa-network-wired"></i></div>
@@ -861,17 +1625,34 @@ body.light footer{background:rgba(0,0,0,.02)}
       <div class="stack-item"><i class="fas fa-chart-area" style="color:var(--accent2)"></i><span>Grafana</span></div>
       <div class="stack-item"><i class="fas fa-shield-alt" style="color:var(--accent3)"></i><span>Cloudflare</span></div>
     </div>
-  </div>
+  </div><!-- /.cont -->
 </section>
 
 <!-- WHY US -->
-<section id="why" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Why NexusCore</div>
-      <h2 class="sec-title">The Standard Others <em>Benchmark Against</em></h2>
-      <div class="divider"></div>
+<section id="why" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-trophy"></i> Why RK Websolution</div>
+        <div class="ph-title">The Standard<br>Others<br><em>Benchmark.</em></div>
+        <p class="ph-sub">12 years, 500+ clients, and zero compromises. Discover why enterprise teams and growing agencies consistently choose RK Websolution as their trusted IT backbone.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-clock-rotate-left"></i> &lt;15 Min SLA</span>
+          <span class="ph-badge"><i class="fas fa-user-tie"></i> Named Engineer</span>
+          <span class="ph-badge"><i class="fas fa-handshake"></i> White-Label</span>
+          <span class="ph-badge"><i class="fas fa-coins"></i> Cost Optimization</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-trophy"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">12</div><div class="ph-stat-lbl">Years Experience</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">500+</div><div class="ph-stat-lbl">Clients</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">20-40%</div><div class="ph-stat-lbl">Avg Cost Savings</div></div>
+      </div>
     </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
     <div class="why-grid">
       <div class="why-list rv">
         <div class="why-item">
@@ -927,26 +1708,41 @@ body.light footer{background:rgba(0,0,0,.02)}
         </div>
       </div>
     </div>
-  </div>
+  </div><!-- /.cont -->
 </section>
 
 <!-- TESTIMONIALS -->
-<section id="testimonials" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Client Testimonials</div>
-      <h2 class="sec-title">Trusted by <em>Growing Businesses</em></h2>
-      <div class="divider"></div>
+<section id="testimonials" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-star"></i> Client Testimonials</div>
+        <div class="ph-title">Trusted by<br><em>Growing</em><br>Businesses.</div>
+        <p class="ph-sub">Don't take our word for it. Hear directly from CTOs, agency directors, and startup founders who've made RK Websolution their long-term infrastructure partner.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-star"></i> 5-Star Rated</span>
+          <span class="ph-badge"><i class="fas fa-users"></i> 500+ Clients</span>
+          <span class="ph-badge"><i class="fas fa-globe"></i> Worldwide</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-quote-left"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">4.9★</div><div class="ph-stat-lbl">Avg Rating</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">98%</div><div class="ph-stat-lbl">CSAT Score</div></div>
+      </div>
     </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
     <div class="testi-grid">
       <div class="testi-card rv d1">
         <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <p class="testi-quote">"NexusCore migrated our entire infrastructure to the cloud with zero downtime. Their team responded to every question in minutes. Best hosting partner we've ever had."</p>
+        <p class="testi-quote">"RK Websolution migrated our entire infrastructure to the cloud with zero downtime. Their team responded to every question in minutes. Best hosting partner we've ever had."</p>
         <div class="testi-author"><div class="testi-av">AM</div><div><div class="testi-name">Alex Mitchell</div><div class="testi-role">CTO @ ScaleForce Inc.</div></div></div>
       </div>
       <div class="testi-card rv d2">
         <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-        <p class="testi-quote">"We resell NexusCore's white-label support to 200+ clients and our CSAT scores have never been higher. They feel like an internal team, not a vendor."</p>
+        <p class="testi-quote">"We resell RK Websolution's white-label support to 200+ clients and our CSAT scores have never been higher. They feel like an internal team, not a vendor."</p>
         <div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--accent2),var(--accent3))">SR</div><div><div class="testi-name">Sophia Reeves</div><div class="testi-role">Director @ HostBridge Agency</div></div></div>
       </div>
       <div class="testi-card rv d3">
@@ -955,85 +1751,407 @@ body.light footer{background:rgba(0,0,0,.02)}
         <div class="testi-author"><div class="testi-av" style="background:linear-gradient(135deg,var(--accent3),var(--gold))">KP</div><div><div class="testi-name">Karan Patel</div><div class="testi-role">Founder @ BuildStack</div></div></div>
       </div>
     </div>
-  </div>
+  </div><!-- /.cont -->
 </section>
 
 <!-- PRICING -->
-<section id="pricing" class="section">
-  <div class="cont">
-    <div class="sec-head rv">
-      <div class="sec-label">Pricing Plans</div>
-      <h2 class="sec-title">Simple, <em>Transparent Pricing</em></h2>
-      <div class="divider"></div>
-      <p class="sec-sub">No hidden fees, no surprise bills. Choose a plan that scales with your needs or contact us for a custom enterprise quote.</p>
+<section id="pricing" class="section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-tag"></i> Pricing Plans</div>
+        <div class="ph-title">Simple.<br><em>Transparent.</em><br>No Surprises.</div>
+        <p class="ph-sub">No hidden fees, no surprise bills. Choose a plan that scales with your needs, or contact us for a fully custom enterprise quote tailored to your stack.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-calendar-check"></i> Month-to-Month</span>
+          <span class="ph-badge"><i class="fas fa-shield-check"></i> SLA Backed</span>
+          <span class="ph-badge"><i class="fas fa-rocket"></i> Instant Setup</span>
+          <span class="ph-badge"><i class="fas fa-handshake"></i> Custom Plans</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-tag"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">₹3,749</div><div class="ph-stat-lbl">Starts From</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">6</div><div class="ph-stat-lbl">Plan Tiers</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">Custom</div><div class="ph-stat-lbl">Enterprise Quotes</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cont" style="padding-top:3.5rem">
+
+    <!-- Row 1: Website Plans -->
+    <div style="margin-bottom:1rem" class="rv">
+      <div class="sec-label">Website Plans</div>
+    </div>
+    <div class="price-grid">
+      <!-- Standard Plan -->
+      <div class="price-card rv d1">
+        <div class="price-tier">For Beginners</div>
+        <div class="price-name">Standard Plan</div>
+        <div class="price-num"><sup>₹</sup>3,749<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> + 18% GST ₹675</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> 5 Pages Website</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Domain Name (.com .in .org)</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Cloud Hosting</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Website (Premium Design)</li>
+          <li><i class="fas fa-circle-check"></i> Admin Access</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime 24/7 Free Hosting Support</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited Images &amp; Videos Upload</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> 5 Free Email Id</li>
+          <li><i class="fas fa-circle-check"></i> SEO Friendly Website</li>
+          <li><i class="fas fa-circle-check"></i> 100% Responsive Website</li>
+          <li><i class="fas fa-circle-check"></i> Live Chat Integration</li>
+          <li><i class="fas fa-circle-check"></i> Payment Gateway Integration</li>
+          <li><i class="fas fa-circle-check"></i> Social Media Integration</li>
+          <li><i class="fas fa-circle-check"></i> Call Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> WhatsApp Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> Inquiry Form</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Technical Support For Website</li>
+          <li><i class="fas fa-circle-check"></i> Annual Renewal For Hosting Rs.2,250</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Get Started</a>
+      </div>
+
+      <!-- Premium Plan -->
+      <div class="price-card featured rv d2">
+        <div class="price-badge">MOST POPULAR</div>
+        <div class="price-tier">For Growing Businesses</div>
+        <div class="price-name">Premium Plan</div>
+        <div class="price-num"><sup>₹</sup>7,500<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> + 18% GST ₹1,350</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> 12 Pages Website</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Domain Name (.com .in .org)</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Cloud Hosting</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Designer Logo (3 samples)</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Website (Premium Design)</li>
+          <li><i class="fas fa-circle-check"></i> Admin Access</li>
+          <li><i class="fas fa-circle-check"></i> Google Search Console Setup</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime 24/7 Free Hosting Support</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited Images &amp; Videos Upload</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> 10 Free Email Id</li>
+          <li><i class="fas fa-circle-check"></i> SEO Friendly Website</li>
+          <li><i class="fas fa-circle-check"></i> 100% Responsive Website</li>
+          <li><i class="fas fa-circle-check"></i> Live Chat Integration</li>
+          <li><i class="fas fa-circle-check"></i> Payment Gateway Integration</li>
+          <li><i class="fas fa-circle-check"></i> Social Media Integration</li>
+          <li><i class="fas fa-circle-check"></i> Call Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> WhatsApp Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> Inquiry Form</li>
+          <li><i class="fas fa-circle-check"></i> Woocommerce Features</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Technical Support For Website</li>
+          <li><i class="fas fa-circle-check"></i> Annual Renewal For Hosting Rs.2,250</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Get Started</a>
+      </div>
+
+      <!-- Custom Plan -->
+      <div class="price-card rv d3">
+        <div class="price-tier">For Enterprises</div>
+        <div class="price-name">Custom Plan</div>
+        <div class="price-num"><sup>₹</sup>????<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> + 18% GST Applicable</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> Pages: According to Requirement</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Domain Name (.com .in .org)</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Cloud Hosting</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Website</li>
+          <li><i class="fas fa-circle-check"></i> Admin Access</li>
+          <li><i class="fas fa-circle-check"></i> Google Search Console Setup</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime 24/7 Free Hosting Support</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited Images &amp; Videos Upload</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> 10 Free Email Id</li>
+          <li><i class="fas fa-circle-check"></i> SEO Friendly Website</li>
+          <li><i class="fas fa-circle-check"></i> 100% Responsive Website</li>
+          <li><i class="fas fa-circle-check"></i> Live Chat Integration</li>
+          <li><i class="fas fa-circle-check"></i> Social Media Integration</li>
+          <li><i class="fas fa-circle-check"></i> Call Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> WhatsApp Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> Inquiry Form</li>
+          <li><i class="fas fa-circle-check"></i> Woocommerce Features</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year 24/7 Free Support For Website</li>
+          <li><i class="fas fa-circle-check"></i> Annual Renewal Rs.3,000</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Contact Sales</a>
+      </div>
+    </div>
+
+    <!-- Row 2: E-Commerce Plans -->
+    <div style="margin:3rem 0 1rem" class="rv">
+      <div class="sec-label">E-Commerce Plans</div>
+    </div>
+    <div class="price-grid">
+      <!-- Premium Design E-Commerce Plan -->
+      <div class="price-card rv d1">
+        <div class="price-tier">E-Commerce</div>
+        <div class="price-name">Premium Design</div>
+        <div class="price-num"><sup>₹</sup>11,249<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> + 18% GST ₹2,025</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> 30 Pages Website</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Domain Name (.com .in .org)</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Cloud Hosting</li>
+          <li><i class="fas fa-circle-check"></i> 20 Product Categories</li>
+          <li><i class="fas fa-circle-check"></i> 30 Product Listing From Our Side</li>
+          <li><i class="fas fa-circle-check"></i> Premium Design</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Website</li>
+          <li><i class="fas fa-circle-check"></i> Admin Access</li>
+          <li><i class="fas fa-circle-check"></i> Google Search Console Setup</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime 24/7 Free Hosting Support</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited Images &amp; Videos Upload</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> 10 Free Email Id</li>
+          <li><i class="fas fa-circle-check"></i> Premium Theme</li>
+          <li><i class="fas fa-circle-check"></i> SEO Friendly Website</li>
+          <li><i class="fas fa-circle-check"></i> 100% Responsive Website</li>
+          <li><i class="fas fa-circle-check"></i> Live Chat Integration</li>
+          <li><i class="fas fa-circle-check"></i> Payment Gateway Integration</li>
+          <li><i class="fas fa-circle-check"></i> Social Media Integration</li>
+          <li><i class="fas fa-circle-check"></i> Call Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> WhatsApp Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> Inquiry Form</li>
+          <li><i class="fas fa-circle-check"></i> Ecommece Features</li>
+          <li><i class="fas fa-circle-check"></i> Product Variation Features</li>
+          <li><i class="fas fa-circle-check"></i> Auto Invoice Bill Generater Features</li>
+          <li><i class="fas fa-circle-check"></i> Wallet System Features</li>
+          <li><i class="fas fa-circle-check"></i> Order Notification Features</li>
+          <li><i class="fas fa-circle-check"></i> OTP Verification Features</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Technical Support For Website</li>
+          <li><i class="fas fa-circle-check"></i> Annual Renewal For Hosting Rs.3,000</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Get Started</a>
+      </div>
+
+      <!-- Multi-Vendor Business & E-Commerce Plan -->
+      <div class="price-card featured rv d2">
+        <div class="price-badge">MOST POPULAR</div>
+        <div class="price-tier">Multi-Vendor Business</div>
+        <div class="price-name">E-Commerce Plan</div>
+        <div class="price-num"><sup>₹</sup>30,000<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> + 18% GST ₹5,400</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> 40 Pages Website</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Domain Name (.com .in .org)</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Cloud Hosting</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Designer Logo (3 Samples)</li>
+          <li><i class="fas fa-circle-check"></i> 50 Products Categories</li>
+          <li><i class="fas fa-circle-check"></i> 30 Products Listing from our side</li>
+          <li><i class="fas fa-circle-check"></i> Premium Design</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Website</li>
+          <li><i class="fas fa-circle-check"></i> Admin Access</li>
+          <li><i class="fas fa-circle-check"></i> Google Search Console Setup</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Multi-Vendor Website</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime 24/7 Free Hosting Support</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited Images &amp; Videos Upload</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> 20 Free Email Id</li>
+          <li><i class="fas fa-circle-check"></i> SEO Friendly Website</li>
+          <li><i class="fas fa-circle-check"></i> 100% Responsive Website</li>
+          <li><i class="fas fa-circle-check"></i> Live Chat Integration</li>
+          <li><i class="fas fa-circle-check"></i> Payment Gateway Integration</li>
+          <li><i class="fas fa-circle-check"></i> Social Media Integration</li>
+          <li><i class="fas fa-circle-check"></i> Call Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> WhatsApp Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> Inquiry Form</li>
+          <li><i class="fas fa-circle-check"></i> Multi-Level Ecommece Features</li>
+          <li><i class="fas fa-circle-check"></i> Product Variation Features</li>
+          <li><i class="fas fa-circle-check"></i> Auto Invoice Bill Generater Features</li>
+          <li><i class="fas fa-circle-check"></i> Wallet System Features</li>
+          <li><i class="fas fa-circle-check"></i> Order Notification Features</li>
+          <li><i class="fas fa-circle-check"></i> OTP Verification Features</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Technical Support For Website</li>
+          <li><i class="fas fa-circle-check"></i> Annual Renewal For Hosting Rs.3,000</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Get Started</a>
+      </div>
+
+      <!-- Custom Multi-Vendor Business & E-Commerce Plan -->
+      <div class="price-card rv d3">
+        <div class="price-tier">Custom Multi-Vendor</div>
+        <div class="price-name">E-Commerce Plan</div>
+        <div class="price-num"><sup>₹</sup>????<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> + 18% GST Applicable</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> Pages: According to Requirement</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Domain Name (.com .in .org)</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Cloud Hosting</li>
+          <li><i class="fas fa-circle-check"></i> ?? Products Categories</li>
+          <li><i class="fas fa-circle-check"></i> ?? Products Listing from our side</li>
+          <li><i class="fas fa-circle-check"></i> Premium Design</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Website</li>
+          <li><i class="fas fa-circle-check"></i> Admin Access</li>
+          <li><i class="fas fa-circle-check"></i> Google Search Console Setup</li>
+          <li><i class="fas fa-circle-check"></i> Dynamic Multi-Vendor Website</li>
+          <li><i class="fas fa-circle-check"></i> Lifetime 24/7 Free Hosting Support</li>
+          <li><i class="fas fa-circle-check"></i> Unlimited Images &amp; Videos Upload</li>
+          <li><i class="fas fa-circle-check"></i> Free SSL Certificates</li>
+          <li><i class="fas fa-circle-check"></i> 20 Free Email Id</li>
+          <li><i class="fas fa-circle-check"></i> SEO Friendly Website</li>
+          <li><i class="fas fa-circle-check"></i> 100% Responsive Website</li>
+          <li><i class="fas fa-circle-check"></i> Live Chat Integration</li>
+          <li><i class="fas fa-circle-check"></i> Payment Gateway Integration</li>
+          <li><i class="fas fa-circle-check"></i> Social Media Integration</li>
+          <li><i class="fas fa-circle-check"></i> Call Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> WhatsApp Button Integration</li>
+          <li><i class="fas fa-circle-check"></i> Inquiry Form</li>
+          <li><i class="fas fa-circle-check"></i> Multi-Level Ecommece Features</li>
+          <li><i class="fas fa-circle-check"></i> Product Variation Features</li>
+          <li><i class="fas fa-circle-check"></i> Auto Invoice Bill Generater Features</li>
+          <li><i class="fas fa-circle-check"></i> Wallet System Features</li>
+          <li><i class="fas fa-circle-check"></i> Order Notification Features</li>
+          <li><i class="fas fa-circle-check"></i> OTP Verification Features</li>
+          <li><i class="fas fa-circle-check"></i> 1 Year Free Technical Support For Website</li>
+          <li><i class="fas fa-circle-check"></i> Annual Renewal For Hosting Rs.3,000</li>
+        </ul>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Contact Sales</a>
+      </div>
+    </div>
+
+    <!-- Row 3: Managed Services (Monthly) -->
+    <div style="margin:3rem 0 1rem" class="rv">
+      <div class="sec-label">Managed Services (Monthly)</div>
     </div>
     <div class="price-grid">
       <div class="price-card rv d1">
-        <div class="price-tier">Starter</div>
-        <div class="price-name">Launchpad</div>
-        <div class="price-num"><sup>$</sup>49<span>/mo</span></div>
-        <p class="price-desc">Perfect for small businesses and startups getting their digital foundation in place.</p>
-        <ul class="price-feats">
-          <li><i class="fas fa-circle-check"></i> 1 VPS — 2 vCPU / 4GB RAM</li>
-          <li><i class="fas fa-circle-check"></i> 100GB NVMe SSD</li>
-          <li><i class="fas fa-circle-check"></i> Free SSL certificate</li>
-          <li><i class="fas fa-circle-check"></i> Daily backups (7-day retention)</li>
-          <li><i class="fas fa-circle-check"></i> Email & chat support</li>
-          <li class="no"><i class="fas fa-xmark"></i> White-label support</li>
-          <li class="no"><i class="fas fa-xmark"></i> Dedicated engineer</li>
+        <div class="price-tier">Market Benchmark</div>
+        <div class="price-name">Fully Managed VPS</div>
+        <div class="price-num"><sup>$</sup>12.00<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> / month</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> Typical market-managed VPS service rate</li>
+          <li><i class="fas fa-circle-check"></i> Website issue handling and troubleshooting</li>
+          <li><i class="fas fa-circle-check"></i> Application installation and configuration</li>
+          <li><i class="fas fa-circle-check"></i> Vendor patch installation and upkeep</li>
         </ul>
-        <a href="#contact" class="price-btn">Get Started</a>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Get VPS Support</a>
       </div>
-      <div class="price-card featured rv d2">
-        <div class="price-badge">MOST POPULAR</div>
-        <div class="price-tier">Growth</div>
-        <div class="price-name">Scale</div>
-        <div class="price-num"><sup>$</sup>199<span>/mo</span></div>
-        <p class="price-desc">For growing companies that need reliability, security, and proactive management.</p>
-        <ul class="price-feats">
-          <li><i class="fas fa-circle-check"></i> 3 VPS — Up to 8 vCPU / 16GB</li>
-          <li><i class="fas fa-circle-check"></i> 500GB NVMe + CDN</li>
-          <li><i class="fas fa-circle-check"></i> Wildcard SSL + DDoS protection</li>
-          <li><i class="fas fa-circle-check"></i> Hourly backups (30-day retention)</li>
-          <li><i class="fas fa-circle-check"></i> 24/7 phone, chat & email</li>
-          <li><i class="fas fa-circle-check"></i> Monthly performance report</li>
-          <li class="no"><i class="fas fa-xmark"></i> Dedicated engineer</li>
+
+      <div class="price-card rv d2">
+        <div class="price-tier">Market Benchmark</div>
+        <div class="price-name">Fully Managed Dedicated Server</div>
+        <div class="price-num"><sup>$</sup>90.00<span style="font-size:.8rem;color:var(--text-muted);font-weight:400"> / month</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> Typical market-managed dedicated service rate</li>
+          <li><i class="fas fa-circle-check"></i> Advanced server administration and support</li>
+          <li><i class="fas fa-circle-check"></i> Application stack setup and optimization</li>
+          <li><i class="fas fa-circle-check"></i> Security patches and maintenance updates</li>
         </ul>
-        <a href="#contact" class="price-btn">Get Started</a>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Get Dedicated Support</a>
       </div>
-      <div class="price-card rv d3">
-        <div class="price-tier">Enterprise</div>
-        <div class="price-name">Nexus Pro</div>
-        <div class="price-num"><sup>$</sup>599<span>/mo</span></div>
-        <p class="price-desc">Full-service managed IT — unlimited servers, white-label support, and a dedicated engineer.</p>
-        <ul class="price-feats">
-          <li><i class="fas fa-circle-check"></i> Unlimited managed servers</li>
-          <li><i class="fas fa-circle-check"></i> Full DevOps team access</li>
-          <li><i class="fas fa-circle-check"></i> White-label support included</li>
-          <li><i class="fas fa-circle-check"></i> Dedicated account engineer</li>
-          <li><i class="fas fa-circle-check"></i> &lt;15 min emergency SLA</li>
-          <li><i class="fas fa-circle-check"></i> Custom SLA agreement</li>
-          <li><i class="fas fa-circle-check"></i> Quarterly strategy reviews</li>
+
+      <div class="price-card featured rv d3">
+        <div class="price-badge">AFFORDABLE • 25% LESS</div>
+        <div class="price-tier">RK Websolution Offer</div>
+        <div class="price-name">Affordable Managed Plans</div>
+        <div class="price-num"><sup>$</sup>9.00 <span style="font-size:.8rem;color:var(--text-muted);font-weight:400">VPS</span> / <sup>$</sup>67.50 <span style="font-size:.8rem;color:var(--text-muted);font-weight:400">Dedicated</span></div>
+        <ul class="price-feats" style="margin-top:1rem">
+          <li><i class="fas fa-circle-check"></i> 25% lower than common managed-service market rates</li>
+          <li><i class="fas fa-circle-check"></i> Includes website issue support and resolution</li>
+          <li><i class="fas fa-circle-check"></i> Includes app installation and configuration tasks</li>
+          <li><i class="fas fa-circle-check"></i> Includes vendor patch releases and updates</li>
         </ul>
-        <a href="#contact" class="price-btn">Contact Sales</a>
+        <a href="#contact" class="price-btn" style="margin-top:1.5rem">Claim Affordable Plan</a>
       </div>
     </div>
     <div class="info-box rv" style="margin-top:2rem">
       <i class="fas fa-handshake"></i>
       <p><strong>Custom Enterprise Plans Available.</strong> Need a tailored solution with specific SLAs, compliance requirements, or white-label configurations? <a href="#contact" style="color:var(--accent);text-decoration:none;font-weight:500">Talk to our sales team →</a></p>
     </div>
+  </div><!-- /.cont -->
+</section>
+
+<!-- BLOG -->
+<section id="blog" class="section page-section">
+  <div class="page-hero">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-book-open"></i> Insights & Resources</div>
+        <div class="ph-title">Blog &<br><em>Practical Guides</em></div>
+        <p class="ph-sub">Actionable tutorials, infrastructure checklists, and engineering playbooks to help teams launch faster and run reliably.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-pen-nib"></i> Weekly Articles</span>
+          <span class="ph-badge"><i class="fas fa-layer-group"></i> Dev + Ops Focus</span>
+          <span class="ph-badge"><i class="fas fa-bolt"></i> Actionable Tips</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-newspaper"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">40+</div><div class="ph-stat-lbl">Published Guides</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">4.9★</div><div class="ph-stat-lbl">Reader Rating</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cont" style="padding-top:3rem">
+    <div class="sec-head rv">
+      <div class="sec-label">Latest From Our Team</div>
+      <h2 class="sec-title">Learn. Build. <em>Scale.</em></h2>
+      <p class="sec-sub">Curated content for founders, developers, and DevOps teams working on high-performance, secure digital products.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="blog-grid">
+      <article class="blog-card rv d1">
+        <div class="blog-thumb"><span class="blog-pill">Hosting</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">May 2026 • 7 min read</div>
+          <h3 class="blog-title">How to Choose Hosting That Survives Traffic Spikes</h3>
+          <p class="blog-desc">A practical framework to compare shared, VPS, cloud, and dedicated infrastructure based on your growth stage.</p>
+          <a href="#contact" class="blog-link">Read article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      <article class="blog-card rv d2">
+        <div class="blog-thumb"><span class="blog-pill">DevOps</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">May 2026 • 9 min read</div>
+          <h3 class="blog-title">Zero-Downtime Deployment Checklist for Production Teams</h3>
+          <p class="blog-desc">Step-by-step release strategy with rollback, database migration safety, health checks, and observability best practices.</p>
+          <a href="#contact" class="blog-link">Read article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+      <article class="blog-card rv d3">
+        <div class="blog-thumb"><span class="blog-pill">Security</span></div>
+        <div class="blog-body">
+          <div class="blog-meta">May 2026 • 6 min read</div>
+          <h3 class="blog-title">Website Security Baseline: SSL, Backups, and Monitoring</h3>
+          <p class="blog-desc">The minimum security stack every business site should implement to reduce downtime, data loss, and trust risk.</p>
+          <a href="#contact" class="blog-link">Read article <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </article>
+    </div>
+    <div class="blog-cta rv">
+      <p><strong>Want monthly infra playbooks?</strong> Get practical updates and templates from our engineering team.</p>
+      <a href="#contact" class="btn-p"><i class="fas fa-paper-plane"></i> Subscribe / Get Updates</a>
+    </div>
   </div>
 </section>
 
 <!-- CTA + CONTACT -->
-<section id="contact" class="cta-section">
-  <div class="cta-inner rv">
+<section id="contact" class="cta-section page-section">
+  <!-- PAGE HERO -->
+  <div class="page-hero" style="text-align:left">
+    <div class="ph-inner">
+      <div class="ph-left">
+        <div class="ph-breadcrumb"><i class="fas fa-envelope"></i> Get In Touch</div>
+        <div class="ph-title">Let's Build<br>Something<br><em>Great.</em></div>
+        <p class="ph-sub">Ready to upgrade your infrastructure or start a new project? Reach out to our team for a free audit, custom quote, or just a conversation about what you need.</p>
+        <div class="ph-badges">
+          <span class="ph-badge"><i class="fas fa-clock"></i> 2h Response</span>
+          <span class="ph-badge"><i class="fas fa-comment-dots"></i> Live Chat 24/7</span>
+          <span class="ph-badge"><i class="fas fa-phone"></i> +91 99782 47432</span>
+          <span class="ph-badge"><i class="fab fa-whatsapp"></i> WhatsApp Available</span>
+        </div>
+      </div>
+      <div class="ph-right">
+        <div class="ph-icon-wrap"><i class="fas fa-headset"></i></div>
+        <div class="ph-stat"><div class="ph-stat-val">2h</div><div class="ph-stat-lbl">Avg Response</div></div>
+        <div class="ph-stat"><div class="ph-stat-val">Free</div><div class="ph-stat-lbl">Infra Audit</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cta-inner rv" style="padding-top:3rem">
     <div class="hero-eyebrow" style="justify-content:center;margin:0 auto 1.5rem">Ready to Scale?</div>
     <h2 class="sec-title" style="font-size:clamp(2.2rem,4.5vw,3.8rem);letter-spacing:-2px;text-align:center;max-width:none">Your infrastructure deserves<br><em>enterprise-grade care</em></h2>
-    <p style="font-size:1.05rem;color:var(--text-sub);margin:1.2rem 0 2.5rem;font-weight:300">Join 500+ businesses trusting NexusCore with their digital backbone. Start with a free infrastructure audit.</p>
+    <p style="font-size:1.05rem;color:var(--text-sub);margin:1.2rem 0 2.5rem;font-weight:300">Join 500+ businesses trusting RK Websolution with their digital backbone. Start with a free infrastructure audit.</p>
     <div class="cta-actions">
-      <a href="mailto:hello@nexuscore.io" class="btn-p"><i class="fas fa-envelope"></i> Email Us</a>
-      <a href="tel:+1234567890" class="btn-o"><i class="fas fa-phone"></i> Schedule a Call</a>
+      <a href="mailto:hello@rkwebsolution.com" class="btn-p"><i class="fas fa-envelope"></i> Email Us</a>
+      <a href="https://wa.me/919978247432" target="_blank" rel="noopener" class="btn-o"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
     </div>
   </div>
   <div class="cta-contact-grid cont rv d2" style="margin-top:4rem">
@@ -1041,19 +2159,20 @@ body.light footer{background:rgba(0,0,0,.02)}
       <div class="card-ico"><i class="fas fa-envelope"></i></div>
       <h4>Email Support</h4>
       <p>Technical and sales queries answered within 2 hours during business hours, 4 hours off-hours.</p>
-      <a href="mailto:support@nexuscore.io">support@nexuscore.io <i class="fas fa-arrow-right"></i></a>
+      <a href="mailto:support@rkwebsolution.com">support@rkwebsolution.com <i class="fas fa-arrow-right"></i></a>
     </div>
     <div class="contact-card">
-      <div class="card-ico purple"><i class="fas fa-comment-dots"></i></div>
+      <div class="card-ico purple"><i class="fab fa-whatsapp"></i></div>
       <h4>Live Chat</h4>
-      <p>Instant chat with a real engineer — no bots, no scripts. Available around the clock, 365 days.</p>
-      <a href="#" style="color:var(--accent2)">Open Live Chat <i class="fas fa-arrow-right"></i></a>
+      <p>Instant chat with a real engineer on WhatsApp — no bots, no scripts. Available around the clock, 365 days.</p>
+      <a href="https://wa.me/919978247432" target="_blank" rel="noopener" style="color:#25d366"><i class="fab fa-whatsapp"></i> +91 99782 47432 <i class="fas fa-arrow-right"></i></a>
     </div>
     <div class="contact-card">
       <div class="card-ico green"><i class="fas fa-phone-volume"></i></div>
-      <h4>Phone & Emergency Line</h4>
-      <p>Critical incidents and dedicated account calls. Priority line available on Scale and Nexus Pro plans.</p>
-      <a href="tel:+1234567890" style="color:var(--accent3)">+1 (234) 567-890 <i class="fas fa-arrow-right"></i></a>
+      <h4>Phone & WhatsApp</h4>
+      <p>Call or WhatsApp us directly for critical incidents, quick queries, and dedicated account support — real humans, fast response.</p>
+      <a href="tel:+919978247432" style="color:var(--accent3)"><i class="fas fa-phone"></i> +91 99782 47432 <i class="fas fa-arrow-right"></i></a>
+      <a href="https://wa.me/919978247432" target="_blank" rel="noopener" style="color:#25d366;margin-top:.5rem"><i class="fab fa-whatsapp"></i> Chat on WhatsApp <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
 </section>
@@ -1062,7 +2181,7 @@ body.light footer{background:rgba(0,0,0,.02)}
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a href="#home" class="logo">Nexus<span class="logo-mark">Core</span><span class="logo-pulse" style="margin-left:.3rem"></span></a>
+      <a href="#home" class="logo">RK <span class="logo-mark">Websolution</span><span class="logo-pulse" style="margin-left:.3rem"></span></a>
       <p>Enterprise hosting, managed DevOps, custom development, and 24/7 technical support — powering digital businesses worldwide.</p>
       <div class="footer-socials">
         <a href="#" class="soc-btn"><i class="fab fa-x-twitter"></i></a>
@@ -1098,7 +2217,7 @@ body.light footer{background:rgba(0,0,0,.02)}
       <ul>
         <li><a href="#">About Us</a></li>
         <li><a href="#">Case Studies</a></li>
-        <li><a href="#">Blog & Guides</a></li>
+        <li><a href="#blog">Blog & Guides</a></li>
         <li><a href="#">Status Page</a></li>
         <li><a href="#">Privacy Policy</a></li>
         <li><a href="#">Terms of Service</a></li>
@@ -1106,7 +2225,7 @@ body.light footer{background:rgba(0,0,0,.02)}
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2025 NexusCore. All rights reserved. Built for scale, secured for trust.</p>
+    <p>© 2025 RK Websolution. All rights reserved. Built for scale, secured for trust.</p>
     <div class="footer-badge"><i class="fas fa-circle"></i> All Systems Operational</div>
   </div>
 </footer>
@@ -1169,6 +2288,8 @@ body.light footer{background:rgba(0,0,0,.02)}
 
 // ─── THEME TOGGLE ───
 const themeBtn = document.getElementById('theme-btn');
+// Set initial icon based on default light mode
+themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
 themeBtn.addEventListener('click',()=>{
   document.body.classList.toggle('light');
   themeBtn.innerHTML = document.body.classList.contains('light')
@@ -1180,38 +2301,54 @@ themeBtn.addEventListener('click',()=>{
 const nav = document.getElementById('nav');
 window.addEventListener('scroll',()=>{ nav.classList.toggle('scrolled', window.scrollY > 50); });
 
-// ─── ACTIVE NAV (desktop top + mobile bottom) ───
-const secs = document.querySelectorAll('section[id], div[id]');
+// ─── PAGE SWITCHING ───
+const pages = document.querySelectorAll('.page-section');
 const nls = document.querySelectorAll('.nl');
 const mobLinks = document.querySelectorAll('.mobile-nav a[data-mob]');
 
-function updateActiveNav(){
-  let cur = '';
-  document.querySelectorAll('[id]').forEach(s=>{
-    if(s.offsetTop && window.scrollY + 120 >= s.offsetTop) cur = s.id;
+function showPage(id) {
+  // Hide all pages
+  pages.forEach(p => p.classList.remove('page-active'));
+  // Show target
+  const target = document.getElementById(id);
+  if (!target) return;
+  target.classList.add('page-active');
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Update desktop nav active state
+  nls.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+  // Update mobile nav active state
+  mobLinks.forEach(l => {
+    if (!l.classList.contains('mob-cta')) {
+      l.classList.toggle('mob-active', l.getAttribute('href') === '#' + id);
+    }
   });
-  nls.forEach(l=>{ l.classList.toggle('active', l.getAttribute('href')==='#'+cur); });
-  mobLinks.forEach(l=>{
-    const target = l.getAttribute('data-mob');
-    const isCTA = l.classList.contains('mob-cta');
-    if(!isCTA) l.classList.toggle('mob-active', l.getAttribute('href')==='#'+cur);
-  });
+  // Trigger reveal animations for newly visible elements
+  setTimeout(() => {
+    target.querySelectorAll('.rv').forEach(el => {
+      if (!el.classList.contains('vis')) el.classList.add('vis');
+    });
+  }, 80);
 }
-window.addEventListener('scroll', updateActiveNav);
 
-// ─── SMOOTH SCROLL ───
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const t = document.querySelector(a.getAttribute('href'));
-    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+// Intercept all internal nav link clicks
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    const id = href.slice(1);
+    const target = document.getElementById(id);
+    if (target && target.classList.contains('page-section')) {
+      e.preventDefault();
+      showPage(id);
+    }
   });
 });
 
-// ─── REVEAL ON SCROLL ───
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); observer.unobserve(e.target); } });
-}, {threshold: 0.1});
-document.querySelectorAll('.rv').forEach(el=>observer.observe(el));
+// Show home page's .rv elements on load
+setTimeout(() => {
+  const home = document.getElementById('home');
+  if (home) home.querySelectorAll('.rv').forEach(el => el.classList.add('vis'));
+}, 100);
 
 // ─── CARD MOUSE GLOW ───
 document.querySelectorAll('.card').forEach(card=>{
