@@ -927,13 +927,80 @@ section#home.page-active .hero-grid {
 <!-- NAVBAR -->
 <nav class="nav" id="nav" aria-label="Primary">
   <div class="nav-shell">
-    <a href="#home" class="nav-brand">
-      <span class="nav-brand-ico" aria-hidden="true"><i class="fas fa-layer-group"></i></span>
-      <span class="nav-brand-text">
-        <span class="nav-brand-name">RK <em>Websolution</em></span>
-        <span class="nav-brand-tag">Managed IT · Hosting · DevOps</span>
-      </span>
-      <span class="nav-brand-dot" aria-hidden="true"></span>
+    <a href="#home" class="nav-brand" style="gap:0;text-decoration:none;">
+      <!-- SVG LOGO: matches provided brand asset, dark/light aware -->
+      <svg class="site-logo" viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" style="height:48px;width:auto;display:block;flex-shrink:0">
+        <defs>
+          <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#34d399"/>
+          </linearGradient>
+          <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#818cf8"/>
+          </linearGradient>
+          <!-- Dark mode colors -->
+          <style>
+            .logo-rk { fill: #ffffff; }
+            .logo-ws { fill: #ffffff; letter-spacing: .22em; }
+            .logo-tag { fill: #64748b; letter-spacing: .18em; }
+            .logo-divider { stroke: #334155; }
+            .logo-server-body { fill: #1e293b; stroke: url(#lg1); stroke-width: 1.2; }
+            .logo-server-dot1 { fill: #34d399; }
+            .logo-server-dot2 { fill: #818cf8; }
+            .logo-server-line { stroke: #38bdf8; stroke-width: 1; opacity: .7; }
+            .logo-cloud { stroke: url(#lg2); fill: none; stroke-width: 1.4; }
+            .logo-cloud-line { stroke: url(#lg2); stroke-width: 1; opacity: .8; }
+            body.light .logo-rk { fill: #0f172a; }
+            body.light .logo-ws { fill: #0f172a; }
+            body.light .logo-tag { fill: #94a3b8; }
+            body.light .logo-divider { stroke: #cbd5e1; }
+            body.light .logo-server-body { fill: #f1f5f9; stroke: url(#lg1); }
+          </style>
+        </defs>
+
+        <!-- Server icon: 3 rack units stacked -->
+        <!-- Cloud on top -->
+        <g transform="translate(4, 2)">
+          <!-- cloud shape -->
+          <path class="logo-cloud" d="M18 14 Q16 8 22 8 Q23 3 29 4 Q34 1 36 7 Q41 6 41 11 Q44 11 44 15 Q44 18 41 18 L18 18 Q14 18 14 15 Q14 12 18 14Z"/>
+          <!-- cloud underline strokes -->
+          <line class="logo-cloud-line" x1="20" y1="21" x2="40" y2="21"/>
+          <line class="logo-cloud-line" x1="22" y1="24" x2="37" y2="24" opacity=".5"/>
+
+          <!-- Server rack 1 (top) -->
+          <rect class="logo-server-body" x="8" y="28" width="42" height="10" rx="2"/>
+          <circle class="logo-server-dot1" cx="13" cy="33" r="2"/>
+          <line class="logo-server-line" x1="18" y1="31" x2="36" y2="31"/>
+          <line class="logo-server-line" x1="18" y1="33" x2="32" y2="33"/>
+          <line class="logo-server-line" x1="18" y1="35" x2="34" y2="35"/>
+
+          <!-- Server rack 2 (middle) -->
+          <rect class="logo-server-body" x="8" y="40" width="42" height="10" rx="2"/>
+          <circle class="logo-server-dot2" cx="13" cy="45" r="2"/>
+          <line class="logo-server-line" x1="18" y1="43" x2="36" y2="43"/>
+          <line class="logo-server-line" x1="18" y1="45" x2="30" y2="45"/>
+          <line class="logo-server-line" x1="18" y1="47" x2="34" y2="47"/>
+
+          <!-- Server rack 3 (bottom) -->
+          <rect class="logo-server-body" x="8" y="52" width="42" height="9" rx="2"/>
+          <circle class="logo-server-dot1" cx="13" cy="56.5" r="2" fill="#38bdf8"/>
+          <line class="logo-server-line" x1="18" y1="55" x2="36" y2="55"/>
+          <line class="logo-server-line" x1="18" y1="57" x2="28" y2="57"/>
+          <line class="logo-server-line" x1="18" y1="59" x2="32" y2="59"/>
+        </g>
+
+        <!-- RK text -->
+        <text class="logo-rk" x="64" y="50" font-family="'Bebas Neue',sans-serif" font-size="46" font-weight="400" letter-spacing="1">RK</text>
+
+        <!-- Vertical divider -->
+        <line class="logo-divider" x1="152" y1="10" x2="152" y2="58" stroke-width="1"/>
+
+        <!-- WEB SOLUTION stacked + tagline -->
+        <text class="logo-ws" x="160" y="30" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="700">WEB</text>
+        <text class="logo-ws" x="160" y="46" font-family="'Plus Jakarta Sans',sans-serif" font-size="13" font-weight="700">SOLUTION</text>
+        <text class="logo-tag" x="160" y="58" font-family="'IBM Plex Mono',monospace" font-size="6.5" font-weight="400">MANAGED IT · HOSTING · DEVOPS</text>
+      </svg>
     </a>
     <div class="nav-center">
       <div class="nav-rail">
